@@ -24,28 +24,31 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{:url('admin/lst')}">
-                                    <span class="menu-text">
-                                        交接异常                                    </span>
+                                <a href="#" class="menu-dropdown">
+                                    <span class="menu-text">交接异常</span>
                                     <i class="menu-expand"></i>
                                 </a>
                                 <ul style="cursor: pointer;">
                                     <li>
-                                    <span class="menu-text">
-                                        学员列表                                    </span>
-                                        <i class="menu-expand"></i>
-                                    </li>
-                                    <li>
+                                        <a href="{:url('transinfo/trans',['id'=>'0'])}">
                                     <span class="menu-text">
                                         课程异常列表                                    </span>
-                                        <i class="menu-expand"></i>
+                                            <i class="menu-expand"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{:url('transinfo/trans',['id'=>'1'])}">
+                                    <span class="menu-text">
+                                        驳回异常列表                                    </span>
+                                            <i class="menu-expand"></i>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="{:url('admin/lst')}">
                                     <span class="menu-text">
-                                        驳回异常列表                                    </span>
+                                        交接划拔                                    </span>
                                     <i class="menu-expand"></i>
                                 </a>
                             </li>

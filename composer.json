@@ -15,20 +15,17 @@
             "email": "liu21st@gmail.com"
         }
     ],
+    "autoload":{
+        "psr-4":{
+            "ucpaas\\":"vendor/ucpaas",
+            "sina\\":"vendor/sina"
+        }
+    },
     "require": {
         "php": ">=5.4.0",
-        "topthink/framework": "~5.0.0",
-        "topthink/think-captcha": "1.*",
-        "topthink/think-migration": "1.*",
-        "topthink/think-testing": "1.*",
-        "topthink/think-mongo": "1.*",
-        "topthink/think-queue": "1.*",
-        "topthink/think-image": "1.*"
-    },
-    "autoload": {
-        "psr-4": {
-            "app\\": "application"
-        }
+        "topthink/framework": "^5.0",
+        "topthink/think-captcha": "^2.0",
+        "phpexcel/phpexcel": "^1.7"
     },
     "extra": {
         "think-path": "thinkphp"

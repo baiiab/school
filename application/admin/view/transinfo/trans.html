@@ -39,35 +39,21 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                                        <li>
-                        <a href="#">系统</a>
-                    </li>
-                                        <li class="active">用户管理</li>
-                                        </ul>
+                        <li>
+                            <a href="#">系统</a>
+                        </li>
+                        <li>
+                            <a href="{:url('student/lst')}">返回学员列表</a>
+                        </li>
+                        <li class="active">{$Think.session.exception}信息</li>
+                    </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
                     
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('student/addStudent')}'"> <i class="fa fa-plus"></i> 添加学员
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('student/addClass')}'"> <i class="fa fa-plus"></i> 添加班级
 </button>
-
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('student/outexcel')}'"> </i> 导出学员信息
-</button>
-
-    <div style="display: inline-block">
-    <form action="{:url('student/inserExcel')}" enctype="multipart/form-data"
-          method="post">
-        <input type="file" class="btn btn-sm btn-azure btn-addon" name="excel"/>
-        <input type="submit" class="btn btn-sm btn-azure btn-addon" value="导入">
-    </form>
-    </div>
-    <div class="sidebar-header-wrapper" style="float: right">
-        <input class="searchinput" id="search" type="text">
-        <i class="searchicon fa fa-search" onclick="searchStudent();"></i>
-    </div>
 
 <div class="row">
     <div class="col-lg-12 col-sm-12 col-xs-12">
@@ -77,37 +63,30 @@
                     <table class="table table-bordered table-hover">
                         <thead class="">
                             <tr>
-                                <th class="text-center">ID</th>
-                                <th class="text-center">用户名</th>
-                                <th class="text-center">性别</th>
-                                <th class="text-center">所属班级</th>
-                                <th class="text-center">监护人</th>
-                                <th class="text-center">交接信息</th>
-                                <th class="text-center" width="18%">操作</th>
+                                <th class="text-center">学号</th>
+                                <th class="text-center">学员名</th>
+                                <th class="text-center">安排负责人</th>
+                                <th class="text-center">安排时间</th>
+                                <th class="text-center">确认负责人</th>
+                                <th class="text-center">确认时间</th>
+                                <th class="text-center" >异常原因</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {volist name="students" id="vo"}
+                            {volist name="admin" id="vo"}
                                                         <tr>
                                 <td align="center">{$vo.sid}</td>
                                 <td align="center">{$vo.name}</td>
-                                <td align="center">{$vo.sex}</td>
-                                <td align="center">{$vo.cid}</td>
-                                <td align="center">{$vo.tid}</td>
-                                <td align="center"><a href="{:url('transinfo/index',array('id'=>$vo['sid']))}">交接信息</a></td>
-                                <td align="center">
-                                    <a href="{:url('student/edit',array('sid'=>$vo['sid']))}" class="btn btn-primary btn-sm shiny">
-                                        <i class="fa fa-edit"></i> 编辑
-                                    </a>
-                                    <a href="#" onClick="warning('确实要删除吗','{:url('student/del',array('sid'=>$vo['sid']))}')" class="btn btn-danger btn-sm shiny">
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </a>
-                                </td>
+                                <td align="center">{$vo.tname}</td>
+                                <td align="center">{$vo.sendtime}</td>
+                                <td align="center">{$vo.gname}</td>
+                                <td align="center">{$vo.backtime}</td>
+                                <td align="center">{$vo.reason}</td>
                             </tr>
                             {/volist}
                                                     </tbody>
                     </table>
-                    {$students->render()}
+                    {$admin->render()}
                 </div>
                 <div>
                 	                </div>
