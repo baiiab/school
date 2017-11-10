@@ -12,8 +12,14 @@ use think\Loader;
 class Student extends Base
 {
     public function lst(){
-        $students = db('student')->paginate(8);
+        $students = db('student')->paginate(3);
         $this->assign('students',$students);
+        if(input('id')){
+            $year = db('class')->distinct(true)->field('year')->order('year')->select();
+//          dump($class);die;
+            $this->assign('year',$year);
+            return $this->fetch('change');
+        }
         return $this->fetch('lst');
     }
 
@@ -30,27 +36,6 @@ class Student extends Base
         }
         return view();
     }
-
-    function outexcel()
-    {
-         $path = dirname(__FILE__); //找到当前脚本所在路径
-         Loader::import('PHPExcel.Classes.PHPExcel');
-         Loader::import('PHPExcel.Classes.PHPExcel.IOFactory.PHPExcel_IOFactory');
-         $PHPExcel = new \PHPExcel();
-         $PHPSheet = $PHPExcel->getActiveSheet();
-        $db_admin = db('student')->select();
-         $PHPSheet->setTitle("demo"); //给当前活动sheet设置名称
-        $PHPSheet->setCellValue('A1', 'sid')->setCellValue('B1', 'name')->setCellValue('C1', 'cid')->setCellValue('D1', 'sex')->setCellValue('E1', 'tid')->setCellValue('F1', 'year');
-        $j = 2;
-        foreach ($db_admin as $key => $value) {
-            $PHPSheet->setCellValue('A' . $j, $value['sid'])->setCellValue('B' . $j, $value['name'])->setCellValue('C' . $j, $value['cid'])->setCellValue('D' . $j, $value['sex'])->setCellValue('E' . $j, $value['tid'])->setCellValue('F' . $j, $value['year']);
-            $j++;
-        }
-         $PHPWriter = \PHPExcel_IOFactory::createWriter($PHPExcel, "Excel2007");
-         header('Content-Disposition: attachment;filename="表单数据.xlsx"');
-         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xlsx文件
-     }
 
     function inserExcel()
     {
@@ -77,7 +62,7 @@ class Student extends Base
                 $city[$k]['cid'] = $v[2];
                 $city[$k]['sex'] = $v[3];
                 $city[$k]['tid'] = $v[4];
-                $city[$k]['year'] = $v[4];
+                $city[$k]['year'] = $v[5];
             }
             if(db('student')->insertAll($city)){
                 $this->success('添加学员信息成功','lst');
@@ -85,7 +70,7 @@ class Student extends Base
         } else {
             echo $file->getError();
         }
-        }
+    }
 
     public function addStudent()
     {
@@ -107,7 +92,7 @@ class Student extends Base
         $this->assign('year',$year);
         return view();
     }
-
+//  查找某年的所有班级
     public function searchClass(){
         $year = input('year');
         $class = db('class')->field('cid')->where('year',$year)->order('cid')->select();
@@ -131,6 +116,7 @@ class Student extends Base
         $this->assign('admin',$admin);
         return view();
     }
+    //  根据学号删除学员
     public function del(){
         $id = input('sid');
 //        dump($id);die;
@@ -144,7 +130,7 @@ class Student extends Base
         session(null);
         $this->success('退出成功','Login/index');
     }
-
+//  根据姓名寻找学员
     public function searchStudent(){
         $id = input('id');
         $map['name']=['like','%'.$id.'%'];
@@ -152,6 +138,18 @@ class Student extends Base
 //        dump($students);die;
         $this->assign('students',$students);
         return $this->fetch('lst');
+    }
+    //根据班级查找学员
+    public function findStudent(){
+        $id = input('class');
+        $map['cid']=['like','%'.$id.'%'];
+        $students = db('student')->where($map)->paginate($listRows=3,$simple=false,                                $config=['query'=>['class'=>$id]]);
+        $year = db('class')->distinct(true)->field('year')->order('year')->select();
+//          dump($class);die;
+        $this->assign('year',$year);
+//        dump($students);die;
+        $this->assign('students',$students);
+        return $this->fetch('change');
     }
 
 }

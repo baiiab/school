@@ -15,5 +15,6 @@ return [
     '__IMG__'=>SITE_URL.'/public/static/admin/images',
     '__EDIT__'=>SITE_URL.'/public/static/admin/ueditor',
     '__PIC__'=>SITE_URL.'/public/static',
+    '__JQUERY__'=>SITE_URL,
     ],
 ];

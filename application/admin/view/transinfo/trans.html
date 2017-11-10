@@ -18,9 +18,9 @@
     <link href="__PUBLIC__/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
     <script type="text/javascript">
-        function searchStudent() {
+        function search() {
 //            alert(document.getElementById("search").value);die;
-            window.location.href = "searchStudent?id="+document.getElementById("search").value;
+            window.location.href = "__JQUERY__/public/admin/Transinfo/searchBySid?id="+document.getElementById("search").value+","+document.getElementById("ses").value;
         }
     </script>
 </head>
@@ -45,16 +45,19 @@
                         <li>
                             <a href="{:url('student/lst')}">返回学员列表</a>
                         </li>
-                        <li class="active">{$Think.session.exception}信息</li>
+                        <li class="active">异常信息</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
+                <!--按学号检索-->
                 <div class="page-body">
-                    
-</button>
-
+                    <div class="sidebar-header-wrapper" >
+                        <input class="searchinput" id="search" type="text">
+                        <input class="searchinput" id="ses" value="{$Think.session.exception}" type="hidden">
+                        <i class="searchicon fa fa-search" onclick="search();"></i>
+                    </div>
 <div class="row">
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="widget">
