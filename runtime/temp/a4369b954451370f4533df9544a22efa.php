@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\lst.html";i:1510287069;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510282535;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\lst.html";i:1510479334;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510282535;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -249,7 +249,7 @@
 </button>
 
     <div style="display: inline-block">
-    <form action="<?php echo url('student/inserExcel'); ?>" enctype="multipart/form-data"
+    <form action="<?php echo url('student/importExcel'); ?>" enctype="multipart/form-data"
           method="post">
         <input type="file" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" name="excel"/>
         <input type="submit" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" value="导入">

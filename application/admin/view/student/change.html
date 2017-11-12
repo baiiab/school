@@ -50,7 +50,7 @@
         function change() {
             var str = '';
             var obj = prompt("请输入监护人");
-
+//            if(empty(obj)) die;
             var chk = document.getElementsByName('chk');
             for (var i = 0; i < chk.length; i++) {
                 if (chk[i].checked) {
@@ -62,7 +62,8 @@
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function () {
                 if (ajax.readyState == 4) {
-                    alert("交接成功，等待对方确认");
+                    if(ajax.responseText==0)  alert("交接失败");
+                    else alert("交接成功，等待对方确认");
                 }
             }
             ajax.open('get', '__JQUERY__/public/admin/Handmessage?sid=' + str +' '+obj, true);

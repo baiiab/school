@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1510302396;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510282535;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1510312568;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510282535;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +51,7 @@
         function change() {
             var str = '';
             var obj = prompt("请输入监护人");
-
+//            if(empty(obj)) die;
             var chk = document.getElementsByName('chk');
             for (var i = 0; i < chk.length; i++) {
                 if (chk[i].checked) {
@@ -63,7 +63,8 @@
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function () {
                 if (ajax.readyState == 4) {
-                    alert("交接成功，等待对方确认");
+                    if(ajax.responseText==0)  alert("交接失败");
+                    else alert("交接成功，等待对方确认");
                 }
             }
             ajax.open('get', '__JQUERY__/public/admin/Handmessage?sid=' + str +' '+obj, true);

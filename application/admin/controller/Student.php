@@ -7,11 +7,12 @@
  */
 namespace app\admin\controller;
 use app\admin\controller\Base;
-use think\Loader;
-
 class Student extends Base
 {
     public function lst(){
+//        $sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = 'student' and table_schema = 'school'";
+//        $result = Db::query($sql);
+//        dump($result);die;
         $students = db('student')->paginate(3);
         $this->assign('students',$students);
         if(input('id')){
@@ -37,35 +38,33 @@ class Student extends Base
         return view();
     }
 
-    function inserExcel()
+    function outExcel(){
+        $str = '学号,'.'姓名,'.'班级,'.'性别,'.'负责人,'.'入学年份';
+        outputExcel('student',$str);
+    }
+
+    function importExcel()
     {
-        Loader::import('PHPExcel.Classes.PHPExcel');
-        Loader::import('PHPExcel.Classes.PHPExcel.IOFactory.PHPExcel_IOFactory');
-        Loader::import('PHPExcel.Classes.PHPExcel.Reader.Excel5');
-        //获取表单上传文件
+        header("Content-type: text/html; charset=utf-8");
         $file = request()->file('excel');
         $info = $file->validate(['ext' => 'xlsx'])->move(ROOT_PATH . 'public' . DS . 'uploads');
         //上传验证后缀名,以及上传之后移动的地址
         if ($info) {
 //            echo $info->getFilename();
-            $exclePath = $info->getSaveName();  //获取文件名
-            $file_name = ROOT_PATH . 'public' . DS . 'uploads' . DS . $exclePath;   //上传文件的地址
-            $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
-            $obj_PHPExcel = $objReader->load($file_name, $encode = 'utf-8');  //加载文件内容,编码utf-8
-            echo "<pre>";
-            $excel_array = $obj_PHPExcel->getsheet(0)->toArray();   //转换为数组格式
-            array_shift($excel_array);  //删除第一个数组(标题);
-            $city = [];
-            foreach ($excel_array as $k => $v) {
-                $city[$k]['sid'] = $v[0];
-                $city[$k]['name'] = $v[1];
-                $city[$k]['cid'] = $v[2];
-                $city[$k]['sex'] = $v[3];
-                $city[$k]['tid'] = $v[4];
-                $city[$k]['year'] = $v[5];
+            $data = insertExcel('student',$info);
+//            dump($data);die;
+            $str = '';
+            foreach ($data as $k => $vo){
+                if (db('student')->where('sid',$vo['sid'])->select()) {
+//                    dump($vo['sid']);die;
+                    $str = $vo['sid'].',';
+                    unset($data[$k]);
+                }
             }
-            if(db('student')->insertAll($city)){
-                $this->success('添加学员信息成功','lst');
+            if(db('student')->insertAll($data)){
+                $this->success('学号'.$str.'重复,其它插入成功','lst');
+            }else{
+                $this->error('不能插入空表或全是重复学号');
             }
         } else {
             echo $file->getError();

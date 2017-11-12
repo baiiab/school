@@ -8,6 +8,7 @@ class Handmessage extends Controller
         $sid = input('sid');
         $arr = explode(' ',$sid);
         $list = Student::all($arr[0]);
+        if(empty($arr[1])) return 0;
         foreach ($list as $vo){
             $data=[
                 'sid' => $vo->sid,
@@ -17,7 +18,7 @@ class Handmessage extends Controller
             ];
             db('message')->insert($data);
         }
-        return $arr[1];
+        return 1;
 //        dump($list);die;
 
     }
