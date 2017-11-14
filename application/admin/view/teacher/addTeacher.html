@@ -21,11 +21,12 @@
     <script src="__PUBLIC__/jquery-3.2.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+            $("#cid").hide();
             $('#year').change(function () {
 //                alert('q');die;
                 $.ajax({
                     type: "GET",
-                    url: "/school/public/admin/teacher/searchClass",
+                    url: "searchClass",
                     data: {'year':$("#year").val()},
                     dataType: "json",
                     success: function(data){
@@ -44,6 +45,7 @@
             })
         });
     </script>
+    
 </head>
 <body>
 	<!-- 头部 -->
@@ -61,14 +63,14 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                        <li>
-                            <a href="#">系统</a>
-                        </li>
-                        <li>
-                            <a href="{:url('lst')}">学员管理</a>
-                        </li>
-                        <li class="active">添加学员</li>
-                    </ul>
+                                        <li>
+                        <a href="#">系统</a>
+                    </li>
+                                        <li>
+                        <a href="{:url('lst')}">教师管理</a>
+                    </li>
+                                        <li class="active">添加教师</li>
+                                        </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
@@ -79,55 +81,67 @@
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="widget">
             <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">编辑学员</span>
+                <span class="widget-caption">新增教师</span>
             </div>
             <div class="widget-body">
                 <div id="horizontal-form">
                     <form class="form-horizontal" role="form" action="" method="post">
                         <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label no-padding-right">学号</label>
+                            <label for="tid" class="col-sm-2 control-label no-padding-right">教师编号</label>
                             <div class="col-sm-6">
-                                <input class="form-control" disabled="disabled" value="{$admin.sid}" required="" type="text">
-                            </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="sid" value="{$admin.sid}" name="sid" type="hidden">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label no-padding-right">学员名</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="username" value="{$admin.name}" name="name" required="" type="text">
+                                <input class="form-control" id="tid" placeholder="" name="tid" required="" type="text">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
                         <div class="form-group">
-                            <label for="year" class="col-sm-2 control-label no-padding-right">所在班级</label>
-                            <div class="col-sm-6" style="display: inline-block;width: 100px">
-                                <select name="year" id="year">
-                                    {volist name="year" id="vo"}
-                                    <option {if condition="$vo['year'] eq $admin['year']"} selected="selected" {/if} value="{$vo.year}">{$vo.year}</option>
-                                    {/volist}
+                            <label for="tname" class="col-sm-2 control-label no-padding-right">姓名</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="tname" placeholder="" name="tname" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender" class="col-sm-2 control-label no-padding-right">性别</label>
+                            <div class="col-sm-6">
+                                <select name="gender">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
                                 </select>
                             </div>
-                            <div class="col-sm-6" style="display: inline-block;width: 100px">
-                                <div id="choose">
-                                    <select name="cid" id="cid">
-                                        {volist name="cid" id="vo"}
-                                        <option {if condition="$vo['cid'] eq $admin['cid']"} selected="selected" {/if} value="{$vo.cid}">{$vo.cid}</option>
-                                        {/volist}
-                                    </select>
-                                </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tname" class="col-sm-2 control-label no-padding-right">手机号</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="mobile" placeholder="" name="mobile" type="text">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="group_id" class="col-sm-2 control-label no-padding-right">性别</label>
+                            <label for="tname" class="col-sm-2 control-label no-padding-right">科目名称</label>
                             <div class="col-sm-6">
-                                <select name="sex">
-                                    <option value="男">男</option>
-                                    <option value="女">女</option>
+                                <input class="form-control" id="course" placeholder="" name="course" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cid" class="col-sm-2 control-label no-padding-right">入学年份</label>
+                            <div class="col-sm-6">
+                                <select name="year" id="year">
+                                    <option value="">请选择年级</option>
+                                    {volist name="year" id="vo"}
+                                    <option value="{$vo.year}">{$vo.year}</option>
+                                    {/volist}
                                 </select>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+                        <div class="form-group" id='cid' >
+                            <label for="cid" class="col-sm-2 control-label no-padding-right">所在班级</label>
+                            <div class="col-sm-6" id="choose">
+
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>

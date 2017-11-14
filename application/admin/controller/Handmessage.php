@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\Student;
+use wxSdk\Jssdk;
 class Handmessage extends Controller
 {
     public function index(){

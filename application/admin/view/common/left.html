@@ -63,18 +63,41 @@
                         </a>
                         <ul class="submenu">
                             <li>
-                                <a href="{:url('cate/lst')}">
+                                <a href="{:url('teacher/lst')}">
                                     <span class="menu-text">
                                         教师列表                                   </span>
                                     <i class="menu-expand"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="{:url('cate/lst')}">
+                                <a href="#" class="menu-dropdown">
                                     <span class="menu-text">
                                         考勤管理                                   </span>
                                     <i class="menu-expand"></i>
                                 </a>
+                                <ul>
+                                    <li>
+                                        <a href="{:url('attendance/signed')}">
+                                    <span class="menu-text">
+                                        签到列表                                    </span>
+                                            <i class="menu-expand"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{:url('attendance/trans',['id'=>'1'])}">
+                                    <span class="menu-text">
+                                        请假列表                                    </span>
+                                            <i class="menu-expand"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{:url('attendance/trans',['id'=>'1'])}">
+                                    <span class="menu-text">
+                                        出差列表                                    </span>
+                                            <i class="menu-expand"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="{:url('cate/lst')}">

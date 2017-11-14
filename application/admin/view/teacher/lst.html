@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title></title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__PUBLIC__/bootstrap.css" rel="stylesheet">
+    <link href="__PUBLIC__/font-awesome.css" rel="stylesheet">
+    <link href="__PUBLIC__/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__PUBLIC__/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/demo.css" rel="stylesheet">
+    <link href="__PUBLIC__/typicons.css" rel="stylesheet">
+    <link href="__PUBLIC__/animate.css" rel="stylesheet">
+    <script type="text/javascript">
+        function searchTeacher() {
+//            alert(document.getElementById("search").value);die;
+            window.location.href = "searchTeacher?id="+document.getElementById("search").value;
+        }
+    </script>
+</head>
+<body>
+	{include file="common/top"}
+
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			            <!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                        <a href="#">系统</a>
+                    </li>
+                                        <li class="active">教师管理</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('teacher/addTeacher')}'"> <i class="fa fa-plus"></i> 添加教师
+</button>
+
+<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('teacher/outexcel')}'"> </i> 导出教师信息
+</button>
+
+    <div style="display: inline-block">
+    <form action="{:url('teacher/importExcel')}" enctype="multipart/form-data"
+          method="post">
+        <input type="file" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" name="excel"/>
+        <input type="submit" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" value="导入">
+    </form>
+    </div>
+    <div class="sidebar-header-wrapper" style="float: right">
+        <input class="searchinput" placeholder="输入姓名进行检索" id="search" type="text">
+        <i class="searchicon fa fa-search" onclick="searchTeacher();"></i>
+    </div>
+
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="flip-scroll">
+                    <table class="table table-bordered table-hover">
+                        <thead class="">
+                            <tr>
+                                <th class="text-center">教师编号</th>
+                                <th class="text-center">姓名</th>
+                                <th class="text-center">性别</th>
+                                <th class="text-center">科目</th>
+                                <th class="text-center">手机号码</th>
+                                <th class="text-center" width="18%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="students" id="vo"}
+                                                        <tr>
+                                <td align="center">{$vo.tid}</td>
+                                <td align="center">{$vo.tname}</td>
+                                <td align="center">{$vo.gender}</td>
+                                <td align="center">{$vo.course}</td>
+                                <td align="center">{$vo.mobile}</td>
+                                <td align="center">
+                                    <a href="{:url('teacher/edit',array('tid'=>$vo['tid']))}" class="btn btn-primary btn-sm shiny">
+                                        <i class="fa fa-edit"></i> 编辑
+                                    </a>
+                                    <a href="#" onClick="warning('确实要删除吗','{:url('teacher/del',array('tid'=>$vo['tid']))}')" class="btn btn-danger btn-sm shiny">
+                                        <i class="fa fa-trash-o"></i> 删除
+                                    </a>
+                                </td>
+                            </tr>
+                            {/volist}
+                                                    </tbody>
+                    </table>
+                    {$students->render()}
+                </div>
+                <div>
+                	                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__PUBLIC__/jquery_002.js"></script>
+    <script src="__PUBLIC__/bootstrap.js"></script>
+    <script src="__PUBLIC__/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__PUBLIC__/beyond.js"></script>
+
+
+</body></html>

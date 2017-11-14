@@ -40,7 +40,8 @@ class Student extends Base
 
     function outExcel(){
         $str = '学号,'.'姓名,'.'班级,'.'性别,'.'负责人,'.'入学年份';
-        outputExcel('student',$str);
+        $field = 'cid,'.'name,'.'cid,'.'sex,'.'gid,'.'year';
+        outputExcel('student',$str,$field);
     }
 
     function importExcel()
@@ -55,7 +56,7 @@ class Student extends Base
 //            dump($data);die;
             $str = '';
             foreach ($data as $k => $vo){
-                if (db('student')->where('sid',$vo['sid'])->select()) {
+                if (db('student')->where('sid',$vo['sid'])->find()) {
 //                    dump($vo['sid']);die;
                     $str = $vo['sid'].',';
                     unset($data[$k]);
@@ -92,10 +93,14 @@ class Student extends Base
         return view();
     }
 //  查找某年的所有班级
-    public function searchClass(){
-        $year = input('year');
+    public function searchClass($year = null){
+        if(request()->isPost()||request()->isGet()){
+            $year = input('year');
+            $class = db('class')->field('cid')->where('year',$year)->order('cid')->select();
+            return json_encode($class);
+        }
         $class = db('class')->field('cid')->where('year',$year)->order('cid')->select();
-        return json_encode($class);
+        return $class;
     }
 
     public function edit()
@@ -112,6 +117,9 @@ class Student extends Base
         }
         $id = input('sid');
         $admin = db('student')->find($id);
+        $year = db('class')->distinct(true)->field('year')->order('year')->select();
+        $this->assign('year',$year);
+        $this->assign('cid',$this->searchClass($admin['year']));
         $this->assign('admin',$admin);
         return view();
     }

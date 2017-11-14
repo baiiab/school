@@ -36,7 +36,7 @@ class Transinfo extends Controller
             ->join('student s','s.sid = c.sid')
             ->join('teacher t','t.tid = c.tid')
             ->join('guardian g','c.gid = g.gid')
-            ->where($map)->order('sendtime desc')->paginate(3);
+            ->where($map)->order('sendtime desc')->paginate($listRows=3,$simple=false,                                $config=['query'=>['id'=>$id]]);
 //        dump($result);die;
         $this->assign('admin',$result);
         return $this->fetch('trans');

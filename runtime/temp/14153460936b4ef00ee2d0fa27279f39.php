@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1510312568;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510282535;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1510312568;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510646119;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -231,18 +231,41 @@
                         </a>
                         <ul class="submenu">
                             <li>
-                                <a href="<?php echo url('cate/lst'); ?>">
+                                <a href="<?php echo url('teacher/lst'); ?>">
                                     <span class="menu-text">
                                         教师列表                                   </span>
                                     <i class="menu-expand"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo url('cate/lst'); ?>">
+                                <a href="#" class="menu-dropdown">
                                     <span class="menu-text">
                                         考勤管理                                   </span>
                                     <i class="menu-expand"></i>
                                 </a>
+                                <ul>
+                                    <li>
+                                        <a href="<?php echo url('attendance/signed'); ?>">
+                                    <span class="menu-text">
+                                        签到列表                                    </span>
+                                            <i class="menu-expand"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo url('attendance/trans',['id'=>'1']); ?>">
+                                    <span class="menu-text">
+                                        请假列表                                    </span>
+                                            <i class="menu-expand"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo url('attendance/trans',['id'=>'1']); ?>">
+                                    <span class="menu-text">
+                                        出差列表                                    </span>
+                                            <i class="menu-expand"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="<?php echo url('cate/lst'); ?>">

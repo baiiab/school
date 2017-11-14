@@ -1,7 +1,7 @@
 <?php
 use think\Loader;
 use think\Db;
-function insertExcel($table,$info)
+function insertExcel($table,$info,$arr)
 {
     Loader::import('PHPExcel.Classes.PHPExcel');
     Loader::import('PHPExcel.Classes.PHPExcel.IOFactory.PHPExcel_IOFactory');
@@ -21,12 +21,12 @@ function insertExcel($table,$info)
     foreach ($excel_array as $k => $v) {
         $i = 0;
         foreach ($result as $value){
-            $city[$k][$value['COLUMN_NAME']] = $v[$i++];
+            if(in_array($value['COLUMN_NAME'],$arr)) $city[$k][$value['COLUMN_NAME']] = $v[$i++];
         }
     }
     return $city;
 }
-function outputExcel($table,$str)
+function outputExcel($table,$str,$field)
 {
     $path = dirname(__FILE__); //找到当前脚本所在路径
     Loader::import('PHPExcel.Classes.PHPExcel');
@@ -42,10 +42,13 @@ function outputExcel($table,$str)
         $PHPSheet->setCellValue(chr($assc++).'1', $vo);
     }
     $j = 2;
+    $array = explode(',',$field);
     foreach ($db_admin as $key => $value) {
         $assc = 65;
-        foreach ($value as $v){
-            $PHPSheet->setCellValue(chr($assc++) . $j, $v);
+        foreach($array as $vo) {
+            foreach ($value as $k => $v) {
+                if($k==$vo) $PHPSheet->setCellValue(chr($assc++) . $j, $v);
+            }
         }
         $j++;
     }
