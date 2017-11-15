@@ -7,6 +7,7 @@
  */
 namespace app\admin\controller;
 use app\admin\controller\Base;
+use app\admin\model\Evection;
 use app\admin\model\Signed;
 use app\admin\model\Holiday;
 
@@ -63,9 +64,8 @@ class Attendance extends Base
         $signs = new Holiday();
         $students = $signs
             ->alias('a')
-            ->field('a.tid,t.tname,asktime,holidaytime,reason,g.gname')
+            ->field('a.tid,t.tname,asktime,holidaytime,reason,tutor')
             ->join('teacher t','a.tid = t.tid')
-            ->join('guardian g','a.gid = g.gid')
             ->order('asktime desc')->paginate(3);
         $this->assign('students', $students);
         return view();
@@ -78,12 +78,38 @@ class Attendance extends Base
         $signs = new Holiday();
         $students = $signs
             ->alias('a')
-            ->field('a.tid,t.tname,asktime,holidaytime,reason,g.gname')
+            ->field('a.tid,t.tname,asktime,holidaytime,reason,tutor')
             ->join('teacher t','a.tid = t.tid')
-            ->join('guardian g','a.gid = g.gid')
             ->where($map)->order('asktime desc')
             ->paginate($listRows=2,$simple=false,$config=['query'=>['id'=>$id]]);
         $this->assign('students', $students);
         return $this->fetch('holiday');
+    }
+
+    public function evection(){
+//        echo strtotime('next week');die;
+        $signs = new Evection();
+        $students = $signs
+            ->alias('a')
+            ->field('a.tid,t.tname,asktime,holidaytime,place,purpose,tutor')
+            ->join('teacher t','a.tid = t.tid')
+            ->order('asktime desc')->paginate(3);
+        $this->assign('students', $students);
+        return view();
+    }
+    //根据姓名检索请假教师
+    public function searchevection(){
+//        echo strtotime('next week');die;
+        $id = input('id');
+        $map['tname']=['like','%'.$id.'%'];
+        $signs = new Evection();
+        $students = $signs
+            ->alias('a')
+            ->field('a.tid,t.tname,asktime,holidaytime,place,purpose,tutor')
+            ->join('teacher t','a.tid = t.tid')
+            ->where($map)->order('asktime desc')
+            ->paginate($listRows=2,$simple=false,$config=['query'=>['id'=>$id]]);
+        $this->assign('students', $students);
+        return $this->fetch('evection');
     }
 }

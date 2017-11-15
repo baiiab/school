@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\transinfo\trans.html";i:1510296739;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510646119;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\transinfo\trans.html";i:1510714841;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510713995;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -176,14 +176,14 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo url('attendance/trans',['id'=>'1']); ?>">
+                                        <a href="<?php echo url('attendance/holiday'); ?>">
                                     <span class="menu-text">
                                         请假列表                                    </span>
                                             <i class="menu-expand"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo url('attendance/trans',['id'=>'1']); ?>">
+                                        <a href="<?php echo url('attendance/evection'); ?>">
                                     <span class="menu-text">
                                         出差列表                                    </span>
                                             <i class="menu-expand"></i>
@@ -268,7 +268,7 @@
                 <!--按学号检索-->
                 <div class="page-body">
                     <div class="sidebar-header-wrapper" >
-                        <input class="searchinput" id="search" type="text">
+                        <input class="searchinput" id="search" placeholder="根据学号检索" type="text">
                         <input class="searchinput" id="ses" value="<?php echo \think\Session::get('exception'); ?>" type="hidden">
                         <i class="searchicon fa fa-search" onclick="search();"></i>
                     </div>

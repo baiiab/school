@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\lst.html";i:1510479334;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510646119;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\lst.html";i:1510714755;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510713995;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -176,14 +176,14 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo url('attendance/trans',['id'=>'1']); ?>">
+                                        <a href="<?php echo url('attendance/holiday'); ?>">
                                     <span class="menu-text">
                                         请假列表                                    </span>
                                             <i class="menu-expand"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo url('attendance/trans',['id'=>'1']); ?>">
+                                        <a href="<?php echo url('attendance/evection'); ?>">
                                     <span class="menu-text">
                                         出差列表                                    </span>
                                             <i class="menu-expand"></i>
@@ -279,7 +279,7 @@
     </form>
     </div>
     <div class="sidebar-header-wrapper" style="float: right">
-        <input class="searchinput" id="search" type="text">
+        <input class="searchinput" id="search" placeholder="根据学号检索" type="text">
         <i class="searchicon fa fa-search" onclick="searchStudent();"></i>
     </div>
 

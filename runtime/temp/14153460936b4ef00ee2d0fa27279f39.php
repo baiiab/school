@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1510312568;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510646119;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1510312568;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510713995;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -252,14 +252,14 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo url('attendance/trans',['id'=>'1']); ?>">
+                                        <a href="<?php echo url('attendance/holiday'); ?>">
                                     <span class="menu-text">
                                         请假列表                                    </span>
                                             <i class="menu-expand"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo url('attendance/trans',['id'=>'1']); ?>">
+                                        <a href="<?php echo url('attendance/evection'); ?>">
                                     <span class="menu-text">
                                         出差列表                                    </span>
                                             <i class="menu-expand"></i>
