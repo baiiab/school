@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+    <title></title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__PUBLIC__/bootstrap.css" rel="stylesheet">
+    <link href="__PUBLIC__/font-awesome.css" rel="stylesheet">
+    <link href="__PUBLIC__/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__PUBLIC__/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/demo.css" rel="stylesheet">
+    <link href="__PUBLIC__/typicons.css" rel="stylesheet">
+    <link href="__PUBLIC__/animate.css" rel="stylesheet">
+
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/top"}
+
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			            <!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">系统</a>
+                        </li>
+                        <li>
+                            <a href="{:url('lst')}">监护人管理</a>
+                        </li>
+                        <li class="active">编辑监护人</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">编辑监护人</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="" method="post">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">监护人编号</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" disabled="disabled" value="{$admin.gid}" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="sid" value="{$admin.gid}" name="gid" type="hidden">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">密码</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="password" value="" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">姓名</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="username" value="{$admin.gname}" name="gname" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender" class="col-sm-2 control-label no-padding-right">性别</label>
+                            <div class="col-sm-6">
+                                <select name="gender">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">手机号码</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="" value="{$admin.mobile}" name="mobile" required="" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__PUBLIC__/jquery_002.js"></script>
+    <script src="__PUBLIC__/bootstrap.js"></script>
+    <script src="__PUBLIC__/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__PUBLIC__/beyond.js"></script>
+    
+
+
+</body></html>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\transinfo\trans.html";i:1510714841;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510193418;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510713995;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\transinfo\trans.html";i:1510714841;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510724315;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -61,7 +61,7 @@
                             <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
                                 <li class="username"><a>David Stevenson</a></li>
                                 <li class="dropdown-footer">
-                                    <a href="<?php echo url('admin/logout'); ?>">
+                                    <a href="<?php echo url('login/logout'); ?>">
                                             退出登录
                                         </a>
                                 </li>
@@ -192,7 +192,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="<?php echo url('cate/lst'); ?>">
+                                <a href="<?php echo url('Attendance/sysnews',['id'=>'0']); ?>">
                                     <span class="menu-text">
                                         系统消息                                   </span>
                                     <i class="menu-expand"></i>
@@ -209,14 +209,14 @@
                         </a>
                         <ul class="submenu">
                             <li>
-                                <a href="<?php echo url('article/lst'); ?>">
+                                <a href="<?php echo url('guardian/lst'); ?>">
                                     <span class="menu-text">
                                         监护人列表                                    </span>
                                     <i class="menu-expand"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo url('article/lst'); ?>">
+                                <a href="<?php echo url('Attendance/sysnews',['id'=>'1']); ?>">
                                     <span class="menu-text">
                                         系统消息                                    </span>
                                     <i class="menu-expand"></i>
@@ -232,7 +232,7 @@
                         </a>
                         <ul class="submenu">
                             <li>
-                                <a href="<?php echo url('article/lst'); ?>">
+                                <a href="<?php echo url('manager/lst'); ?>">
                                     <span class="menu-text">
                                         管理员列表                                    </span>
                                     <i class="menu-expand"></i>

@@ -17,12 +17,6 @@
     <link href="__PUBLIC__/demo.css" rel="stylesheet">
     <link href="__PUBLIC__/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
-    <script type="text/javascript">
-        function searchTeacher() {
-//            alert(document.getElementById("search").value);die;
-            window.location.href = "searchevection?id="+document.getElementById("search").value;
-        }
-    </script>
 </head>
 <body>
 	{include file="common/top"}
@@ -42,7 +36,7 @@
                                         <li>
                         <a href="#">系统</a>
                     </li>
-                                        <li class="active">出差列表</li>
+                                        <li class="active">系统消息</li>
                                         </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -50,10 +44,8 @@
                 <!-- Page Body -->
                 <div class="page-body">
 
-                    <div class="sidebar-header-wrapper" style="float: right">
-                        <input class="searchinput" placeholder="输入姓名进行检索" id="search" type="text">
-                        <i class="searchicon fa fa-search" onclick="searchTeacher();"></i>
-                    </div>
+                    <button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('Attendance/sendMsg',['id'=>$status])}'">  发送系统消息
+                    </button>
 
 <div class="row">
     <div class="col-lg-12 col-sm-12 col-xs-12">
@@ -63,25 +55,15 @@
                     <table class="table table-bordered table-hover"  style="overflow: scroll">
                         <thead class="">
                             <tr>
-                                <th class="text-center">教师编号</th>
-                                <th class="text-center">姓名</th>
-                                <th class="text-center">发生时间</th>
-                                <th class="text-center">出差时间段</th>
-                                <th class="text-center">出差地点</th>
-                                <th class="text-center">出差目的</th>
-                                <th class="text-center">工作交接人</th>
+                                <th class="text-center">发送时间</th>
+                                <th class="text-center">内容</th>
                             </tr>
                         </thead>
                         <tbody>
                             {volist name="students" id="vo"}
                                                         <tr>
-                                <td align="center">{$vo.tid}</td>
-                                <td align="center">{$vo.tname}</td>
-                                <td align="center">{$vo.asktime}</td>
-                                <td align="center">{$vo.holidaytime}</td>
-                                <td align="center">{$vo.place}</td>
-                                <td align="center">{$vo.purpose}</td>
-                                <td align="center">{$vo.tutor}</td>
+                                <td align="center">{$vo.sendtime}</td>
+                                <td align="center">{$vo.content}</td>
                             </tr>
                             {/volist}
                                                     </tbody>
@@ -108,7 +90,5 @@
     <script src="__PUBLIC__/jquery.js"></script>
     <!--Beyond Scripts-->
     <script src="__PUBLIC__/beyond.js"></script>
-    <script src="__PUBLIC__/jquery-3.2.1.js" type="text/javascript"></script>
-    <script src="__PUBLIC__/laydate.js"></script>
 
 </body></html>

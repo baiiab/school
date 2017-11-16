@@ -37,7 +37,7 @@ class Teacher extends Base
             foreach ($data as $k => $vo){
                 if (db('teacher')->where('tid',$vo['tid'])->find()) {
 //                    dump($vo['sid']);die;
-                    $str = $vo['tid'].',';
+                    $str .= $vo['tid'].',';
                     unset($data[$k]);
                 }
             }
@@ -120,7 +120,7 @@ class Teacher extends Base
     public function searchTeacher(){
         $id = input('id');
         $map['tname']=['like','%'.$id.'%'];
-        $students = db('teacher')->where($map)->paginate(8);
+        $students = db('teacher')->where($map)->paginate($listRows=3,$simple=false,                                $config=['query'=>['id'=>$id]]);
 //        dump($students);die;
         $this->assign('students',$students);
         return $this->fetch('lst');

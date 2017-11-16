@@ -21,6 +21,5 @@ class Handmessage extends Controller
         }
         return 1;
 //        dump($list);die;
-
     }
 }

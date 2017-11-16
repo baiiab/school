@@ -10,6 +10,7 @@ use app\admin\controller\Base;
 use app\admin\model\Evection;
 use app\admin\model\Signed;
 use app\admin\model\Holiday;
+use app\admin\model\Systemnews;
 
 class Attendance extends Base
 {
@@ -58,7 +59,7 @@ class Attendance extends Base
         $this->assign('students', $students);
         return $this->fetch('lst');
     }
-
+//  请假老师信息
     public function holiday(){
 //        echo strtotime('next week');die;
         $signs = new Holiday();
@@ -85,7 +86,7 @@ class Attendance extends Base
         $this->assign('students', $students);
         return $this->fetch('holiday');
     }
-
+//  出差教师信息
     public function evection(){
 //        echo strtotime('next week');die;
         $signs = new Evection();
@@ -111,5 +112,31 @@ class Attendance extends Base
             ->paginate($listRows=2,$simple=false,$config=['query'=>['id'=>$id]]);
         $this->assign('students', $students);
         return $this->fetch('evection');
+    }
+    //系统消息
+    public function sysnews(){
+        $id = input('id');
+        $map['status']=$id;
+        $sysnews = new Systemnews();
+        $students = $sysnews
+            ->alias('a')
+            ->field('sendtime,content')
+            ->where($map)
+            ->order('sendtime desc')->paginate(3);
+        $this->assign(['students'=> $students,'status'=>$id]);
+        return view();
+    }
+    public function sendMsg(){
+        if(request()->isPost()){
+            $data = input('post.');
+            $data['sendtime'] = time();
+            if(db('systemnews')->insert($data)){
+                $this->success('发送成功','sysnews?id='.$data['status']);
+            }else{
+                $this->error('发送失败');
+            }
+        }
+        $this->assign('status',input('id'));
+        return view();
     }
 }

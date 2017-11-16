@@ -10,9 +10,6 @@ use app\admin\controller\Base;
 class Student extends Base
 {
     public function lst(){
-//        $sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = 'student' and table_schema = 'school'";
-//        $result = Db::query($sql);
-//        dump($result);die;
         $students = db('student')->paginate(3);
         $this->assign('students',$students);
         if(input('id')){
@@ -40,7 +37,7 @@ class Student extends Base
 
     function outExcel(){
         $str = '学号,'.'姓名,'.'班级,'.'性别,'.'负责人,'.'入学年份';
-        $field = 'cid,'.'name,'.'cid,'.'sex,'.'gid,'.'year';
+        $field = 'sid,'.'name,'.'cid,'.'sex,'.'tid,'.'year';
         outputExcel('student',$str,$field);
     }
 
@@ -51,17 +48,18 @@ class Student extends Base
         $info = $file->validate(['ext' => 'xlsx'])->move(ROOT_PATH . 'public' . DS . 'uploads');
         //上传验证后缀名,以及上传之后移动的地址
         if ($info) {
-//            echo $info->getFilename();
-            $data = insertExcel('student',$info);
+            $arr = ['sid','name','cid','sex','tid','year'];
+            $data = insertExcel('student',$info,$arr);
 //            dump($data);die;
             $str = '';
             foreach ($data as $k => $vo){
                 if (db('student')->where('sid',$vo['sid'])->find()) {
 //                    dump($vo['sid']);die;
-                    $str = $vo['sid'].',';
+                    $str .= $vo['sid'].',';
                     unset($data[$k]);
                 }
             }
+//            unlink('D:\kinggsoft\phpstudy\WWW\school'.'/public/uploads/'.$info->getSaveName());
             if(db('student')->insertAll($data)){
                 $this->success('学号'.$str.'重复,其它插入成功','lst');
             }else{
@@ -133,10 +131,7 @@ class Student extends Base
             $this->error('删除学员失败!');
         }
     }
-    public function logout(){
-        session(null);
-        $this->success('退出成功','Login/index');
-    }
+
 //  根据姓名寻找学员
     public function searchStudent(){
         $id = input('id');

@@ -3,13 +3,11 @@ namespace wxSdk;
 class Jssdk {
   private $appId;
   private $appSecret;
-  private $path;
 
   public function __construct($appId, $appSecret,$tokenSession=null) {
     $this->tokenSession =$tokenSession;
     $this->appId = $appId;
     $this->appSecret = $appSecret;
-    $this->path = DIR.DS;
   }
   
   public function getSignPackage($ip=null) {
@@ -51,7 +49,7 @@ class Jssdk {
 
   public function getJsApiTicket() {
     // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
-    $data = json_decode($this->get_php_file("data/file/jsapi_ticket.php"));
+    $data = json_decode($this->get_php_file("jsapi_ticket.php"));
     if ($data->expire_time < time()) {
       $accessToken = $this->getAccessToken();
 //      return $accessToken;
@@ -65,7 +63,7 @@ class Jssdk {
       if ($ticket) {
         $data->expire_time = time() + 7000;
         $data->jsapi_ticket = $ticket;
-        $this->set_php_file("./data/file/jsapi_ticket.php", json_encode($data));
+        $this->set_php_file("jsapi_ticket.php", json_encode($data));
       }
     } else {
       $ticket = $data->jsapi_ticket;
@@ -76,24 +74,21 @@ class Jssdk {
 
   public function getAccessToken() {
     // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
-    $data = json_decode($this->get_php_file("data/file/access_token.php"));
+//    $data = json_decode(file_get_contents("extra/access_token.json"));
 
-    if ($data->expire_time < time()) {
+    if (cache('expire_time') < time()) {
 
-      // 如果是企业号用以下URL获取access_token
-//       $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->appId&corpsecret=$this->appSecret";
-        //kud6-bvUKWyK0rYVm4uzuGF6vFxXE6rKibV9VUjvI0uCnhuK8wzeBoqwSGmVD3PZmU6Aw17WAJ29u2cUZiAp6nbOlT5tIyVLvs7zPhqxZDqDCUKnvJfI2gWW69Z3D6aJBUQgAEANGC
       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
       $res = json_decode($this->httpGet($url));
       $access_token = $res->access_token;
 //      $access_token = "Jp8S4A5-esf3kfxPROftUOzCxKIfnB_pRwuN61dYNQe8vJf7fxKbci985Hendb0cQ3-tKgO3-azg7ZIE19SquF7_s7dtUjsvHsaVcVg3o7IZCh8XPvJDWjsfw38hcDIHELIjAAAPWT";
       if ($access_token) {
-        $data->expire_time = time() + 7000;
-        $data->access_token = $access_token;
-        $this->set_php_file("./data/file/access_token.php", json_encode($data));
+          cache('expire_time',time() + 7000);
+          cache('access_token',$access_token);
+//        $this->set_php_file("extra/access_token.php", json_encode($data));
       }
     } else {
-      $access_token = $data->access_token;
+      $access_token = cache('access_token');
     }
     return $access_token;
   }
