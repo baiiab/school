@@ -1,8 +1,8 @@
 <?php
 namespace app\admin\controller;
-use think\Controller;
+use app\admin\controller\Base;
 use app\admin\model\Transinfo as modelTrans;
-class Transinfo extends Controller
+class Transinfo extends Base
 {
 //  某学员所有异常信息
     public function index(){
