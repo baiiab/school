@@ -11,7 +11,7 @@ class Teacher extends Base
 {
     public function lst()
     {
-        $students = db('teacher')->paginate(3);
+        $students = db('teacher')->paginate(30);
         $this->assign('students', $students);
         return $this->fetch('lst');
     }
@@ -26,6 +26,9 @@ class Teacher extends Base
     {
         header("Content-type: text/html; charset=utf-8");
         $file = request()->file('excel');
+        if(!$file){
+            show_msg('请选择导入文件',url('lst'));
+        }
         $info = $file->validate(['ext' => 'xlsx'])->move(ROOT_PATH . 'public' . DS . 'uploads');
         //上传验证后缀名,以及上传之后移动的地址
         if ($info) {
@@ -42,10 +45,10 @@ class Teacher extends Base
                 }
             }
             if(db('teacher')->insertAll($data)){
-                if(empty($str)) $this->success('插入成功','lst');
-                else $this->success('教师编号'.$str.'重复,其它插入成功','lst');
+                if(empty($str)) show_msg('插入成功',url('lst'));
+                else show_msg('教师编号'.$str.'重复,其它插入成功',url('lst'));
             }else{
-                $this->error('不能插入空表或全是重复学号');
+                show_msg('不能插入空表或全是重复学号');
             }
         } else {
             echo $file->getError();
@@ -56,14 +59,15 @@ class Teacher extends Base
     {
         if(request()->isPost()){
             $data = input('post.');
+            $data['password'] = md5($data['password']);
 //            dump($data);die;
             if(db('teacher')->where('tid',$data['tid'])->find()){
-                $this->error('添加教师失败,教师编号不能重复');
+                show_msg('添加教师失败,教师编号不能重复');
             }
             if(db('teacher')->insert($data)){
-                return $this->success('添加教师成功','lst');
+                return show_msg('添加教师成功',url('lst'));
             }else{
-                return $this->error('添加教师失败');
+                return show_msg('添加教师失败');
             }
         }
 
@@ -87,12 +91,12 @@ class Teacher extends Base
     {
         if(request()->isPost()){
             $data = input('post.');
-//            dump($data);die;
-            if(empty($data['password'])) $data['password'] = '123654';
+            if($data['password']!='') $data['password'] = md5($data['password']);
+            else unset($data['password']);
             if(db('teacher')->where('tid',$data['tid'])->update($data)){
-                $this->success('修改信息成功','lst');
+                show_msg('修改信息成功',url('lst'));
             }else{
-                $this->error('修改失败');
+                show_msg('修改失败');
             }
             return;
         }
@@ -111,16 +115,16 @@ class Teacher extends Base
         $id = input('tid');
 //        dump($id);die;
         if(db('teacher')->where('tid',$id)->delete()){
-            $this->success('删除教师成功','lst');
+            show_msg('删除教师成功',url('lst'));
         }else{
-            $this->error('删除教师失败!');
+            show_msg('删除教师失败!');
         }
     }
 //  根据姓名寻找教师
     public function searchTeacher(){
         $id = input('id');
         $map['tname']=['like','%'.$id.'%'];
-        $students = db('teacher')->where($map)->paginate($listRows=3,$simple=false,                                $config=['query'=>['id'=>$id]]);
+        $students = db('teacher')->where($map)->paginate($listRows=30,$simple=false,                                $config=['query'=>['id'=>$id]]);
 //        dump($students);die;
         $this->assign('students',$students);
         return $this->fetch('lst');

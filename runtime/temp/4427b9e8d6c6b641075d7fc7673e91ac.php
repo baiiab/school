@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\teacher\lst.html";i:1510645687;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:87:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\delclass.html";i:1511024073;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -19,9 +19,9 @@
     <link href="__PUBLIC__/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
     <script type="text/javascript">
-        function searchTeacher() {
+        function searchStudent() {
 //            alert(document.getElementById("search").value);die;
-            window.location.href = "searchTeacher?id="+document.getElementById("search").value;
+            window.location.href = "delClass?class="+document.getElementById("search").value;
         }
     </script>
 </head>
@@ -256,30 +256,20 @@
                                         <li>
                         <a href="#">系统</a>
                     </li>
-                                        <li class="active">教师管理</li>
+                                        <li class="active">用户管理</li>
                                         </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-                    
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('teacher/addTeacher'); ?>'"> <i class="fa fa-plus"></i> 添加教师
-</button>
 
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('teacher/outexcel'); ?>'"> </i> 导出教师信息
-</button>
+                    <button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('student/addClass'); ?>'"> <i class="fa fa-plus"></i> 添加班级
+                    </button>
 
-    <div style="display: inline-block">
-    <form action="<?php echo url('teacher/importExcel'); ?>" enctype="multipart/form-data"
-          method="post">
-        <input type="file" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" name="excel"/>
-        <input type="submit" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" value="导入">
-    </form>
-    </div>
     <div class="sidebar-header-wrapper" style="float: right">
-        <input class="searchinput" placeholder="输入姓名进行检索" id="search" type="text">
-        <i class="searchicon fa fa-search" onclick="searchTeacher();"></i>
+        <input class="searchinput" id="search" placeholder="根据年份检索班级" type="text">
+        <i class="searchicon fa fa-search" onclick="searchStudent();"></i>
     </div>
 
 <div class="row">
@@ -290,27 +280,18 @@
                     <table class="table table-bordered table-hover">
                         <thead class="">
                             <tr>
-                                <th class="text-center">教师编号</th>
-                                <th class="text-center">姓名</th>
-                                <th class="text-center">性别</th>
-                                <th class="text-center">科目</th>
-                                <th class="text-center">手机号码</th>
+                                <th class="text-center">班级</th>
+                                <th class="text-center">年份</th>
                                 <th class="text-center" width="18%">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if(is_array($students) || $students instanceof \think\Collection || $students instanceof \think\Paginator): $i = 0; $__LIST__ = $students;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                                                         <tr>
-                                <td align="center"><?php echo $vo['tid']; ?></td>
-                                <td align="center"><?php echo $vo['tname']; ?></td>
-                                <td align="center"><?php echo $vo['gender']; ?></td>
-                                <td align="center"><?php echo $vo['course']; ?></td>
-                                <td align="center"><?php echo $vo['mobile']; ?></td>
-                                <td align="center">
-                                    <a href="<?php echo url('teacher/edit',array('tid'=>$vo['tid'])); ?>" class="btn btn-primary btn-sm shiny">
-                                        <i class="fa fa-edit"></i> 编辑
-                                    </a>
-                                    <a href="#" onClick="warning('确实要删除吗','<?php echo url('teacher/del',array('tid'=>$vo['tid'])); ?>')" class="btn btn-danger btn-sm shiny">
+                                <td align="center"><?php echo $vo['cid']; ?></td>
+                                <td align="center"><?php echo $vo['year']; ?></td>
+                                                            <td align="center">
+                                    <a href="#" onClick="warning('确实要删除吗','<?php echo url('student/delClass',array('id'=>$vo['id'])); ?>')" class="btn btn-danger btn-sm shiny">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </a>
                                 </td>

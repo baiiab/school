@@ -20,6 +20,5 @@ class Handmessage extends Controller
             db('message')->insert($data);
         }
         return 1;
-//        dump($list);die;
     }
 }

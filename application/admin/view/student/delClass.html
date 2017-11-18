@@ -20,7 +20,7 @@
     <script type="text/javascript">
         function searchStudent() {
 //            alert(document.getElementById("search").value);die;
-            window.location.href = "searchStudent?id="+document.getElementById("search").value;
+            window.location.href = "delClass?class="+document.getElementById("search").value;
         }
     </script>
 </head>
@@ -49,24 +49,12 @@
 
                 <!-- Page Body -->
                 <div class="page-body">
-                    
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('student/addStudent')}'"> <i class="fa fa-plus"></i> 添加学员
 
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('student/delClass')}'"> 班级管理
-</button>
+                    <button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('student/addClass')}'"> <i class="fa fa-plus"></i> 添加班级
+                    </button>
 
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('student/outexcel')}'"> </i> 导出学员信息
-</button>
-
-    <div style="display: inline-block">
-    <form action="{:url('student/importExcel')}" enctype="multipart/form-data"
-          method="post">
-        <input type="file" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" name="excel"/>
-        <input type="submit" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" value="导入">
-    </form>
-    </div>
     <div class="sidebar-header-wrapper" style="float: right">
-        <input class="searchinput" id="search" placeholder="根据姓名检索" type="text">
+        <input class="searchinput" id="search" placeholder="根据年份检索班级" type="text">
         <i class="searchicon fa fa-search" onclick="searchStudent();"></i>
     </div>
 
@@ -78,29 +66,18 @@
                     <table class="table table-bordered table-hover">
                         <thead class="">
                             <tr>
-                                <th class="text-center">ID</th>
-                                <th class="text-center">用户名</th>
-                                <th class="text-center">性别</th>
-                                <th class="text-center">所属班级</th>
-                                <th class="text-center">监护人</th>
-                                <th class="text-center">交接信息</th>
+                                <th class="text-center">班级</th>
+                                <th class="text-center">年份</th>
                                 <th class="text-center" width="18%">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             {volist name="students" id="vo"}
                                                         <tr>
-                                <td align="center">{$vo.sid}</td>
-                                <td align="center">{$vo.name}</td>
-                                <td align="center">{$vo.sex}</td>
                                 <td align="center">{$vo.cid}</td>
-                                <td align="center">{$vo.tid}</td>
-                                <td align="center"><a href="{:url('transinfo/index',array('id'=>$vo['sid']))}">交接信息</a></td>
-                                <td align="center">
-                                    <a href="{:url('student/edit',array('sid'=>$vo['sid']))}" class="btn btn-primary btn-sm shiny">
-                                        <i class="fa fa-edit"></i> 编辑
-                                    </a>
-                                    <a href="#" onClick="warning('确实要删除吗','{:url('student/del',array('sid'=>$vo['sid']))}')" class="btn btn-danger btn-sm shiny">
+                                <td align="center">{$vo.year}</td>
+                                                            <td align="center">
+                                    <a href="#" onClick="warning('确实要删除吗','{:url('student/delClass',array('id'=>$vo['id']))}')" class="btn btn-danger btn-sm shiny">
                                         <i class="fa fa-trash-o"></i> 删除
                                     </a>
                                 </td>

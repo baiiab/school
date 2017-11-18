@@ -22,7 +22,7 @@ class Attendance extends Base
         ->alias('a')
         ->field('a.tid,t.tname,signtime,position')
         ->join('teacher t','a.tid = t.tid')
-        ->order('signtime desc')->paginate(3);
+        ->order('signtime desc')->paginate(30);
 //        dump($students);die;
         $this->assign('students', $students);
         return $this->fetch('lst');
@@ -36,7 +36,7 @@ class Attendance extends Base
             ->alias('a')
             ->field('a.tid,t.tname,signtime,position')
             ->join('teacher t','a.tid = t.tid')
-            ->where($map)->order('signtime desc')->paginate($listRows=3,$simple=false,                                $config=['query'=>['id'=>$id]]);
+            ->where($map)->order('signtime desc')->paginate($listRows=30,$simple=false,                                $config=['query'=>['id'=>$id]]);
 //        dump($students);die;
         $this->assign('students', $students);
         return $this->fetch('lst');
@@ -55,7 +55,7 @@ class Attendance extends Base
             ->field('a.tid,t.tname,signtime,position')
             ->join('teacher t','a.tid = t.tid')
             ->where('signtime',['>',$starttime],['<',$endtime],'and')
-            ->order('signtime desc')->paginate($listRows=2,$simple=false,                                $config=['query'=>['id'=>$id]]);
+            ->order('signtime desc')->paginate($listRows=30,$simple=false,                                $config=['query'=>['id'=>$id]]);
         $this->assign('students', $students);
         return $this->fetch('lst');
     }
@@ -67,7 +67,7 @@ class Attendance extends Base
             ->alias('a')
             ->field('a.tid,t.tname,asktime,holidaytime,reason,tutor')
             ->join('teacher t','a.tid = t.tid')
-            ->order('asktime desc')->paginate(3);
+            ->order('asktime desc')->paginate(30);
         $this->assign('students', $students);
         return view();
     }
@@ -82,7 +82,7 @@ class Attendance extends Base
             ->field('a.tid,t.tname,asktime,holidaytime,reason,tutor')
             ->join('teacher t','a.tid = t.tid')
             ->where($map)->order('asktime desc')
-            ->paginate($listRows=2,$simple=false,$config=['query'=>['id'=>$id]]);
+            ->paginate($listRows=30,$simple=false,$config=['query'=>['id'=>$id]]);
         $this->assign('students', $students);
         return $this->fetch('holiday');
     }
@@ -94,7 +94,7 @@ class Attendance extends Base
             ->alias('a')
             ->field('a.tid,t.tname,asktime,holidaytime,place,purpose,tutor')
             ->join('teacher t','a.tid = t.tid')
-            ->order('asktime desc')->paginate(3);
+            ->order('asktime desc')->paginate(30);
         $this->assign('students', $students);
         return view();
     }
@@ -109,7 +109,7 @@ class Attendance extends Base
             ->field('a.tid,t.tname,asktime,holidaytime,place,purpose,tutor')
             ->join('teacher t','a.tid = t.tid')
             ->where($map)->order('asktime desc')
-            ->paginate($listRows=2,$simple=false,$config=['query'=>['id'=>$id]]);
+            ->paginate($listRows=30,$simple=false,$config=['query'=>['id'=>$id]]);
         $this->assign('students', $students);
         return $this->fetch('evection');
     }
@@ -122,7 +122,7 @@ class Attendance extends Base
             ->alias('a')
             ->field('sendtime,content')
             ->where($map)
-            ->order('sendtime desc')->paginate(3);
+            ->order('sendtime desc')->paginate(30);
         $this->assign(['students'=> $students,'status'=>$id]);
         return view();
     }
@@ -131,9 +131,9 @@ class Attendance extends Base
             $data = input('post.');
             $data['sendtime'] = time();
             if(db('systemnews')->insert($data)){
-                $this->success('发送成功','sysnews?id='.$data['status']);
+                show_msg('发送成功',url('sysnews?id='.$data['status']));
             }else{
-                $this->error('发送失败');
+                show_msg('发送失败');
             }
         }
         $this->assign('status',input('id'));

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1510312568;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510724315;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1511021977;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,13 +45,8 @@
                 });
             });
         });
-        function findStudent() {
-            window.location.href="__JQUERY__/public/admin/Student/findStudent?class="+$('#scid').val();
-        }
         function change() {
             var str = '';
-            var obj = prompt("请输入监护人");
-//            if(empty(obj)) die;
             var chk = document.getElementsByName('chk');
             for (var i = 0; i < chk.length; i++) {
                 if (chk[i].checked) {
@@ -59,6 +54,11 @@
                 }
             }
             str = str.substring(0, str.length - 1);
+            if(!str){
+                alert('还没选择学员');
+                die;
+            }
+            var obj = prompt("请输入监护人");
 //            alert(obj);die;
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function () {
@@ -142,7 +142,7 @@
                                         </a>
                                 </li>
                                 <li class="dropdown-footer">
-                                    <a href="<?php echo url('admin/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
+                                    <a href="<?php echo url('manager/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
                                             修改密码
                                         </a>
                                 </li>

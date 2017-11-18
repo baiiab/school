@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\lst.html";i:1510714787;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510724315;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\lst.html";i:1511024028;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -66,7 +66,7 @@
                                         </a>
                                 </li>
                                 <li class="dropdown-footer">
-                                    <a href="<?php echo url('admin/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
+                                    <a href="<?php echo url('manager/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
                                             修改密码
                                         </a>
                                 </li>
@@ -265,7 +265,8 @@
                 <div class="page-body">
                     
 <button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('student/addStudent'); ?>'"> <i class="fa fa-plus"></i> 添加学员
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('student/addClass'); ?>'"> <i class="fa fa-plus"></i> 添加班级
+
+<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('student/delClass'); ?>'"> 班级管理
 </button>
 
 <button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('student/outexcel'); ?>'"> </i> 导出学员信息

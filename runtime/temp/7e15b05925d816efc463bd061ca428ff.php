@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:87:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\manager\addadmin.html";i:1510805423;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510724315;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:87:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\manager\addadmin.html";i:1510922022;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -63,7 +63,7 @@
                                         </a>
                                 </li>
                                 <li class="dropdown-footer">
-                                    <a href="<?php echo url('admin/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
+                                    <a href="<?php echo url('manager/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
                                             修改密码
                                         </a>
                                 </li>
@@ -277,6 +277,15 @@
                             <label for="tid" class="col-sm-2 control-label no-padding-right">管理员编号</label>
                             <div class="col-sm-6">
                                 <input class="form-control" id="tid" placeholder="" name="aid" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gname" class="col-sm-2 control-label no-padding-right">密码</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="password" placeholder="" name="password" required=""
+                                       type="text">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>

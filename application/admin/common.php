@@ -62,8 +62,34 @@ function outputExcel($table,$str,$field)
         }
         $j++;
     }
+    switch ($table) {
+        case 'student':
+            $filename = '学生列表';
+            break;
+        case 'teacher':
+            $filename = '教师列表';
+            break;
+        default:
+            $filename = '监护人列表';
+    }
+    $filename .= date('Ymd').'.xlsx';
     $PHPWriter = \PHPExcel_IOFactory::createWriter($PHPExcel, "Excel2007");
-    header('Content-Disposition: attachment;filename="表单数据.xlsx"');
+    header('Content-Disposition: attachment;filename="'.$filename.'"');
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xlsx文件
+}
+function show_msg($msg = "", $url = "")
+{
+    @header("Content-Type:text/html;charset=utf-8");
+    echo '<script type="text/javascript">';
+    echo 'alert("' . $msg . '");';
+
+    if (!empty($url)) {
+        echo 'location.href = "' . $url . '"';
+    } else {
+        echo 'history.go(-1);';
+    }
+
+    echo '</script>';
+    exit;
 }

@@ -10,7 +10,7 @@ use app\admin\controller\Base;
 class Student extends Base
 {
     public function lst(){
-        $students = db('student')->paginate(3);
+        $students = db('student')->paginate(30);
         $this->assign('students',$students);
         if(input('id')){
             $year = db('class')->distinct(true)->field('year')->order('year')->select();
@@ -27,10 +27,10 @@ class Student extends Base
             $data = input('post.');
             $result = db('class')->where(['year'=>$data['year'],'cid'=>$data['cid']])->find();
             if($result){
-                $this->error('班级重复');
+                show_msg('班级重复');
             }
             db('class')->insert($data);
-            $this->success('添加班级成功','lst');
+            show_msg('添加班级成功',url('delClass'));
         }
         return view();
     }
@@ -45,7 +45,10 @@ class Student extends Base
     {
         header("Content-type: text/html; charset=utf-8");
         $file = request()->file('excel');
-        $info = $file->validate(['ext' => 'xlsx'])->move(ROOT_PATH . 'public' . DS . 'uploads');
+        if(!$file){
+            show_msg('请选择导入文件',url('lst'));
+        }
+        $info = $file->validate(['ext' => 'xlsx,xls'])->move(ROOT_PATH . 'public' . DS . 'uploads');
         //上传验证后缀名,以及上传之后移动的地址
         if ($info) {
             $arr = ['sid','name','cid','sex','tid','year'];
@@ -61,9 +64,10 @@ class Student extends Base
             }
 //            unlink('D:\kinggsoft\phpstudy\WWW\school'.'/public/uploads/'.$info->getSaveName());
             if(db('student')->insertAll($data)){
-                $this->success('学号'.$str.'重复,其它插入成功','lst');
+                if(empty($str)) $this->show_msg('插入成功',url('lst'));
+                else $this->show_msg('学号'.$str.'重复,其它插入成功',url('lst'));
             }else{
-                $this->error('不能插入空表或全是重复学号');
+                show_msg('不能插入空表或全是重复学号');
             }
         } else {
             echo $file->getError();
@@ -76,12 +80,12 @@ class Student extends Base
             $data = input('post.');
 //            die($data['sid']);die;
             if(db('student')->where('sid',$data['sid'])->find()){
-                $this->error('添加学员失败,学号不能重复');
+                show_msg('添加学员失败,学号不能重复');
             }
             if(db('student')->insert($data)){
-                return $this->success('添加学员成功','lst');
+                return show_msg('添加学员成功',url('lst'));
             }else{
-                return $this->error('添加学员失败');
+                return show_msg('添加学员失败');
             }
         }
 
@@ -101,15 +105,29 @@ class Student extends Base
         return $class;
     }
 
+    public function delClass(){
+        if(input('class')){
+            $class = db('class')->where('year',input('class'))->order('cid')->paginate($listRows=30,$simple=false,                                $config=['query'=>['class'=>input('class')]]);
+            $this->assign('students',$class);
+            return view();
+        }
+        if(input('id')){
+            if(db('class')->delete(input('id'))) show_msg('删除班级成功',url('delClass'));
+        }
+        $students = db('class')->paginate(30);
+        $this->assign('students',$students);
+        return view();
+    }
+
     public function edit()
     {
         if(request()->isPost()){
             $data = input('post.');
 //            dump($data);die;
             if(db('student')->where('sid',$data['sid'])->update($data)){
-                $this->success('修改信息成功','lst');
+                show_msg('修改信息成功',url('lst'));
             }else{
-                $this->error('修改失败');
+                show_msg('修改失败');
             }
             return;
         }
@@ -126,9 +144,9 @@ class Student extends Base
         $id = input('sid');
 //        dump($id);die;
         if(db('student')->where('sid',$id)->delete()){
-            $this->success('删除学员成功','lst');
+            $this->show_msg('删除学员成功',url('lst'));
         }else{
-            $this->error('删除学员失败!');
+            $this->show_msg('删除学员失败!');
         }
     }
 
@@ -136,7 +154,7 @@ class Student extends Base
     public function searchStudent(){
         $id = input('id');
         $map['name']=['like','%'.$id.'%'];
-        $students = db('student')->where($map)->paginate(8);
+        $students = db('student')->where($map)->paginate(30);
 //        dump($students);die;
         $this->assign('students',$students);
         return $this->fetch('lst');
@@ -145,7 +163,7 @@ class Student extends Base
     public function findStudent(){
         $id = input('class');
         $map['cid']=['like','%'.$id.'%'];
-        $students = db('student')->where($map)->paginate($listRows=3,$simple=false,                                $config=['query'=>['class'=>$id]]);
+        $students = db('student')->where($map)->paginate($listRows=30,$simple=false,                                $config=['query'=>['class'=>$id]]);
         $year = db('class')->distinct(true)->field('year')->order('year')->select();
 //          dump($class);die;
         $this->assign('year',$year);

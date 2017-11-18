@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\attendance\sysnews.html";i:1510727487;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510724315;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\attendance\sysnews.html";i:1510727487;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -60,7 +60,7 @@
                                         </a>
                                 </li>
                                 <li class="dropdown-footer">
-                                    <a href="<?php echo url('admin/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
+                                    <a href="<?php echo url('manager/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
                                             修改密码
                                         </a>
                                 </li>

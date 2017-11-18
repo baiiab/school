@@ -1,6 +1,7 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\teacher\lst.html";i:1510645687;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:87:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\addclass.html";i:1510131398;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
-<html><head>
+<html>
+	<head>
 	    <meta charset="utf-8">
     <title></title>
 
@@ -18,14 +19,10 @@
     <link href="__PUBLIC__/demo.css" rel="stylesheet">
     <link href="__PUBLIC__/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
-    <script type="text/javascript">
-        function searchTeacher() {
-//            alert(document.getElementById("search").value);die;
-            window.location.href = "searchTeacher?id="+document.getElementById("search").value;
-        }
-    </script>
+    
 </head>
 <body>
+	<!-- 头部 -->
 	<!-- 头部 -->
 	<div class="navbar">
     <div class="navbar-inner">
@@ -256,7 +253,10 @@
                                         <li>
                         <a href="#">系统</a>
                     </li>
-                                        <li class="active">教师管理</li>
+                                        <li>
+                        <a href="<?php echo url('lst'); ?>">学员列表</a>
+                    </li>
+                                        <li class="active">添加班级</li>
                                         </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -264,64 +264,44 @@
                 <!-- Page Body -->
                 <div class="page-body">
                     
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('teacher/addTeacher'); ?>'"> <i class="fa fa-plus"></i> 添加教师
-</button>
-
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('teacher/outexcel'); ?>'"> </i> 导出教师信息
-</button>
-
-    <div style="display: inline-block">
-    <form action="<?php echo url('teacher/importExcel'); ?>" enctype="multipart/form-data"
-          method="post">
-        <input type="file" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" name="excel"/>
-        <input type="submit" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" value="导入">
-    </form>
-    </div>
-    <div class="sidebar-header-wrapper" style="float: right">
-        <input class="searchinput" placeholder="输入姓名进行检索" id="search" type="text">
-        <i class="searchicon fa fa-search" onclick="searchTeacher();"></i>
-    </div>
-
 <div class="row">
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">新增班级</span>
+            </div>
             <div class="widget-body">
-                <div class="flip-scroll">
-                    <table class="table table-bordered table-hover">
-                        <thead class="">
-                            <tr>
-                                <th class="text-center">教师编号</th>
-                                <th class="text-center">姓名</th>
-                                <th class="text-center">性别</th>
-                                <th class="text-center">科目</th>
-                                <th class="text-center">手机号码</th>
-                                <th class="text-center" width="18%">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if(is_array($students) || $students instanceof \think\Collection || $students instanceof \think\Paginator): $i = 0; $__LIST__ = $students;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                                                        <tr>
-                                <td align="center"><?php echo $vo['tid']; ?></td>
-                                <td align="center"><?php echo $vo['tname']; ?></td>
-                                <td align="center"><?php echo $vo['gender']; ?></td>
-                                <td align="center"><?php echo $vo['course']; ?></td>
-                                <td align="center"><?php echo $vo['mobile']; ?></td>
-                                <td align="center">
-                                    <a href="<?php echo url('teacher/edit',array('tid'=>$vo['tid'])); ?>" class="btn btn-primary btn-sm shiny">
-                                        <i class="fa fa-edit"></i> 编辑
-                                    </a>
-                                    <a href="#" onClick="warning('确实要删除吗','<?php echo url('teacher/del',array('tid'=>$vo['tid'])); ?>')" class="btn btn-danger btn-sm shiny">
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php endforeach; endif; else: echo "" ;endif; ?>
-                                                    </tbody>
-                    </table>
-                    <?php echo $students->render(); ?>
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="<?php echo url('Student/addClass'); ?>" method="post">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">班级</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="cid" placeholder="" name="cid" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">所属专业</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="majors" placeholder="" name="majors" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">开班年份</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="year" placeholder="" name="year" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>  
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                	                </div>
             </div>
         </div>
     </div>
@@ -340,6 +320,7 @@
     <script src="__PUBLIC__/jquery.js"></script>
     <!--Beyond Scripts-->
     <script src="__PUBLIC__/beyond.js"></script>
+    
 
 
 </body></html>

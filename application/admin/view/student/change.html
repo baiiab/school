@@ -44,13 +44,8 @@
                 });
             });
         });
-        function findStudent() {
-            window.location.href="__JQUERY__/public/admin/Student/findStudent?class="+$('#scid').val();
-        }
         function change() {
             var str = '';
-            var obj = prompt("请输入监护人");
-//            if(empty(obj)) die;
             var chk = document.getElementsByName('chk');
             for (var i = 0; i < chk.length; i++) {
                 if (chk[i].checked) {
@@ -58,6 +53,11 @@
                 }
             }
             str = str.substring(0, str.length - 1);
+            if(!str){
+                alert('还没选择学员');
+                die;
+            }
+            var obj = prompt("请输入监护人");
 //            alert(obj);die;
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function () {
