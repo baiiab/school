@@ -54,4 +54,19 @@ function https_post($url,$data)
     curl_close($curl);
     return $result;
 }
+function show_msg($msg = "", $url = "")
+{
+    @header("Content-Type:text/html;charset=utf-8");
+    echo '<script type="text/javascript">';
+    echo 'alert("' . $msg . '");';
+
+    if (!empty($url)) {
+        echo 'location.href = "' . $url . '"';
+    } else {
+        echo 'history.go(-1);';
+    }
+
+    echo '</script>';
+    exit;
+}
 

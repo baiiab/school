@@ -7,7 +7,7 @@ class Admin extends Model
 	public function login($data){
 	    $user = Db::name('admin')->where('name','=',$data['username'])->find();
 	    if($user){
-	        if($user['password'] == $data['password']){
+	        if($user['password'] == md5($data['password'])){
 	        	session('name',$user['name']);
 	        	session('password',$user['password']);
 	            return 3;

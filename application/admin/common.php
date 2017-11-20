@@ -78,18 +78,4 @@ function outputExcel($table,$str,$field)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xlsx文件
 }
-function show_msg($msg = "", $url = "")
-{
-    @header("Content-Type:text/html;charset=utf-8");
-    echo '<script type="text/javascript">';
-    echo 'alert("' . $msg . '");';
 
-    if (!empty($url)) {
-        echo 'location.href = "' . $url . '"';
-    } else {
-        echo 'history.go(-1);';
-    }
-
-    echo '</script>';
-    exit;
-}
