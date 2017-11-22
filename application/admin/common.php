@@ -7,8 +7,8 @@ function get_openId(){
 //    $appId = 'wx39daf877da7f62e9';
     $appId = config('PUBLIC_APPID');
     $uri = urlencode(WB_CALLBACK_URL);
-    $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appId&redirect_uri=$uri&response_type=code&scope=snsapi_userinfo&state=$appId#wechat_redirect";
-    return $url;
+    $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appId&redirect_uri=$uri&response_type=code&scope=snsapi_base&state=$appId#wechat_redirect";
+    $this->redirect('login');
 }
 
 function insertExcel($table,$info,$arr)

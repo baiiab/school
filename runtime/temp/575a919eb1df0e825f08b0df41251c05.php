@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\home.html";i:1511174727;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\home.html";i:1511329919;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,23 +93,26 @@
         <!-- 这里是页面内容区 -->
         <div class="content">
             <div class="news-item clearfix">
+                <form id="myForm" action="" enctype="multipart/form-data" method="post">
                 <div class="news-image">
-                    <a href="#"><img src="__IMG__/ios/icon_head_portrait@3x.png"></a>
+                    <label id="image" for="file"><img style="margin-right: 0.5rem" class="pull-right" src="<?php if($guardian['headimg'] != ''): ?>__PIC__<?php echo $guardian['headimg']; else: ?>__IMG__/ios/icon_head_portrait@3x.png<?php endif; ?>"></label>
+                    <input type="file" id="file" name="headimg" style="display: none"/>
                 </div>
+                </form>
                 <p><?php echo \think\Session::get('name'); ?></p>
                 <p><?php echo \think\Session::get('mobile'); ?></p>
             </div>
             <div class="common">
-                <p><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                <p onclick="javascript:window.location.href = '<?php echo url('student/lst'); ?>'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <a class="icon icon-friends pull-left"></a>
                     <span style="margin-left: 0.5rem">我的学员</span></p>
                 <hr/>
-                <p><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                <p onclick="javascript:window.location.href = '<?php echo url('teacher/lst'); ?>'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_students_lists@2x.png"/>
                     <span style="margin-left: 0.5rem">教师通讯录</span></p>
             </div>
             <div class="common">
-                <p><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                <p onclick="javascript:window.location.href = '<?php echo url('news/home'); ?>'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_message_center@3x.png"/>
                     <span class="pull-right"
                           style="background: red;padding-left: 0.5rem;padding-right: 0.5rem; border: 0.1rem solid #8c8c8c;border-radius: 0.5rem;">99</span>
@@ -132,11 +135,20 @@
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script>
+    document.getElementById('file').onchange = function() {
+        var imgFile = this.files[0];
+        var fr = new FileReader();
+        fr.onload = function() {
+            document.getElementById('image').getElementsByTagName('img')[0].src = fr.result;
+        };
+        fr.readAsDataURL(imgFile);
+        document.getElementById('myForm').submit();
+    };
+
     //打开自动初始化页面的功能
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化
     $.config = {
         autoInit: true,
-        router: false
     }
 </script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>

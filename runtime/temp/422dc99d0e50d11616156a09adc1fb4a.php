@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:83:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\teacher\edit.html";i:1510643199;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:83:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\teacher\edit.html";i:1511318183;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,30 +20,40 @@
     <link href="__PUBLIC__/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
     <script src="__PUBLIC__/jquery-3.2.1.js"></script>
+    <style type="text/css">
+        #login{
+            position: absolute;
+            top: 45%;
+            left:45%;
+            margin: -15px 0 0 -50px;
+            width: 400px;
+            background-color: #aeaeae;
+        }
+    </style>
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('#year').change(function () {
-//                alert('q');die;
-                $.ajax({
-                    type: "GET",
-                    url: "/school/public/admin/teacher/searchClass",
-                    data: {'year':$("#year").val()},
-                    dataType: "json",
-                    success: function(data){
-                        $('#cid').show();
-                        var arr = JSON.parse(data);
-//                        alert(arr[0]['cid']);die;
-                        var str = "<select name='cid'><option>请选择班级</option>";
-                        for(var i in arr){
-                            str += "<option value='"+arr[i]['cid']+"'>"+arr[i]['cid']+"</option>"
-//                            alert(arr[i]['cid']);die;
-                        }
-//                        alert(str);die;
-                        $("#choose").html(str+"</select>");
+        $(function() {
+            $("#login").hide();
+            $('#showcid').click(function () {
+                $("#login").show();
+            });
+            $('#changecid').click(function () {
+                var str = '';
+                var chk = document.getElementsByName('chk');
+                for (var i = 0; i < chk.length; i++) {
+                    if (chk[i].checked) {
+                        str = str + chk[i].value + ',';
                     }
-                });
-            })
-        });
+                }
+                str = str.substring(0, str.length - 1);
+                if(!str){
+                    alert('还没选择班级');
+                    die;
+                }
+                $("#login").hide();
+//                alert(str);die;
+                $('#cid').val(str);
+            });
+        })
     </script>
 
 </head>
@@ -323,21 +333,15 @@
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
                         <div class="form-group">
-                            <label for="year" class="col-sm-2 control-label no-padding-right">所在班级</label>
-                            <div class="col-sm-6" style="display: inline-block;width: 100px">
-                                <select name="year" id="year">
-                                    <?php if(is_array($year) || $year instanceof \think\Collection || $year instanceof \think\Paginator): $i = 0; $__LIST__ = $year;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                                    <option <?php if($vo['year'] == $admin['year']): ?> selected="selected" <?php endif; ?> value="<?php echo $vo['year']; ?>"><?php echo $vo['year']; ?></option>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-6" style="display: inline-block;width: 100px">
-                                <div id="choose">
-                                    <select name="cid" id="cid">
-                                        <?php if(is_array($cid) || $cid instanceof \think\Collection || $cid instanceof \think\Paginator): $i = 0; $__LIST__ = $cid;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                                        <option <?php if($vo['cid'] == $admin['cid']): ?> selected="selected" <?php endif; ?> value="<?php echo $vo['cid']; ?>"><?php echo $vo['cid']; ?></option>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                                    </select>
+                            <label for="year" class="col-sm-2 control-label no-padding-right">所教班级</label>
+                            <div class="col-sm-6" style="display: inline-block;width: 300px">
+                                <input type="button" value="选择班级" id="showcid">
+                                <input type="hidden" id="cid" name="cid">
+                                <div id="login">
+                                    <?php if(is_array($cid) || $cid instanceof \think\Collection || $cid instanceof \think\Paginator): $i = 0; $__LIST__ = $cid;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                <label style="margin-right: 2px"><input type="checkbox" name="chk" value="<?php echo $vo['cid']; ?>" <?php if(strstr($admin['cid'],$vo['cid'])): ?> checked <?php endif; ?>><?php echo $vo['cid']; ?></label>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    <input type="button" value="确认" id="changecid">
                                 </div>
                             </div>
                         </div>
@@ -356,13 +360,19 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">课程</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="" value="<?php echo $admin['course']; ?>" name="course" required="" type="text">
+                                <input class="form-control" value="<?php echo $admin['course']; ?>" name="course" required="" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">职位</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" value="<?php echo $admin['position']; ?>" name="position" type="text">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">手机号码</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="" value="<?php echo $admin['mobile']; ?>" name="mobile" required="" type="text">
+                                <input class="form-control" value="<?php echo $admin['mobile']; ?>" name="mobile" required="" type="text">
                             </div>
                         </div>
 

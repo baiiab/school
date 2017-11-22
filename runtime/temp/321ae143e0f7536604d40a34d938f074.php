@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\teacher\addteacher.html";i:1510637551;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510724315;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\teacher\addteacher.html";i:1511258136;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -33,7 +33,7 @@
                     success: function(data){
                         $('#cid').show();
                         var arr = JSON.parse(data);
-//                        alert(arr[0]['cid']);die;
+//                        alert(arr);die;
                         var str = "<select name='cid'><option>请选择班级</option>";
                         for(var i in arr){
                             str += "<option value='"+arr[i]['cid']+"'>"+arr[i]['cid']+"</option>"
@@ -90,7 +90,7 @@
                                         </a>
                                 </li>
                                 <li class="dropdown-footer">
-                                    <a href="<?php echo url('admin/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
+                                    <a href="<?php echo url('manager/edit',array('id'=>\think\Request::instance()->session('uid'))); ?>">
                                             修改密码
                                         </a>
                                 </li>

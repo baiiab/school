@@ -32,7 +32,7 @@
                     success: function(data){
                         $('#cid').show();
                         var arr = JSON.parse(data);
-//                        alert(arr[0]['cid']);die;
+//                        alert(arr);die;
                         var str = "<select name='cid'><option>请选择班级</option>";
                         for(var i in arr){
                             str += "<option value='"+arr[i]['cid']+"'>"+arr[i]['cid']+"</option>"

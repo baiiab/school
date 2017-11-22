@@ -78,7 +78,7 @@ class Teacher extends Base
     }
 //  查找某年的所有班级
     public function searchClass($year = null){
-        if(request()->isPost()){
+        if(request()->isGet()){
             $year = input('year');
             $class = db('class')->field('cid')->where('year',$year)->order('cid')->select();
             return json_encode($class);
@@ -93,6 +93,7 @@ class Teacher extends Base
             $data = input('post.');
             if($data['password']!='') $data['password'] = md5($data['password']);
             else unset($data['password']);
+            unset($data['chk']);
             if(db('teacher')->where('tid',$data['tid'])->update($data)){
                 show_msg('修改信息成功',url('lst'));
             }else{
@@ -102,11 +103,13 @@ class Teacher extends Base
         }
         $id = input('tid');
         $admin = db('teacher')->find($id);
+//        if(strpos($admin->cid,','));
+//        $arr = explode(',',$admin['cid']);
+//        dump($arr[0]);die;
 
-//        dump($admin['year']);die;
-        $year = db('class')->distinct(true)->field('year')->order('year')->select();
-        $this->assign('year',$year);
-        $this->assign('cid',$this->searchClass($admin['year']));
+        $year = db('class')->field('cid')->order('cid')->select();
+        $this->assign('cid',$year);
+//        $this->assign('tcid',$arr);
         $this->assign('admin',$admin);
         return view();
     }

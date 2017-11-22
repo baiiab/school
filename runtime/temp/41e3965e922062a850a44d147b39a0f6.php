@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:83:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\guardian\lst.html";i:1510800786;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:83:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\guardian\lst.html";i:1511258562;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -294,7 +294,7 @@
                                 <th class="text-center">姓名</th>
                                 <th class="text-center">手机号码</th>
                                 <th class="text-center">学员数量</th>
-                                <th class="text-center" width="18%">操作</th>
+                                <th class="text-center" width="20%">操作</th>
                             </tr>
                         </thead>
                         <tbody>

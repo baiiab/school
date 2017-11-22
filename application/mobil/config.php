@@ -13,7 +13,7 @@ return [
 	'view_replace_str'  =>  [
     '__PUBLIC__'=>SITE_URL.'/public/static/mobil/style',
     '__IMG__'=>SITE_URL.'/public/static/mobil/images',
-    '__PIC__'=>SITE_URL.'/public/static',
+    '__PIC__'=>SITE_URL.'/public/static/mobil',
     '__JQUERY__'=>SITE_URL,
     ],
 

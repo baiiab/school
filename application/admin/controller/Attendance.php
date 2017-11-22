@@ -127,6 +127,8 @@ class Attendance extends Base
         return view();
     }
     public function sendMsg(){
+        $openId = 'oJwU51b-xGDgfgsvxuJv0oZiOsF4';
+        dump(push_weChatmsg($openId,'白白'));die;
         if(request()->isPost()){
             $data = input('post.');
             $data['sendtime'] = time();

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\login.html";i:1511167572;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\login.html";i:1511319328;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +66,6 @@
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化
     $.config = {
         autoInit: true,
-        router: false
     }
 </script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
