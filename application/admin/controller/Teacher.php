@@ -25,10 +25,10 @@ class Teacher extends Base
     function importExcel()
     {
         header("Content-type: text/html; charset=utf-8");
-        $file = request()->file('excel');
-        if(!$file){
+        if(!$_FILES['excel']['tmp_name']){
             show_msg('请选择导入文件',url('lst'));
         }
+        $file = request()->file('excel');
         $info = $file->validate(['ext' => 'xlsx'])->move(ROOT_PATH . 'public' . DS . 'uploads');
         //上传验证后缀名,以及上传之后移动的地址
         if ($info) {

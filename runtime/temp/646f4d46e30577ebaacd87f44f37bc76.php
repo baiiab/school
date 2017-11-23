@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\login\login.html";i:1510122863;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\login\login.html";i:1511423021;}*/ ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"><!--Head--><head>
     <meta charset="utf-8">
@@ -48,10 +48,10 @@
                 <div class="loginbox-textbox">
                     <input class="form-control" placeholder="password" name="password" type="password">
                 </div>
-                <div class="loginbox-textbox">
-                    <input class="form-control" placeholder="code" style="width: 80px;float: left;" name="code" type="text">
-                    <img style="float: left;cursor: pointer" src="<?php echo captcha_src(); ?>" alt="captcha" onclick="this.src='<?php echo captcha_src(); ?>?'+Math.random();"/>
-                </div>
+                <!--<div class="loginbox-textbox">-->
+                    <!--<input class="form-control" placeholder="code" style="width: 80px;float: left;" name="code" type="text">-->
+                    <!--<img style="float: left;cursor: pointer" src="<?php echo captcha_src(); ?>" alt="captcha" onclick="this.src='<?php echo captcha_src(); ?>?'+Math.random();"/>-->
+                <!--</div>-->
                 <div class="loginbox-submit">
                     <input class="btn btn-primary btn-block" value="Login" type="submit">
                 </div>

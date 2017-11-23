@@ -219,6 +219,7 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
             $zipClass = PHPExcel_Settings::getZipClass();
             $objZip = new $zipClass();
 
+
             //    Retrieve OVERWRITE and CREATE constants from the instantiated zip class
             //    This method of accessing constant values from a dynamic class should work with all appropriate versions of PHP
             $ro = new ReflectionObject($objZip);

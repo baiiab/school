@@ -34,8 +34,8 @@ class Guardian extends Controller
             $admin = new guardianModle();
             $result = $admin->login(input('post.'));
             if($result==3){
-                $data = ['openid'=>session('openid'),'status'=>session('mobile')];
-                db('user')->insert($data);
+//                $data = ['openid'=>session('openid'),'status'=>session('mobile')];
+//                db('user')->insert($data);
                 $this->redirect('home');
             }else{
                 show_msg('用户名或密码错误');

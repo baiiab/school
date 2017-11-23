@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\home.html";i:1511329919;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\home.html";i:1511435066;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +63,11 @@
             margin: 1rem 2rem 0rem 2rem;
             height: 5rem;
         }
+        .smallimg {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-bottom: 1rem
+        }
     </style>
 </head>
 <div class="page-group">
@@ -70,22 +75,21 @@
     <div class="page">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
-                <span class="icon icon-left"></span>
-                返回
-            </a>
             <h1 class="title">师生交接-监护人端</h1>
         </header>
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
-            <a class="tab-item external" href="#">
+            <a class="tab-item external" href="<?php echo url('transinfo/lst'); ?>">
+                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_situation_unactived@3x.png"></span>
                 <span class="tab-label">学员情况</span>
             </a>
-            <a class="tab-item external" href="#">
+            <a class="tab-item external" href="<?php echo url('transinfo/handtran'); ?>">
+                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_transition_unactived@3x.png"></span>
                 <span class="tab-label">学员交接</span>
             </a>
             <a class="tab-item external active" href="#">
+                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_person_center_actived@3x.png"></span>
                 <span class="tab-label">个人中心</span>
             </a>
         </nav>

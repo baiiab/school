@@ -7,10 +7,10 @@ class Login extends Controller
     public function login()
     {
         if(request()->isPost()){
-            $captcha = new \think\captcha\Captcha();
-            if(!$captcha->check(input('code'))){
-                show_msg('验证码错误');
-            }
+//            $captcha = new \think\captcha\Captcha();
+//            if(!$captcha->check(input('code'))){
+//                show_msg('验证码错误');
+//            }
             $admin = new Admin();
             $result = $admin->login(input('post.'));
             if($result==3){

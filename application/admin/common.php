@@ -72,10 +72,14 @@ function outputExcel($table,$str,$field)
         default:
             $filename = '监护人列表';
     }
-    $filename .= date('Ymd').'.xlsx';
+    $filename .= date('YmdHis').'.xlsx';
+//    $filename = iconv("UTF-8","gbk",$filename);
     $PHPWriter = \PHPExcel_IOFactory::createWriter($PHPExcel, "Excel2007");
+//    header('Content-Disposition: attachment;filename="'.$filename.'"');
+//    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Type: application/vnd.ms-excel');
     header('Content-Disposition: attachment;filename="'.$filename.'"');
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xlsx文件
+    header('Cache-Control: max-age=0');
+    $PHPWriter->save('php://output'); //表示在$path路径下面生成demo.xlsx文件
 }
 

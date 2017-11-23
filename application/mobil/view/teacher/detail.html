@@ -76,14 +76,6 @@
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script>
-    $(function(){
-        $(document).on('click','.confirm-title-ok', function () {
-            $.confirm('是否确定删除该学员', '删除学员', function () {
-                location.href = "/school/public/mobil/student/del?sid="+$('#sid').val();
-            });
-        });
-    })
-
     //打开自动初始化页面的功能
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化
     $.config = {
