@@ -19,7 +19,7 @@
             padding-top: 0.1rem;
             border: 0.05rem solid #c2ccd1;
             border-radius: 0.5rem;
-            width: 18rem;
+            width: 15rem;
             height: 7rem;
             margin-top: 2rem;
             margin-left: auto;
@@ -42,8 +42,9 @@
             border: none;
             float: left;
             padding: 0;
+            margin-right: 0.2rem;
             margin-top: 1.2rem;
-            margin-left: 2.5rem;
+            margin-left: 0.1rem;
             position: relative;
         }
 
@@ -53,12 +54,22 @@
         }
         .news-item p{
             margin-top: 0.2rem;
-            margin-left: 5rem;
+            margin-left: 2rem;
             margin-bottom: 0.1rem;
         }
         .smalltex{
             color: #8c8c8c;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+        }
+        div .common{
+            margin-top: 0.5rem;
+            padding-left: 0.1rem;
+            height: 3.5rem;
+            border-bottom: 0.05rem solid #c2ccd1;
+        }
+        .common p{
+            margin-top: 0.01rem;
+            margin-bottom: 0.01rem;
         }
         div .common img{
             width: 1rem;
@@ -69,11 +80,17 @@
             height: 1.5rem;
             margin-bottom: 1rem
         }
+
+        .boldtex {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: black;
+        }
     </style>
 </head>
 <div class="page-group">
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page">
+    <div class="page page-current" id='router'>
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
             <a class="tab-item external" href="{:url('transinfo/lst')}">
@@ -92,35 +109,55 @@
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-            <div class="news-item clearfix">
+            <a href="#router2"><div class="news-item clearfix" style="background-color: #CCFFFF">
                 <div class="news-image">
                     <img src="__IMG__/ios/icon_pending_handover@3x.png">
                 </div>
-                <p style="margin-top: 2rem">待确认交接</p>
-                <p class="smalltex">1+1=2</p>
-            </div>
-            <div class="news-item clearfix">
+                <p class="boldtex" style="margin-top: 2rem">待确认交接</p>
+                <p class="smalltex">目前您有{$gp}名学员等待确认</p>
+            </div></a>
+            <a class="external" href="{:url('arrange/index')}"><div class="news-item clearfix" style="background-color: #FFFFCC">
                 <div class="news-image">
                     <img src="__IMG__/ios/icon_arranged_handover@3x.png">
                 </div>
-                <p style="margin-top: 2rem">待安排交接</p>
-                <p class="smalltex">1+1=2</p>
-            </div>
+                <p class="boldtex" style="margin-top: 2rem;">待安排交接</p>
+                <p class="smalltex">目前您有{$tp}名学员等待安排</p>
+            </div></a>
     </div>
     </div>
     <!-- 其他的单个page内联页（如果有） -->
+    <div class="page" id='router2'>
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left external" href="{:url('transinfo/handtran')}">
+                <span class="icon icon-left"></span>
+            </a>
+            <h1 class='title'>待确认交接</h1>
+        </header>
+        <div class="content">
+            {volist name='peo' id='vo'}
+            <div class="common" onclick="javascript:window.location.href = '{:url('transinfo/recedetail',['tid'=>$vo['tid']])}'">
+                <div style="width: 63%;display: inline-block;margin-top: 0.2rem">
+                    <p class="boldtex">安排交接人：{$vo.name}</p>
+                    <p class="smalltex">安排时间：{$vo.sendtime|date='Y-m-d H:i',###}</p>
+                </div>
+                <div style="width: 30%;display: inline-block;margin-top: 0.01rem">
+                    <p class="smalltex">学员数：{$vo.num}</p>
+                    <p class="smalltex">已确认：{$vo.confirm}</p>
+                    <p class="smalltex">已驳回：{$vo.back}</p>
+                </div>
+                <div class="pull-right" style="display: inline-block;width: 5%;margin-top: 1.1rem">
+                    <p class="icon icon-right"></p></div>
+            </div>
+            {/volist}
+        </div>
+    </div>
+
 </div>
 
 <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script>
-    $(function () {
-        $('#search').click(function () {
-            if($('#searchval').val()=='') return false;
-            window.location.href = 'searchStudent?name='+$('#searchval').val();
-        });
-    })
 
     //打开自动初始化页面的功能
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化

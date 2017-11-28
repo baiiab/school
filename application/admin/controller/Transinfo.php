@@ -1,7 +1,7 @@
 <?php
 namespace app\admin\controller;
 use app\admin\controller\Base;
-use app\admin\model\Transinfo as modelTrans;
+use app\admin\model\Transinfodata as modelTrans;
 class Transinfo extends Base
 {
 //  某学员所有异常信息
@@ -13,8 +13,8 @@ class Transinfo extends Base
             ->alias('c')
             ->field('c.sid,student.name,teacher.tname,guardian.gname,sendtime,backtime,reason,status')
             ->join('student s','s.sid = c.sid')
-            ->join('teacher t','t.tid = c.tid')
-            ->join('guardian g','c.gid = g.gid')
+            ->join('teacher t','t.mobile = c.tid')
+            ->join('guardian g','c.gid = g.mobile')
             ->where('c.sid',$id)->order('sendtime desc')->paginate(30);
 //        dump($result);die;
         $this->assign('admin',$result);
@@ -34,8 +34,8 @@ class Transinfo extends Base
             ->alias('c')
             ->field('c.sid,student.name,teacher.tname,guardian.gname,sendtime,backtime,reason')
             ->join('student s','s.sid = c.sid')
-            ->join('teacher t','t.tid = c.tid')
-            ->join('guardian g','c.gid = g.gid')
+            ->join('teacher t','t.mobile = c.tid')
+            ->join('guardian g','c.gid = g.mobile')
             ->where($map)->order('sendtime desc')->paginate($listRows=30,$simple=false,                                $config=['query'=>['id'=>$id]]);
 //        dump($result);die;
         $this->assign('admin',$result);
@@ -54,8 +54,8 @@ class Transinfo extends Base
             ->alias('c')
             ->field('c.sid,student.name,teacher.tname,guardian.gname,sendtime,backtime,reason')
             ->join('student s','s.sid = c.sid')
-            ->join('teacher t','t.tid = c.tid')
-            ->join('guardian g','c.gid = g.gid')
+            ->join('teacher t','t.mobile = c.tid')
+            ->join('guardian g','c.gid = g.mobile')
             ->where('c.status',$id)->order('sendtime desc')->paginate(30);
 //        dump($result);die;
         $this->assign('admin',$result);

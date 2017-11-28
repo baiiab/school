@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\transinfo\lst.html";i:1511435343;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\transinfo\lst.html";i:1511855226;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +47,7 @@
         }
         .news-item p{
             margin-top: 0.2rem;
-            margin-left: 5rem;
+            margin-left: 4.5rem;
             margin-bottom: 0.1rem;
         }
         .smalltex{
@@ -71,10 +71,9 @@
         <!-- 标题栏 -->
         <header class="bar bar-nav">
             <div class="searchbar" style="text-align: center">
-                <a class="searchbar-cancel" id='search'>搜索</a>
                 <div class="search-input">
-                    <label class="icon icon-search" for="search"></label>
-                    <input type="search" id="searchval" placeholder='输入关键字...'/>
+                    <label class="icon icon-search" for="searchval"></label>
+                    <input type="search" id="searchval" placeholder='输入日期...'/>
                 </div>
             </div>
         </header>
@@ -103,8 +102,8 @@
                 <div class="news-image">
                     <img style="margin-right: 0.5rem;margin-top: 0.3rem" class="pull-right" src="<?php if($vo['headimg'] != ''): ?>__PIC__<?php echo $vo['headimg']; else: ?>__IMG__/ios/icon_head_portrait@3x.png<?php endif; ?>">
                 </div>
-                <p><?php echo $vo['name']; ?><span class="pull-right smalltex"><?php echo $vo['sex']; ?>&nbsp;<?php echo $vo['cid']; ?></span></p>
-                <p class="smalltex"><?php echo $vo['reason']; ?><span class="pull-right smalltex">驳回人：<?php echo $vo['gname']; ?></span></p>
+                <p><?php echo $vo['name']; ?><span class="pull-right smalltex"><?php echo $vo['gender']; ?>&nbsp;<?php echo $vo['cid']; ?></span></p>
+                <p class="smalltex"><?php echo $vo['reason']; ?><span class="pull-right smalltex"><?php if($vo['status'] == 1): ?>驳回人：<?php else: ?>接收人：<?php endif; ?><?php echo $vo['gname']; ?></span></p>
                 <p class="pull-right smalltex"><?php echo date("Y-m-d H:m",strtotime($vo['backtime'])); ?></p>
             </div>
             <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -118,12 +117,22 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script>
     $(function () {
-        $('#search').click(function () {
-            if($('#searchval').val()=='') return false;
-            window.location.href = 'searchStudent?name='+$('#searchval').val();
+        var time = new Date();
+        var days = time.getTime() - 30*24*60*60*1000;
+        var start = getLocalTime(days);
+        $("#searchval").calendar({
+//            value: ["'"+ time +"'"],
+            minDate: ["'"+ start +"'"],
+            maxDate: ["'"+ time +"'"],
+            onChange: function (p, values, displayValues) {
+//                alert(displayValues);die;
+                window.location.href = 'searchDay?day='+displayValues;
+            }
         });
     })
-
+    function getLocalTime(nS) {
+        return new Date(parseInt(nS)).toLocaleString().replace(/年|月/g, "/").replace(/日/g, " ").substr(0,10);
+    }
     //打开自动初始化页面的功能
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化
     $.config = {

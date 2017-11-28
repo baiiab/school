@@ -1,4 +1,3 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\transinfo\handtran.html";i:1511866661;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +93,7 @@
     <div class="page page-current" id='router'>
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
-            <a class="tab-item external" href="<?php echo url('transinfo/lst'); ?>">
+            <a class="tab-item external" href="{:url('transinfo/lst')}">
                 <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_situation_unactived@3x.png"></span>
                 <span class="tab-label">学员情况</span>
             </a>
@@ -102,7 +101,7 @@
                 <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_transition_actived@3x.png"></span>
                 <span class="tab-label">学员交接</span>
             </a>
-            <a class="tab-item external" href="<?php echo url('guardian/home'); ?>">
+            <a class="tab-item external" href="{:url('guardian/home')}">
                 <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_person_center_unactived@3x.png"></span>
                 <span class="tab-label">个人中心</span>
             </a>
@@ -115,41 +114,41 @@
                     <img src="__IMG__/ios/icon_pending_handover@3x.png">
                 </div>
                 <p class="boldtex" style="margin-top: 2rem">待确认交接</p>
-                <p class="smalltex">目前您有<?php echo $gp; ?>名学员等待确认</p>
+                <p class="smalltex">目前您有{$gp}名学员等待确认</p>
             </div></a>
-            <a class="external" href="<?php echo url('arrange/index'); ?>"><div class="news-item clearfix" style="background-color: #FFFFCC">
+            <a href="#router2"><div class="news-item clearfix" style="background-color: #FFFFCC">
                 <div class="news-image">
                     <img src="__IMG__/ios/icon_arranged_handover@3x.png">
                 </div>
                 <p class="boldtex" style="margin-top: 2rem;">待安排交接</p>
-                <p class="smalltex">目前您有<?php echo $tp; ?>名学员等待安排</p>
+                <p class="smalltex">目前您有{$tp}名学员等待安排</p>
             </div></a>
     </div>
     </div>
     <!-- 其他的单个page内联页（如果有） -->
     <div class="page" id='router2'>
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left external" href="<?php echo url('transinfo/handtran'); ?>">
+            <a class="button button-link button-nav pull-left external" href="{:url('transinfo/handtran')}">
                 <span class="icon icon-left"></span>
             </a>
             <h1 class='title'>待确认交接</h1>
         </header>
         <div class="content">
-            <?php if(is_array($peo) || $peo instanceof \think\Collection || $peo instanceof \think\Paginator): $i = 0; $__LIST__ = $peo;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-            <div class="common" onclick="javascript:window.location.href = '<?php echo url('transinfo/recedetail',['tid'=>$vo['tid']]); ?>'">
+            {volist name='peo' id='vo'}
+            <div class="common" onclick="javascript:window.location.href = '{:url('transinfo/recedetail',['tid'=>$vo['tid']])}'">
                 <div style="width: 63%;display: inline-block;margin-top: 0.2rem">
-                    <p class="boldtex">安排交接人：<?php echo $vo['name']; ?></p>
-                    <p class="smalltex">安排时间：<?php echo date('Y-m-d H:i',$vo['sendtime']); ?></p>
+                    <p class="boldtex">安排交接人：{$vo.name}</p>
+                    <p class="smalltex">安排时间：{$vo.sendtime|date='Y-m-d H:i',###}</p>
                 </div>
                 <div style="width: 30%;display: inline-block;margin-top: 0.01rem">
-                    <p class="smalltex">学员数：<?php echo $vo['num']; ?></p>
-                    <p class="smalltex">已确认：<?php echo $vo['confirm']; ?></p>
-                    <p class="smalltex">已驳回：<?php echo $vo['back']; ?></p>
+                    <p class="smalltex">学员数：{$vo.num}</p>
+                    <p class="smalltex">已确认：{$vo.confirm}</p>
+                    <p class="smalltex">已驳回：{$vo.back}</p>
                 </div>
                 <div class="pull-right" style="display: inline-block;width: 5%;margin-top: 1.1rem">
                     <p class="icon icon-right"></p></div>
             </div>
-            <?php endforeach; endif; else: echo "" ;endif; ?>
+            {/volist}
         </div>
     </div>
 

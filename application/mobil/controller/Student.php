@@ -50,7 +50,7 @@ class Student extends Controller
     public function del(){
         $id = input('sid');
 //        dump($id);die;
-        if(db('student')->where('sid',$id)->delete()){
+        if(db('student')->where('sid',$id)->update(['tid'=>''])){
             show_msg('删除学员成功',url('lst'));
         }else{
             show_msg('删除学员失败!');
