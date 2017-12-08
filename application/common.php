@@ -11,6 +11,20 @@
 use wxSdk\Jssdk;
 
 // 应用公共文件
+function getWxConfig(){
+    $APPID = config('PUBLIC_APPID');
+    $APPSECRET = config('PUBLIC_APP_SECRET');
+    $jssdk = new Jssdk($APPID, $APPSECRET);
+    $info = $jssdk->getSignPackage("wechat.dreamwintime.com/school/public/index/attendance/index.html");
+    $data = array(
+        'appId' => $info['appId'],
+        'timestamp'=> $info['timestamp'],
+        'nonceStr'=> $info['nonceStr'],
+        'signature'=> $info['signature'],
+        'url'=> $info['url'],
+    );
+    return $data;
+}
 function push_weChatmsg($touser, $content)
 {
 

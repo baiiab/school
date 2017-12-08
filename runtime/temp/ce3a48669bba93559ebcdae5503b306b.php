@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\transinfo\lst.html";i:1511855226;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\transinfo\lst.html";i:1512296375;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,15 +10,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/sm.min.css">
     <style type="text/css">
         .news-item {
-            min-height: 5rem;
+            min-height: 85px;
             position: relative;
             padding-left: 1rem;
             padding-top: 0.1rem;
-            border-bottom: 0.1rem solid #c2ccd1;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #CCCCCC;
         }
 
         .clearfix:after {
@@ -32,8 +32,8 @@
         }
 
         .news-image {
-            width: 4rem;
-            height: 4rem;
+            width: 69px;
+            height: 69px;
             border: none;
             float: left;
             margin: 0;
@@ -42,26 +42,38 @@
         }
 
         .news-image img {
-            width: 4rem;
-            height: 4rem;
+            width: 69px;
+            height: 69px;
+            border-radius: 69px;
         }
-        .news-item p{
+        p{
             margin-top: 0.2rem;
-            margin-left: 4.5rem;
-            margin-bottom: 0.1rem;
+            margin-left: 3.8rem;
+            margin-bottom: 0.01rem;
         }
         .smalltex{
-            color: #8c8c8c;
-            font-size: 0.8rem;
-        }
-        div .common img{
-            width: 1rem;
-            height: 1rem;
+            color: #999999;
+            font-family: SFUIDisplay-Regular;
+            font-size: 14px;
+            margin-top: 0.01rem;
+            margin-right: 16px;
         }
         .smallimg {
             width: 1.5rem;
             height: 1.5rem;
             margin-bottom: 1rem
+        }
+        .boldtex{
+            font-size: 16px;
+            font-family: SFUIDisplay-Medium;
+            color: #333333;
+        }
+        .datetex{
+            font-family: SFUIDisplay-Regular;
+            font-size: 12px;
+            color: #999999;
+            margin-right: 16px;
+            margin-top: 8px;
         }
     </style>
 </head>
@@ -102,9 +114,9 @@
                 <div class="news-image">
                     <img style="margin-right: 0.5rem;margin-top: 0.3rem" class="pull-right" src="<?php if($vo['headimg'] != ''): ?>__PIC__<?php echo $vo['headimg']; else: ?>__IMG__/ios/icon_head_portrait@3x.png<?php endif; ?>">
                 </div>
-                <p><?php echo $vo['name']; ?><span class="pull-right smalltex"><?php echo $vo['gender']; ?>&nbsp;<?php echo $vo['cid']; ?></span></p>
-                <p class="smalltex"><?php echo $vo['reason']; ?><span class="pull-right smalltex"><?php if($vo['status'] == 1): ?>驳回人：<?php else: ?>接收人：<?php endif; ?><?php echo $vo['gname']; ?></span></p>
-                <p class="pull-right smalltex"><?php echo date("Y-m-d H:m",strtotime($vo['backtime'])); ?></p>
+                <p><span class="boldtex"><?php echo $vo['name']; ?></span><span class="pull-right smalltex"><?php echo $vo['gender']; ?>&nbsp;<?php echo $vo['cid']; ?></span></p>
+                <p class="smalltex"><?php echo $vo['reason']; ?>&nbsp;<span class="pull-right"><?php if($vo['status'] == 1): ?>驳回人：<?php else: ?>接收人：<?php endif; ?><?php echo $vo['gname']; ?></span></p>
+                <p class="pull-right datetex"><?php echo date("Y-m-d H:m",$vo['backtime']); ?></p>
             </div>
             <?php endforeach; endif; else: echo "" ;endif; ?>
     </div>
@@ -114,7 +126,7 @@
 
 <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/zepto.min.js' charset='utf-8'></script>
 <script>
     $(function () {
         var time = new Date();
@@ -139,8 +151,7 @@
         autoInit: true,
     }
 </script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/sm.min.js' charset='utf-8'></script>
 
 </body>
 </html>

@@ -9,71 +9,60 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/sm.min.css">
     <style type="text/css">
         .news-item {
-            min-height: 5rem;
-            position: relative;
-            padding-left: 1rem;
-            padding-top: 0.1rem;
-            border: 0.05rem solid #c2ccd1;
-            border-radius: 0.5rem;
-            width: 15rem;
-            height: 7rem;
+            height: 127px;
+            padding-left: 25px;
+            border: 1px solid #E6E6E6;
+            border-radius: 8px;
+            width: 300px;
+
             margin-top: 2rem;
             margin-left: auto;
             margin-right: auto;
+            display: flex;
         }
 
-        .clearfix:after {
-            display: block;
-            content: '.';
-            clear: both;
-            height: 0;
-            font-size: 0;
-            line-height: 0;
-            overflow: hidden;
+        .news-image{
+            width: 50px;
+            height: 50px;
+            margin-top: 35px;
+            align-content: center;
         }
-
-        .news-image {
-            width: 4rem;
-            height: 4rem;
-            border: none;
-            float: left;
-            padding: 0;
-            margin-right: 0.2rem;
-            margin-top: 1.2rem;
-            margin-left: 0.1rem;
-            position: relative;
+        .news-image img{
+            width: 50px;
+            height: 50px;
         }
-
-        .news-image img {
-            width: 4rem;
-            height: 4rem;
-        }
-        .news-item p{
-            margin-top: 0.2rem;
-            margin-left: 2rem;
-            margin-bottom: 0.1rem;
+        .news-item-p{
+            margin-left: 10px;
+            align-content: center;
         }
         .smalltex{
-            color: #8c8c8c;
-            font-size: 0.75rem;
+            color: #666666;
+            font-size: 14px;
+            margin-top: 2px;
+            font-family: SFUIDisplay-Regular;
         }
         div .common{
-            margin-top: 0.5rem;
-            padding-left: 0.1rem;
-            height: 3.5rem;
-            border-bottom: 0.05rem solid #c2ccd1;
+            padding-top: 20px;
+            padding-left: 16px;
+            height: 99px;
+            display: flex;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #CCCCCC;
         }
         .common p{
             margin-top: 0.01rem;
             margin-bottom: 0.01rem;
         }
-        div .common img{
-            width: 1rem;
-            height: 1rem;
+
+        .common-left{
+            flex-grow: 5;
+        }
+        .common-right{
+            flex-grow: 1;
+            margin-right: 5px;
         }
         .smallimg {
             width: 1.5rem;
@@ -82,10 +71,45 @@
         }
 
         .boldtex {
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: black;
+            font-size: 16px;
+            margin-top: 35px;
+            margin-bottom: 1px;
+            font-family: PingFang-SC-Bold;
+            color: #333333;
         }
+        .titleh{
+            color: #FFFFFF;
+            margin-top: 0.2rem;
+            font-size: 16px;
+            font-family: PingFang-SC-Bold;
+        }
+        .title1{
+            height: 2.5rem;
+            background-color: #28A5E5;
+            line-height: 2.5rem;
+        }
+        .router-boldtex{
+            font-family: PingFang-SC-Bold;
+            font-size: 14px;
+            color: #333333;
+        }
+        .router-time{
+            font-family: SFUIDisplay-Regular;
+            font-size: 12px;
+            color: #999999;
+        }
+
+        .router-smtex{
+            font-family: SFUIDisplay-Regular;
+            font-size: 14px;
+            color: #999999;
+        }
+        header .icon{
+            vertical-align: middle;
+            margin-left: 11px;
+            font-size: 0.9rem;
+        }
+
     </style>
 </head>
 <div class="page-group">
@@ -109,43 +133,45 @@
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-            <a href="#router2"><div class="news-item clearfix" style="background-color: #CCFFFF">
+            <a href="#router2"><div class="news-item" style="background-color: #E8F3F8">
                 <div class="news-image">
                     <img src="__IMG__/ios/icon_pending_handover@3x.png">
                 </div>
-                <p class="boldtex" style="margin-top: 2rem">待确认交接</p>
-                <p class="smalltex">目前您有{$gp}名学员等待确认</p>
+                <div class="news-item-p">
+                <p class="boldtex">待确认交接</p>
+                <p class="smalltex">目前您有{$gp}名学员等待确认</p></div>
             </div></a>
-            <a class="external" href="{:url('arrange/index')}"><div class="news-item clearfix" style="background-color: #FFFFCC">
+            <a class="external" href="{:url('arrange/index')}"><div class="news-item" style="background-color: #F4FDF1">
                 <div class="news-image">
                     <img src="__IMG__/ios/icon_arranged_handover@3x.png">
                 </div>
-                <p class="boldtex" style="margin-top: 2rem;">待安排交接</p>
-                <p class="smalltex">目前您有{$tp}名学员等待安排</p>
+                <div class="news-item-p">
+                <p class="boldtex">待安排交接</p>
+                <p class="smalltex">目前您有{$tp}名学员等待安排</p></div>
             </div></a>
     </div>
     </div>
     <!-- 其他的单个page内联页（如果有） -->
     <div class="page" id='router2'>
-        <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left external" href="{:url('transinfo/handtran')}">
-                <span class="icon icon-left"></span>
+        <header class="bar bar-nav title1">
+            <a class="button button-link button-nav pull-left external" style="color: #FFFFFF" href="{:url('transinfo/handtran')}">
+                <span class="icon icon-left" style="color: #FFFFFF"></span>
             </a>
-            <h1 class='title'>待确认交接</h1>
+            <h1 class='title titleh'>待确认交接</h1>
         </header>
         <div class="content">
             {volist name='peo' id='vo'}
             <div class="common" onclick="javascript:window.location.href = '{:url('transinfo/recedetail',['tid'=>$vo['tid']])}'">
-                <div style="width: 63%;display: inline-block;margin-top: 0.2rem">
-                    <p class="boldtex">安排交接人：{$vo.name}</p>
-                    <p class="smalltex">安排时间：{$vo.sendtime|date='Y-m-d H:i',###}</p>
+                <div class="common-left" style="margin-top: 0.2rem">
+                    <p class="router-boldtex">安排交接人：{$vo.name}</p>
+                    <p class="router-time" style="margin-top: 5px">安排时间：{$vo.sendtime|date='Y-m-d H:i',###}</p>
                 </div>
-                <div style="width: 30%;display: inline-block;margin-top: 0.01rem">
-                    <p class="smalltex">学员数：{$vo.num}</p>
-                    <p class="smalltex">已确认：{$vo.confirm}</p>
-                    <p class="smalltex">已驳回：{$vo.back}</p>
+                <div class="common-right " style="margin-top: 0.01rem;">
+                    <p class="router-smtex">学员数：{$vo.num}名</p>
+                    <p class="router-smtex">已确认：{$vo.confirm}名</p>
+                    <p class="router-smtex">已驳回：{$vo.back}名</p>
                 </div>
-                <div class="pull-right" style="display: inline-block;width: 5%;margin-top: 1.1rem">
+                <div class="pull-right" style="display: inline-block;width: 5%;margin-top: 1rem;margin-right: 10px">
                     <p class="icon icon-right"></p></div>
             </div>
             {/volist}
@@ -156,7 +182,7 @@
 
 <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/zepto.min.js' charset='utf-8'></script>
 <script>
 
     //打开自动初始化页面的功能
@@ -165,8 +191,7 @@
         autoInit: true,
     }
 </script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/sm.min.js' charset='utf-8'></script>
 
 </body>
 </html>

@@ -10,12 +10,12 @@ class Transinfo extends Base
         $transinfo = new modelTrans();
 //        dump($id);die;
         $result = $transinfo
-            ->alias('c')
-            ->field('c.sid,student.name,teacher.tname,guardian.gname,sendtime,backtime,reason,status')
-            ->join('student s','s.sid = c.sid')
-            ->join('teacher t','t.mobile = c.tid')
-            ->join('guardian g','c.gid = g.mobile')
-            ->where('c.sid',$id)->order('sendtime desc')->paginate(30);
+//            ->alias('c')
+            ->field('sid,name,tname,gname,sendtime,backtime,reason,status')
+//            ->join('student s','s.sid = c.sid')
+//            ->join('teacher t','t.mobile = c.tid')
+//            ->join('guardian g','c.gid = g.mobile')
+            ->where('sid',$id)->order('sendtime desc')->paginate(30);
 //        dump($result);die;
         $this->assign('admin',$result);
         return view();
@@ -26,16 +26,16 @@ class Transinfo extends Base
         $id = input('id');
 //        $arr = explode($id);
 //        dump($id[0]);die;
-        $map['c.sid']=$id[0];
-        $map['c.status']=$id[2];
+        $map['sid']=$id[0];
+        $map['status']=$id[2];
         $transinfo = new modelTrans();
 //        dump($id);die;
         $result = $transinfo
-            ->alias('c')
-            ->field('c.sid,student.name,teacher.tname,guardian.gname,sendtime,backtime,reason')
-            ->join('student s','s.sid = c.sid')
-            ->join('teacher t','t.mobile = c.tid')
-            ->join('guardian g','c.gid = g.mobile')
+//            ->alias('c')
+            ->field('sid,name,tname,gname,sendtime,backtime,reason')
+//            ->join('student s','s.sid = c.sid')
+//            ->join('teacher t','t.mobile = c.tid')
+//            ->join('guardian g','c.gid = g.mobile')
             ->where($map)->order('sendtime desc')->paginate($listRows=30,$simple=false,                                $config=['query'=>['id'=>$id]]);
 //        dump($result);die;
         $this->assign('admin',$result);
@@ -51,12 +51,12 @@ class Transinfo extends Base
 
 //        dump($id);die;
         $result = $transinfo
-            ->alias('c')
-            ->field('c.sid,student.name,teacher.tname,guardian.gname,sendtime,backtime,reason')
-            ->join('student s','s.sid = c.sid')
-            ->join('teacher t','t.mobile = c.tid')
-            ->join('guardian g','c.gid = g.mobile')
-            ->where('c.status',$id)->order('sendtime desc')->paginate(30);
+//            ->alias('c')
+            ->field('sid,name,tname,gname,sendtime,backtime,reason')
+//            ->join('student s','s.sid = c.sid')
+//            ->join('teacher t','t.mobile = c.tid')
+//            ->join('guardian g','c.gid = g.mobile')
+            ->where('status',$id)->order('sendtime desc')->paginate(30);
 //        dump($result);die;
         $this->assign('admin',$result);
         return view();

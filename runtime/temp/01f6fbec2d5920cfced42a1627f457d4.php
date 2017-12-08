@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\teacher\lst.html";i:1511257053;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\teacher\lst.html";i:1512288859;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +10,48 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/sm.min.css">
     <style type="text/css">
-        div .common{
-            margin-top: 0.5rem;
-            padding-left: 1rem;
-            border-top: 0.1rem solid #c2ccd1;
+        .title1{
+            height: 2.5rem;
+            background-color: #28A5E5;
+            line-height: 2.5rem;
         }
-        div .common img{
-            width: 3rem;
-            height: 3rem;
+        div .common{
+            padding-left: 1rem;
+            background-color: #FFFFFF;
+            border-top: 1px solid #CCCCCC;
+        }
+        hr {
+            height: 1px;
+            border: none;
+            border-top: 1px solid #CCCCCC;
+        }
+        .boldtex{
+            font-family: SFUIDisplay-Semibold;
+            color: #333333;
+            font-size: 14px;
+        }
+        .bar .icon{
+            vertical-align: middle;
+            margin-left: 11px;
+            font-size: 0.9rem;
+        }
+        .smalltex{
+            font-family: PingFang-SC-Medium;
+            color: #666666;
+            font-size: 14px;
+        }
+        .mobiltex{
+            font-family: SFUIDisplay-Regular;
+            color: #666666;
+            font-size: 14px;
+        }
+        .titleh{
+            color: #FFFFFF;
+            margin-top: 0.2rem;
+            font-size: 16px;
+            font-family: PingFang-SC-Bold;
         }
 
     </style>
@@ -29,27 +60,29 @@
     <!-- 单个page ,第一个.page默认被展示-->
     <div class="page">
         <!-- 标题栏 -->
-        <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left back" href="" data-transition='slide-out'>
+        <header class="bar bar-nav title1">
+            <a class="button button-link button-nav pull-left back" style="color: #FFFFFF" data-transition='slide-out'>
                 <span class="icon icon-left"></span>
-                返回
             </a>
-            <h1 class="title">教师通讯录</h1>
+            <h1 class="title titleh" style="color: #FFFFFF">教师通讯录</h1>
         </header>
 
         <!-- 工具栏 -->
 
         <!-- 这里是页面内容区 -->
         <div class="content">
+            <div class="common">
             <?php if(is_array($teachers) || $teachers instanceof \think\Collection || $teachers instanceof \think\Paginator): $i = 0; $__LIST__ = $teachers;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-            <div class="common" onclick="javascript:window.location.href = '<?php echo url('teacher/detail',['id'=>$vo['tid']]); ?>'">
-                <p><span class="pull-right" style="margin-right: 0.5rem"><?php echo $vo['position']; ?></span>
-                    <span style="margin-left: 0.5rem"><?php echo $vo['tname']; ?>&nbsp;<?php echo $vo['gender']; ?></span></p>
-                <p><span class="pull-right" style="margin-right: 0.5rem"><?php echo $vo['mobile']; ?></span>
-                    <span style="margin-left: 0.5rem">主教科目：<?php echo $vo['course']; ?></span></p>
+            <div onclick="javascript:window.location.href = '<?php echo url('teacher/detail',['id'=>$vo['tid']]); ?>'">
+                <p style="margin-bottom: 0.01rem"><span class="pull-right smalltex" style="margin-right: 0.5rem"><?php echo $vo['position']; ?></span>
+                    <span class="boldtex"><?php echo $vo['tname']; ?>&nbsp;<?php echo $vo['gender']; ?></span></p>
+                <p style="margin-top: 0.01rem"><span class="pull-right mobiltex" style="margin-right: 0.5rem"><?php echo $vo['mobile']; ?></span>
+                    <span class="smalltex">主教科目：<?php echo $vo['course']; ?></span></p>
             </div>
+                <hr/>
             <?php endforeach; endif; else: echo "" ;endif; ?>
-            <hr/>
+            </div>
+
         </div>
     </div>
 
@@ -58,7 +91,7 @@
 
 <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/zepto.min.js' charset='utf-8'></script>
 <script>
     $(function(){
         $(document).on('click','.confirm-title-ok', function () {
@@ -74,8 +107,7 @@
         autoInit: true,
     }
 </script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/sm.min.js' charset='utf-8'></script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1511021977;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\change.html";i:1512103690;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1510920761;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1510805509;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +24,6 @@
         $(document).ready(function(){
             $("#cid").hide();
             $('#year').change(function () {
-//                alert('q');die;
                 $.ajax({
                     type: "GET",
                     url: "__JQUERY__/public/admin/Student/searchClass",
@@ -59,11 +58,11 @@
                 die;
             }
             var obj = prompt("请输入监护人");
-//            alert(obj);die;
+            if(obj.isNull) die;
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function () {
                 if (ajax.readyState == 4) {
-                    if(ajax.responseText==0)  alert("交接失败");
+                    if(ajax.responseText==0)  alert("监护人不能为空,交接失败");
                     else alert("交接成功，等待对方确认");
                 }
             }

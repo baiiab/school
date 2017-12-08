@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\editpas.html";i:1511171746;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\editpas.html";i:1512288956;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +10,40 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/sm.min.css">
+    <style type="text/css">
+        .title1{
+            height: 49px;
+            background-color: #28A5E5;
+            line-height: 49px;
+        }
+        .titleh{
+            color: #FFFFFF;
+            margin-top: 0.2rem;
+            font-size: 16px;
+            font-family: PingFang-SC-Bold;
+        }
+        .sutex{
+            font-size: 18px;
+            font-family: PingFang-SC-Medium;
+            height: 2rem;
+        }
+        .bar .icon{
+            vertical-align: middle;
+            margin-left: 11px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <div class="page-group">
     <!-- 单个page ,第一个.page默认被展示-->
     <div class="page page-current">
         <!-- 标题栏 -->
-        <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left back" href="" data-transition='slide-out'>
+        <header class="bar bar-nav title1">
+            <a class="button button-link button-nav pull-left back" style="color: #FFFFFF" data-transition='slide-out'>
                 <span class="icon icon-left"></span>
             </a>
-            <h1 class="title">修改密码</h1>
+            <h1 class="title titleh">修改密码</h1>
         </header>
 
         <!-- 你的html代码 -->
@@ -35,7 +58,7 @@
                                     <div class="item-media"><i class="icon icon-form-name"></i></div>
                                     <div class="item-inner">
                                         <div class="item-input">
-                                            <input type="text" name="oldpas" placeholder="原密码">
+                                            <input type="text" name="oldpas" placeholder="请输入旧密码">
                                         </div>
                                     </div>
                                 </div>
@@ -64,13 +87,13 @@
                         </ul>
                     </div>
                 </div>
-                <input type="submit" class="button button-fill" value="确&nbsp;&nbsp;定">
+                <input type="submit" class="button button-fill sutex" value="确&nbsp;&nbsp;定">
             </form>
         </div>
     </div>
 </div>
 <script src="__PUBLIC__/jquery-3.2.1.js"></script>
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/zepto.min.js' charset='utf-8'></script>
 <script>
     function check() {
         var old = document.getElementById('oldpas').value;
@@ -89,6 +112,6 @@
         autoInit: true,
     }
 </script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/sm.min.js' charset='utf-8'></script>
 </body>
 </html>

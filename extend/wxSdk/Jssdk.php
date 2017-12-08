@@ -16,10 +16,10 @@ class Jssdk {
 //    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 //    $url2 = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     if($ip == null){
-        $ip = 'shoedog.dreamwintime.com';
+        $ip = 'wechat.dreamwintime.com';
     }
 
-    $url = "http://$ip/?tokenSession=$this->tokenSession";
+    $url = "http://$ip";
     $timestamp = time();
     $nonceStr = $this->createNonceStr();
 
@@ -49,8 +49,8 @@ class Jssdk {
 
   public function getJsApiTicket() {
     // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
-    $data = json_decode($this->get_php_file("jsapi_ticket.php"));
-    if ($data->expire_time < time()) {
+//    $data = json_decode($this->get_php_file("jsapi_ticket.php"));
+    if (cache('expire_time') < time()) {
       $accessToken = $this->getAccessToken();
 //      return $accessToken;
       // 如果是企业号用以下 URL 获取 ticket
@@ -61,12 +61,13 @@ class Jssdk {
 
       $ticket = $res->ticket;
       if ($ticket) {
-        $data->expire_time = time() + 7000;
-        $data->jsapi_ticket = $ticket;
-        $this->set_php_file("jsapi_ticket.php", json_encode($data));
+          cache('expire_time',time() + 7000);
+          cache('jsapi_ticket',$ticket);
+//        $data->jsapi_ticket = $ticket;
+//        $this->set_php_file("jsapi_ticket.php", json_encode($data));
       }
     } else {
-      $ticket = $data->jsapi_ticket;
+      $ticket = cache('jsapi_ticket');
     }
 
     return $ticket;
@@ -76,14 +77,14 @@ class Jssdk {
     // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
 //    $data = json_decode(file_get_contents("extra/access_token.json"));
 
-    if (cache('expire_time') < time()) {
+    if (cache('expire_time1') < time()) {
 
       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
       $res = json_decode($this->httpGet($url));
       $access_token = $res->access_token;
 //      $access_token = "Jp8S4A5-esf3kfxPROftUOzCxKIfnB_pRwuN61dYNQe8vJf7fxKbci985Hendb0cQ3-tKgO3-azg7ZIE19SquF7_s7dtUjsvHsaVcVg3o7IZCh8XPvJDWjsfw38hcDIHELIjAAAPWT";
       if ($access_token) {
-          cache('expire_time',time() + 7000);
+          cache('expire_time1',time() + 7000);
           cache('access_token',$access_token);
 //        $this->set_php_file("extra/access_token.php", json_encode($data));
       }

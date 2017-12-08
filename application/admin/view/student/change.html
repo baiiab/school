@@ -57,11 +57,11 @@
                 die;
             }
             var obj = prompt("请输入监护人");
-//            alert(obj);die;
+            if(obj.isNull) die;
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function () {
                 if (ajax.readyState == 4) {
-                    if(ajax.responseText==0)  alert("交接失败");
+                    if(ajax.responseText==0)  alert("监护人不能为空,交接失败");
                     else alert("交接成功，等待对方确认");
                 }
             }

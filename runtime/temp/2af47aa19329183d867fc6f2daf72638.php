@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\news\sysnews.html";i:1511333900;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\news\sysnews.html";i:1512288931;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +10,41 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/sm.min.css">
     <style type="text/css">
-        .content {
-
+        .title1{
+            height: 49px;
+            background-color: #28A5E5;
+            line-height: 49px;
+        }
+        .smalltex{
+            color: #999999;
+            font-size: 12px;
+            font-family: SFUIDisplay-Regular;
+            margin-bottom: 10px;
+        }
+        .boldtex{
+            font-size: 14px;
+            color: #333333;
+            font-family: PingFang-SC-Medium;
+        }
+        .bar .icon{
+            vertical-align: middle;
+            margin-left: 11px;
+            font-size: 0.9rem;
+        }
+        .pane{
+            background-color: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            border-radius: 4px 4px 4px 4px;
+            text-align: left;
+            padding: 15px;
+        }
+        .titleh{
+            color: #FFFFFF;
+            margin-top: 0.2rem;
+            font-size: 16px;
+            font-family: PingFang-SC-Bold;
         }
     </style>
 </head>
@@ -21,28 +52,27 @@
     <!-- 单个page ,第一个.page默认被展示-->
     <div class="page page-current">
         <!-- 标题栏 -->
-        <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left back" href="" data-transition='slide-out'>
+        <header class="bar bar-nav title1">
+            <a class="button button-link button-nav pull-left back" style="color: #FFFFFF" data-transition='slide-out'>
                 <span class="icon icon-left"></span>
-
             </a>
-            <h1 class="title">系统消息</h1>
+            <h1 class="title titleh">系统消息</h1>
         </header>
 
         <!-- 你的html代码 -->
-        <div class="content" style="padding:1rem 1rem 0 1rem">
+        <div class="content" style="padding:20px 15px 0 15px">
             <?php if(is_array($sys) || $sys instanceof \think\Collection || $sys instanceof \think\Paginator): $i = 0; $__LIST__ = $sys;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-            <div style="text-align: center;margin-bottom: 1.5rem">
-                <p style="font-size: smaller;color: #8c8c8c;"><?php echo date("Y-m-d H:m",$vo['sendtime']); ?></p>
-                <div style="padding: 0.5rem;width: 100%;background-color: white;border: 0.06rem solid #d3d3d3;border-radius: 0.3rem;">
-                    <?php echo $vo['content']; ?>
+            <div style="text-align: center;margin-bottom: 32px">
+                <p class="smalltex"><?php echo date("Y-m-d H:m",$vo['sendtime']); ?></p>
+                <div class="pane">
+                    <span class="boldtex"><?php echo $vo['content']; ?></span>
                 </div>
             </div>
             <?php endforeach; endif; else: echo "" ;endif; ?>
         </div>
     </div>
 </div>
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/zepto.min.js' charset='utf-8'></script>
 <script>
     //打开自动初始化页面的功能
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化
@@ -50,6 +80,6 @@
         autoInit: true,
     }
 </script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/sm.min.js' charset='utf-8'></script>
 </body>
 </html>
