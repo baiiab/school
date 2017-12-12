@@ -134,6 +134,15 @@ class Arrange extends Controller
                 $data['sid'] = $vo;
                 db('message')->insert($data);
             }
+            $content['name'] = session('name');
+            $op = db('user')->where('mobile',$data['gid'])->find();
+            push_weChatmsg($op['openid'],$content,'1');
+            $news = [
+                'sendtime' => $data['sendtime'],
+                'content' => session('name').'已对您安排学员，请尽快确认',
+                'status' => $data['gid'],
+            ];
+            db('systemnews')->insert($news);
             show_msg('安排成功，等待接收',url('home'));
         }
         $this->assign(['teacher'=>$gid,'sids'=>$sids,'sid'=>$sid]);
@@ -153,6 +162,15 @@ class Arrange extends Controller
             $data['sid'] = $vo;
             db('message')->insert($data);
         }
+        $content['name'] = session('name');
+        $op = db('user')->where('mobile',$data['gid'])->find();
+        push_weChatmsg($op['openid'],$content,'1');
+        $news = [
+            'sendtime' => $data['sendtime'],
+            'content' => session('name').'已对您安排学员，请尽快确认',
+            'status' => $data['gid'],
+        ];
+        db('systemnews')->insert($news);
         show_msg('安排成功，等待接收',url('arrange/index'));
     }
 }

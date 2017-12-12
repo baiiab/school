@@ -6,7 +6,7 @@
  * Time: 11:53
  */
 namespace app\mobil\controller;
-use app\admin\controller\Base;
+use app\mobil\controller\Base;
 class News extends Base
 {
     public function home()

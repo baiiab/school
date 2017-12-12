@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
-    <title></title>
+    <title>特殊教育服务号-后台管理</title>
 
     <meta name="description" content="Dashboard">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,7 +94,15 @@
                                 <td align="center">{$vo.name}</td>
                                 <td align="center">{$vo.sex}</td>
                                 <td align="center">{$vo.cid}</td>
-                                <td align="center">{$vo.tid}</td>
+                                <td align="center"><?php
+                                    $result=db('teacher')->where('mobile',$vo['tid'])->find();
+                                    if($result){
+                                        echo $result['tname'].'（教师）';
+                                    }else{
+                                        $result=db('guardian')->where('mobile',$vo['tid'])->find();
+                                        echo $result['gname'].'（监护人）';
+                                    }
+                                    ?></td>
                                 <td align="center"><a href="{:url('transinfo/index',array('id'=>$vo['sid']))}">交接信息</a></td>
                                 <td align="center">
                                     <a href="{:url('student/edit',array('sid'=>$vo['sid']))}" class="btn btn-primary btn-sm shiny">

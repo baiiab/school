@@ -13,7 +13,7 @@ return [
 	'view_replace_str'  =>  [
     '__PUBLIC__'=>SITE_URL.'/public/static/admin/style',
     '__IMG__'=>SITE_URL.'/public/static/admin/images',
-    '__EDIT__'=>SITE_URL.'/public/static/admin/ueditor',
+    '__SELECT__'=>SITE_URL.'/public/static/admin/multiselect',
     '__PIC__'=>SITE_URL.'/public/static',
     '__JQUERY__'=>SITE_URL,
     ],

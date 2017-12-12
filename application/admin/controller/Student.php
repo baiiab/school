@@ -14,7 +14,8 @@ class Student extends Base
         $this->assign('students',$students);
         if(input('id')){
             $year = db('class')->distinct(true)->field('year')->order('year')->select();
-//          dump($class);die;
+            $teacher = db('teacher')->select();
+            $this->assign('teacher',$teacher);
             $this->assign('year',$year);
             return $this->fetch('change');
         }
@@ -36,7 +37,7 @@ class Student extends Base
     }
 
     function outExcel(){
-        $str = '学号,'.'姓名,'.'班级,'.'性别,'.'负责人,'.'入学年份';
+        $str = '学号,'.'姓名,'.'班级,'.'性别,'.'目前负责人,'.'入学年份';
         $field = 'sid,'.'name,'.'cid,'.'sex,'.'tid,'.'year';
         outputExcel('student',$str,$field);
     }
@@ -90,8 +91,10 @@ class Student extends Base
         }
 
         $year = db('class')->distinct(true)->field('year')->order('year')->select();
+        $guardian = db('guardian')->select();
 //        dump($class);die;
         $this->assign('year',$year);
+        $this->assign('guardian',$guardian);
         return view();
     }
 //  查找某年的所有班级
@@ -162,9 +165,10 @@ class Student extends Base
     //根据班级查找学员
     public function findStudent(){
         $id = input('class');
-        $map['cid']=['like','%'.$id.'%'];
-        $students = db('student')->where($map)->paginate($listRows=30,$simple=false,                                $config=['query'=>['class'=>$id]]);
+        $students = db('student')->where('cid',$id)->paginate($listRows=30,$simple=false,                                $config=['query'=>['class'=>$id]]);
         $year = db('class')->distinct(true)->field('year')->order('year')->select();
+        $teacher = db('teacher')->select();
+        $this->assign('teacher',$teacher);
 //          dump($class);die;
         $this->assign('year',$year);
 //        dump($students);die;

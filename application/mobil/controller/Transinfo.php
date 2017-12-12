@@ -6,12 +6,11 @@
  * Time: 15:46
  */
 namespace app\mobil\controller;
-//use app\admin\controller\Base;
-use think\Controller;
+use app\mobil\controller\Base;
 use app\admin\model\Transinfo as modelTrans;
 use app\admin\model\Transinfodata;
 use app\admin\model\Message;
-class Transinfo extends Controller
+class Transinfo extends Base
 {
     public function recedetail(){
         $messsage = new Message();
@@ -144,6 +143,18 @@ class Transinfo extends Controller
         if(db('transinfo')->where('sid',input('sid'))->find()) db('transinfo')->where('sid',input('sid'))->delete();
         $infodata->allowField(true)->save($result);
         if($trans->allowField(true)->save($result)){
+            $content = [
+                'name' => session('name'),
+                'sname' => $student['name'],
+            ];
+            $op = db('user')->where('mobile',$result['tid'])->find();
+            push_weChatmsg($op['openid'],$content,'2');
+            $news = [
+                'sendtime' => $result['backtime'],
+                'content' => session('name').'已驳回学员'.$student['name'].'，请尽快处理',
+                'status' => $result['tid'],
+            ];
+            db('systemnews')->insert($news);
             db('message')->where('sid',input('sid'))->delete();
             show_msg('成功驳回');
         }else{

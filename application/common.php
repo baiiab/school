@@ -25,7 +25,7 @@ function getWxConfig(){
     );
     return $data;
 }
-function push_weChatmsg($touser, $content)
+function push_weChatmsg($touser, $content,$type)
 {
 
     $APPID = config('PUBLIC_APPID');
@@ -35,19 +35,38 @@ function push_weChatmsg($touser, $content)
     $accessToken = $jssdk->getAccessToken();
 
     $send_template_id = 'bfa1Uz4Wlo_HhuB0B9w9I0UgGYcbWcQ5xmOkuQpXHzg';   //test
+    $send_confirm_id = 'PAxHxKwgupJvEstDz5bcEPJqPvKC44VTfMvhEFNNwHw';   //安排确认
+    $send_reject_id = 'iS6RLmYZzZvTNmiHdimPVka2Imrx0VcpBnVtPQQOv_k';   //驳回
     $now = date('Y-m-d H:i');
 
-
-    $postdata = json_encode(
-        array(
-            "touser" => $touser,
-            "template_id" => "$send_template_id",
-            "data" => array(
-                "first" => array("value" => "{$content}", "color" => "#173177")
-            ),
-        )
-    );
-
+    if($type == '1') {
+        $postdata = json_encode(
+            array(
+                "touser" => $touser,
+                "template_id" => $send_confirm_id,
+                "data" => array(
+                    "first" => array("value" => "您有新的学员待确认接收", "color" => "#173177"),
+                    "keyword1" => array("value" => "{$content['name']}", "color" => "#173177"),
+                    "keyword2" => array("value" => "{$now}", "color" => "#173177"),
+                    "remark" => array("value" => "请尽快确认,确保学员考勤无误", "color" => "#173177"),
+                ),
+            )
+        );
+    }else{
+        $postdata = json_encode(
+            array(
+                "touser" => $touser,
+                "template_id" => $send_reject_id,
+                "data" => array(
+                    "first" => array("value" => "您有新的学员被驳回", "color" => "#173177"),
+                    "keyword1" => array("value" => "{$content['name']}", "color" => "#173177"),
+                    "keyword2" => array("value" => "{$content['sname']}", "color" => "#173177"),
+                    "keyword3" => array("value" => "{$now}", "color" => "#173177"),
+                    "remark" => array("value" => "请尽快确认,确保学员考勤无误", "color" => "#173177"),
+                ),
+            )
+        );
+    }
 //  普通文本
 //    $data = '{
 //        "touser":"'.$touser.'",
@@ -69,6 +88,24 @@ function push_weChatmsg($touser, $content)
             return $result;
         }
     }
+}
+
+//公众号获取openId
+function get_openId(){
+//    $appId = 'wx39daf877da7f62e9';
+    $appId = config('PUBLIC_APPID');
+    $uri = urlencode(WB_CALLBACK_URL);
+    $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appId&redirect_uri=$uri&response_type=code&scope=snsapi_userinfo&state=$appId#wechat_redirect";
+    return $url;
+}
+
+function get_token() {
+    $token = '';
+    while (strlen($token) < 32) {
+        $token .= mt_rand(0, mt_getrandmax());
+    }
+    $token = md5(uniqid($token, TRUE));
+    return $token;
 }
 
 function https_post($url, $data)

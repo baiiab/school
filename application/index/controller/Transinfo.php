@@ -84,12 +84,18 @@ class Transinfo extends Controller
             db('transinfo')->insert($result);
             db('message')->where('sid',$vo)->delete();
             $tname = db('teacher')->where('mobile',$result['tid'])->find();
+            if($tname){
+                $data['tname'] = $tname['tname'];
+            }else{
+                $tname = db('guardian')->where('mobile',$result['tid'])->find();
+                $data['tname'] = $tname['gname'];
+            }
             db('student')->where('sid',$vo)->update(['tid'=>session('mobile')]);
 
             $data['backtime'] = time();
             $data['status'] = 2;
             $data['sid'] = $vo;
-            $data['tname'] = $tname['tname'];
+
             $data['sendtime'] = $result['sendtime'];
             $data['name'] = $student['name'];
             $data['gender'] = $student['sex'];
@@ -115,11 +121,16 @@ class Transinfo extends Controller
     public function reject(){
         $result = db('message')->where('sid',input('sid'))->find();
         $tname = db('teacher')->where('mobile',$result['tid'])->find();
+        if($tname){
+            $result['tname'] = $tname['tname'];
+        }else{
+            $tname = db('guardian')->where('mobile',$result['tid'])->find();
+            $result['tname'] = $tname['gname'];
+        }
         $infodata = new Transinfodata();
         $trans = new modelTrans();
         unset($result['id']);
         $result['backtime'] = time();
-        $result['tname'] = $tname['tname'];
         $result['reason'] = input('reason');
         $result['status'] = 1;
         $student = db('student')->where('sid',input('sid'))->find();
@@ -133,6 +144,18 @@ class Transinfo extends Controller
         if(db('transinfo')->where('sid',input('sid'))->find()) db('transinfo')->where('sid',input('sid'))->delete();
         $infodata->allowField(true)->save($result);
         if($trans->allowField(true)->save($result)){
+            $content = [
+                'name' => session('name'),
+                'sname' => $student['name'],
+            ];
+            $op = db('user')->where('mobile',$result['tid'])->find();
+            push_weChatmsg($op['openid'],$content,'2');
+            $news = [
+                'sendtime' => $result['backtime'],
+                'content' => session('name').'已驳回学员'.$student['name'].'，请尽快处理',
+                'status' => $result['tid'],
+            ];
+            db('systemnews')->insert($news);
             db('message')->where('sid',input('sid'))->delete();
             show_msg('成功驳回');
         }else{

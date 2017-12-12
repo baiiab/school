@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
-    <title></title>
+    <title>特殊教育服务号-后台管理</title>
 
     <meta name="description" content="Dashboard">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +19,10 @@
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
     <script type="text/javascript">
         function search() {
+            if(!document.getElementById("search").value){
+                alert('请填入学号再进行搜索');
+                return false;
+            }
 //            alert(document.getElementById("search").value);die;
             window.location.href = "__JQUERY__/public/admin/Transinfo/searchBySid?id="+document.getElementById("search").value+","+document.getElementById("ses").value;
         }

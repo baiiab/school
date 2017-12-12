@@ -59,10 +59,10 @@ class Teacher extends Base
     {
         if(request()->isPost()){
             $data = input('post.');
-            $data['password'] = md5($data['password']);
+            $data['password'] = md5('123456');
 //            dump($data);die;
-            if(db('teacher')->where('tid',$data['tid'])->find()){
-                show_msg('添加教师失败,教师编号不能重复');
+            if(db('teacher')->where('mobile',$data['mobile'])->find()){
+                show_msg('添加教师失败,教师手机号不能重复');
             }
             if(db('teacher')->insert($data)){
                 return show_msg('添加教师成功',url('lst'));
@@ -91,6 +91,7 @@ class Teacher extends Base
     {
         if(request()->isPost()){
             $data = input('post.');
+//            dump($data);die;
             if($data['password']!='') $data['password'] = md5($data['password']);
             else unset($data['password']);
             unset($data['chk']);

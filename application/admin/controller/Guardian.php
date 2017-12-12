@@ -66,9 +66,9 @@ class Guardian extends Base
         if(request()->isPost()){
             $data = input('post.');
 //            dump($data);die;
-            $data['password'] = md5($data['password']);
-            if(db('guardian')->where('gid',$data['gid'])->find()){
-                show_msg('添加监护人失败,监护人编号不能重复');
+            $data['password'] = md5('123654');
+            if(db('guardian')->where('gid',$data['gid'])->whereOr('mobile',$data['mobile'])->find()){
+                show_msg('添加监护人失败,监护人编号或手机号不能重复');
             }
             if(db('guardian')->insert($data)){
                 return show_msg('添加监护人成功','lst');

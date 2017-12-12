@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>特殊教育服务号-后台管理</title>
 
     <meta name="description" content="Dashboard">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +18,50 @@
     <link href="__PUBLIC__/demo.css" rel="stylesheet">
     <link href="__PUBLIC__/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
+    <style type="text/css">
+        .Menu {
+            position:relative;
+            width:190px;
+            height:auto;
+            z-index:99999999;
+            background: #FFF;
+            border:1px solid #000;
+            margin-top:-100px;
+            display:none;
+        }
+        .Menu2 {
+            position: absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:auto;
+            overflow:hidden;
+            z-index:99999999;
+        }
+        .Menu2 ul{margin:0;padding:0}
+
+        .Menu2 ul li {
+            width: 90px;
+            height: 25px;
+            float: left;
+            line-height: 25px;
+            text-indent: 15px;
+            border-bottom: 1px dashed #ccc;
+            color: #666;
+            cursor: pointer;
+            change: expression(
+             this.onmouseover=function(){
+              this.style.background="#F2F5EF";
+               },
+                this.onmouseout=function(){
+                this.style.background="";
+                }
+                )
+        }
+        .form{width:200px;height:auto;}
+        .form div{position:relative;top:0;left:0;margin-bottom:5px}
+        #List1{left:0px;top:93px;}
+    </style>
     <script src="__PUBLIC__/jquery-3.2.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -42,8 +86,15 @@
                     }
                 });
             });
+            $('#List1').mouseleave(function () {
+                showAndHide('List1','hide');
+            })
         });
+        function findStudent() {
+            window.location.href = "/school/public/admin/student/findStudent?class="+$('#scid').val();
+        }
         function change() {
+
             var str = '';
             var chk = document.getElementsByName('chk');
             for (var i = 0; i < chk.length; i++) {
@@ -56,13 +107,12 @@
                 alert('还没选择学员');
                 die;
             }
-            var obj = prompt("请输入监护人");
-            if(obj.isNull) die;
+            var obj = $('#txt').val();
+//            if(obj.isNull) die;
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function () {
                 if (ajax.readyState == 4) {
-                    if(ajax.responseText==0)  alert("监护人不能为空,交接失败");
-                    else alert("交接成功，等待对方确认");
+                    alert(ajax.responseText);
                 }
             }
             ajax.open('get', '__JQUERY__/public/admin/Handmessage?sid=' + str +' '+obj, true);
@@ -97,6 +147,21 @@
                     names[i].checked=false;
             }
         }
+        function showAndHide(obj,types){
+            var Layer=window.document.getElementById(obj);
+            switch(types){
+                case "show":
+                    Layer.style.display="block";
+                    break;
+                case "hide":
+                    Layer.style.display="none";
+            }
+        }
+        function getValue(obj,str){
+            var input=window.document.getElementById(obj);
+            input.value=str;
+            change();
+        }
     </script>
 </head>
 <body>
@@ -125,7 +190,7 @@
             <!-- Page Body -->
             <div class="page-body">
                 <label><input type="checkbox" value="df" id="allchk" onclick="allchoose();"/><span style="margin-left: 5px;">全选</span></label>
-                <button type="button" class="btn btn-sm btn-azure btn-addon" onClick="change();"> 确认交接</button>
+                <button type="button" class="btn btn-sm btn-azure btn-addon" onClick="showAndHide('List1','show');"> 确认交接</button>
 
                 <div class="btn btn-sm btn-azure btn-addon">
                     <div class="col-sm-6">
@@ -140,6 +205,19 @@
                 <div class="btn btn-sm btn-azure btn-addon" id='cid' >
                     <div class="col-sm-6" id="choose">
 
+                    </div>
+                </div>
+
+                <input type="hidden" id="txt" name="txt">
+                <div class="form">
+                    <div class="Menu" id="List1">
+                        <div class="Menu2">
+                            <ul>
+                                {volist name="teacher" id="vo"}
+                                <li onmousedown="getValue('txt','{$vo.mobile}');showAndHide('List1','hide');">{$vo.tname}</li>
+                                {/volist}
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -169,7 +247,15 @@
                                             <td align="center">{$vo.name}</td>
                                             <td align="center">{$vo.sex}</td>
                                             <td align="center">{$vo.cid}</td>
-                                            <td align="center">{$vo.tid}</td>
+                                            <td align="center"><?php
+                                    $result=db('teacher')->where('mobile',$vo['tid'])->find();
+                                                if($result){
+                                                echo $result['tname'].'（教师）';
+                                                }else{
+                                                $result=db('guardian')->where('mobile',$vo['tid'])->find();
+                                                echo $result['gname'].'（监护人）';
+                                                }
+                                                ?></td>
                                         </tr>
                                         {/volist}
                                         </tbody>

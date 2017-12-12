@@ -6,10 +6,9 @@
  * Time: 15:46
  */
 namespace app\mobil\controller;
-//use app\admin\controller\Base;
-use think\Controller;
+use app\mobil\controller\Base;
 use think\Db;
-class Arrange extends Controller
+class Arrange extends Base
 {
     public function index(){
         $fsid = Db::field('sid')->table('message')->union('SELECT sid FROM transinfo WHERE status!=1')->select();
@@ -73,6 +72,15 @@ class Arrange extends Controller
             $data['sid'] = $vo;
             db('message')->insert($data);
         }
+        $content['name'] = session('name');
+        $op = db('user')->where('mobile',$data['gid'])->find();
+        push_weChatmsg($op['openid'],$content,'1');
+        $news = [
+            'sendtime' => $data['sendtime'],
+            'content' => session('name').'已对您安排学员，请尽快确认',
+            'status' => $data['gid'],
+        ];
+        db('systemnews')->insert($news);
         show_msg('安排成功，等待接收',url('arrange/index'));
     }
 }

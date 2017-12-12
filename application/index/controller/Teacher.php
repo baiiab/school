@@ -25,28 +25,9 @@ class Teacher extends Base
         return view();
     }
 
-    public function login(){
-//        $result = db('user')->where('openid',session('openid')->find();
-//        if(){
-//            db('guardian')->where('mobile',)
-//        }
-        if(request()->isPost()){
-            $admin = new teacherModle();
-            $result = $admin->login(input('post.'));
-            if($result==3){
-//                $data = ['openid'=>session('openid'),'status'=>session('mobile')];
-//                db('user')->insert($data);
-                $this->redirect('home');
-            }else{
-                show_msg('用户名或密码错误');
-            }
-        }
-        return view();
-    }
-
     public function logout(){
-        session(null);
-        $this->redirect('login');
+        db('user')->where('mobile',session('mobile'))->delete();
+        $this->redirect('login/login');
     }
 
     public function editpas(){

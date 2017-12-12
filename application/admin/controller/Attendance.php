@@ -34,7 +34,7 @@ class Attendance extends Base
         $signs = new Signed();
         $students = $signs
             ->alias('a')
-            ->field('a.tid,t.tname,signtime,position')
+            ->field('a.tid,t.tname,signtime,a.position')
             ->join('teacher t','a.tid = t.mobile')
             ->where($map)->order('signtime desc')->paginate($listRows=30,$simple=false,                                $config=['query'=>['id'=>$id]]);
 //        dump($students);die;
@@ -52,7 +52,7 @@ class Attendance extends Base
         $signs = new Signed();
         $students = $signs
             ->alias('a')
-            ->field('a.tid,t.tname,signtime,position')
+            ->field('a.tid,t.tname,signtime,a.position')
             ->join('teacher t','a.tid = t.mobile')
             ->where('signtime',['>',$starttime],['<',$endtime],'and')
             ->order('signtime desc')->paginate($listRows=30,$simple=false,                                $config=['query'=>['id'=>$id]]);

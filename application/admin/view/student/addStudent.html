@@ -2,7 +2,7 @@
 <html>
 	<head>
 	    <meta charset="utf-8">
-    <title></title>
+    <title>特殊教育服务号-后台管理</title>
 
     <meta name="description" content="Dashboard">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,7 +89,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">学号</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="sid" placeholder="" name="sid" required="" type="text">
+                                <input class="form-control" id="sid" placeholder="" name="sid" required="" type="number">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
@@ -127,6 +127,17 @@
                             <label for="cid" class="col-sm-2 control-label no-padding-right">所在班级</label>
                             <div class="col-sm-6" id="choose">
 
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="detid" class="col-sm-2 control-label no-padding-right">默认负责人</label>
+                            <div class="col-sm-6">
+                                <select name="detid" id="detid">
+                                    {volist name="guardian" id="vo"}
+                                    <option value="{$vo.mobile}">{$vo.gname}</option>
+                                    {/volist}
+                                </select>
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>

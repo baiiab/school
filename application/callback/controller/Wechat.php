@@ -12,6 +12,7 @@ use think\Controller;
 class Wechat extends Controller{
     public function openId(){
        $code = $_GET['code'];
+       $state = $_GET['state'];
        $appid = config('PUBLIC_APPID');
        $secret = config('PUBLIC_APP_SECRET');
         $durl="https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code=$code&grant_type=authorization_code ";
@@ -21,7 +22,11 @@ class Wechat extends Controller{
         session('openid',$data['openid']);
 //        dump(session('openid'));die;
         //判断access_token是否过期
-        $this->redirect('mobil/guardian/login');
+        if($state==1){
+            $this->redirect('index/login/login');
+        }else{
+            $this->redirect('mobil/login/login');
+        }
     }
 
 

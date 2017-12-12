@@ -6,10 +6,8 @@
  * Time: 15:46
  */
 namespace app\mobil\controller;
-//use app\admin\controller\Base;
-use think\Controller;
-
-class Student extends Controller
+use app\mobil\controller\Base;
+class Student extends Base
 {
     public function lst(){
         $students = db('student')->where('tid',session('mobile'))->select();
@@ -34,6 +32,8 @@ class Student extends Controller
                 $info = $file->move(ROOT_PATH . 'public' . DS . 'static/mobil/uploads');
                 $data['headimg'] = '/uploads/'.$info->getSaveName();
             }
+            $data['year'] = '20'.substr($data['cid'],0,2);
+            $data['detid'] = session('mobile');
             if(db('student')->insert($data)){
                 return show_msg('添加学员成功',url('lst'));
             }else{

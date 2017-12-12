@@ -6,9 +6,9 @@
  * Time: 10:31
  */
 namespace app\mobil\controller;
-use think\Controller;
+use app\mobil\controller\Base;
 use app\admin\model\Guardian as guardianModle;
-class Guardian extends Controller
+class Guardian extends Base
 {
     public function home(){
         if(request()->isPost()){
@@ -25,28 +25,9 @@ class Guardian extends Controller
         return view();
     }
 
-    public function login(){
-//        $result = db('user')->where('openid',session('openid')->find();
-//        if(){
-//            db('guardian')->where('mobile',)
-//        }
-        if(request()->isPost()){
-            $admin = new guardianModle();
-            $result = $admin->login(input('post.'));
-            if($result==3){
-//                $data = ['openid'=>session('openid'),'status'=>session('mobile')];
-//                db('user')->insert($data);
-                $this->redirect('home');
-            }else{
-                show_msg('用户名或密码错误');
-            }
-        }
-        return view();
-    }
-
     public function logout(){
-        session(null);
-        $this->redirect('login');
+        db('user')->where('mobile',session('mobile'))->delete();
+        $this->redirect('login/login');
     }
 
     public function editpas(){
