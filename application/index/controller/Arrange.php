@@ -17,6 +17,7 @@ class Arrange extends Controller
             $class[$k]['num'] = db('student')->where(['cid'=>$vo['cid'],'tid'=>session('mobile')])->count();
             $class[$k]['confirmed'] = db('transinfo')->alias('a')->join('student s','a.sid=s.sid')
                 ->where('s.cid',$vo['cid'])->where('status','neq',1)->count();
+            $class[$k]['num'] = $class[$k]['confirmed'] + $class[$k]['num'];
             $class[$k]['back'] = db('transinfo')->alias('a')->join('student s','a.sid=s.sid')
                 ->where('s.cid',$vo['cid'])->where('status',1)->count();
         }
@@ -28,9 +29,9 @@ class Arrange extends Controller
             $map['tid'] = session('mobile');
             $result = db('student')->where($map)->select();
             $confirmed = db('transinfo')->where('status','neq',1)->where($map)->select();
+            $groups[$k]['num'] = count($result) + count($confirmed);
             $back = db('transinfo')->where('status',1)->where($map)->select();
             if ($result||$confirmed) {
-                $groups[$k]['num'] = substr_count($sids,',')+1;
                 $groups[$k]['confirmed'] = count($confirmed);
                 $groups[$k]['back'] = count($back);
             } else {
@@ -171,6 +172,6 @@ class Arrange extends Controller
             'status' => $data['gid'],
         ];
         db('systemnews')->insert($news);
-        show_msg('安排成功，等待接收',url('arrange/index'));
+        show_msg('安排成功，等待接收',url('transinfo/handtran'));
     }
 }

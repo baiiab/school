@@ -71,7 +71,9 @@ class Transinfo extends Base
     }
 
     public function lst(){
+        $time = strtotime('-30 day');
         $map['mobile'] = session('mobile');
+        $map['backtime'] = ['>',$time];
         $students = db('transinfodata')
             ->field('name,headimg,reason,gender,cid,gname,backtime,status')
             ->where($map)->order('backtime desc')->select();
@@ -139,10 +141,12 @@ class Transinfo extends Base
         $result['cid'] = $student['cid'];
         $result['gname'] = session('name');
         $result['headimg'] = $student['headimg'];
-        $result['mobile'] = session('mobile');
-        if(db('transinfo')->where('sid',input('sid'))->find()) db('transinfo')->where('sid',input('sid'))->delete();
-        $infodata->allowField(true)->save($result);
-        if($trans->allowField(true)->save($result)){
+        $result['mobile'] = $result['tid'];
+        if($trans->where('sid',input('sid'))->find())
+            $nowhy = $trans->allowField(true)->save($result,['sid'=>input('sid')]);
+        else $nowhy = $trans->allowField(true)->save($result);
+        if($nowhy){
+            $infodata->allowField(true)->save($result);
             $content = [
                 'name' => session('name'),
                 'sname' => $student['name'],

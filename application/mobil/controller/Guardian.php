@@ -20,8 +20,18 @@ class Guardian extends Base
             unlink(ROOT_PATH . 'public' . DS .'static/mobil'.$pic['headimg']);
             db('guardian')->where('mobile',session('mobile'))->update($data);
         }
+        $syss = db('systemnews')->where('status','1')->select();
+        $news = 0;
+        foreach ($syss as $vo){
+            if(!strstr($vo['isread'],session('mobile'))) $news++;
+        }
+        $trans = db('systemnews')->where('status',session('mobile'))->select();
+        foreach ($trans as $vo){
+            if(!strstr($vo['isread'],session('mobile'))) $news++;
+        }
         $guardian = guardianModle::getByMobile(session('mobile'));
         $this->assign('guardian',$guardian);
+        $this->assign('news',$news);
         return view();
     }
 

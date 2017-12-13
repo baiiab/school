@@ -38,6 +38,7 @@ class Arrange extends Base
         $reject = db('transinfo')->alias('a')->field('t.name,sex,t.cid,s.tname,t.headimg,reason')
             ->join('teacher s','a.gid=s.mobile')->join('student t','t.sid=a.sid')
             ->where($map2)->select();
+//        dump($reject);die;
         $this->assign(['students'=>$result,'unconfirmed'=>$unconfirmed,'confirmed'=>$confirmed,'reject'=>$reject]);
         return view();
     }

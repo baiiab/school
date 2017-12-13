@@ -113,6 +113,7 @@
             ajax.onreadystatechange = function () {
                 if (ajax.readyState == 4) {
                     alert(ajax.responseText);
+                    window.location.reload();
                 }
             }
             ajax.open('get', '__JQUERY__/public/admin/Handmessage?sid=' + str +' '+obj, true);

@@ -20,7 +20,17 @@ class Teacher extends Base
             unlink(ROOT_PATH . 'public' . DS .'static/mobil'.$pic['headimg']);
             db('guardian')->where('mobile',session('mobile'))->update($data);
         }
+        $syss = db('systemnews')->where('status','0')->select();
+        $news = 0;
+        foreach ($syss as $vo){
+            if(!strstr($vo['isread'],session('mobile'))) $news++;
+        }
+        $trans = db('systemnews')->where('status',session('mobile'))->select();
+        foreach ($trans as $vo){
+            if(!strstr($vo['isread'],session('mobile'))) $news++;
+        }
         $guardian = teacherModle::getByMobile(session('mobile'));
+        $this->assign('news',$news);
         $this->assign('guardian',$guardian);
         return view();
     }

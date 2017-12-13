@@ -11,7 +11,7 @@ class Handmessage extends Controller
         if(empty($arr[1])) return '请选择老师';
         db('message')->where('sid','in',$arr[0])->delete();
         db('transinfo')->where('sid','in',$arr[0])->delete();
-        if(db('student')->where('sid','in',$arr[0])->update(['tid'=>$arr[0]])){
+        if(db('student')->where('sid','in',$arr[0])->update(['tid'=>$arr[1]])){
             $result = db('user')->where('mobile',$arr[1])->find();
             if($result){
                 $content = [

@@ -102,7 +102,7 @@ class Transinfo extends Controller
             $data['cid'] = $student['cid'];
             $data['gname'] = session('name');
             $data['headimg'] = $student['headimg'];
-            $data['mobile'] = session('mobile');
+            $data['mobile'] = $result['tid'];
             db('transinfodata')->insert($data);
         }
         return;
@@ -140,10 +140,13 @@ class Transinfo extends Controller
         $result['cid'] = $student['cid'];
         $result['gname'] = session('name');
         $result['headimg'] = $student['headimg'];
-        $result['mobile'] = session('mobile');
-        if(db('transinfo')->where('sid',input('sid'))->find()) db('transinfo')->where('sid',input('sid'))->delete();
-        $infodata->allowField(true)->save($result);
-        if($trans->allowField(true)->save($result)){
+        $result['mobile'] = $result['tid'];
+        if($trans->where('sid',input('sid'))->find())
+            $nowhy = $trans->allowField(true)->save($result,['sid'=>input('sid')]);
+        else $nowhy = $trans->allowField(true)->save($result);
+//        dump($result);die;
+        if($nowhy){
+            $infodata->allowField(true)->save($result);
             $content = [
                 'name' => session('name'),
                 'sname' => $student['name'],

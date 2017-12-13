@@ -29,6 +29,7 @@
             display: flex;
             height: 93px;
             background-color: #FFFFFF;
+            border-bottom: 1px solid #CCCCCC;
         }
         .item-img{
             align-content: center;
@@ -82,10 +83,15 @@
             height: 1.5rem;
             margin-bottom: 1rem
         }
-
+        p{
+            margin-top: 14px;
+            margin-bottom: 0px;
+        }
         hr {
             height: 1px;
             border: none;
+            margin-bottom: 0px;
+            margin-top: 17px;
             border-top: 1px solid #CCCCCC;
         }
     </style>
@@ -123,19 +129,19 @@
                 </div>
             </div>
 
-            <div class="common" style="height: 6rem">
+            <div class="common" style="height: 118px">
                 <p onclick="javascript:window.location.href = '{:url('student/lst')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_my_students@3x.png"/>
                     <span class="common-p">我的学员</span></p>
                 <hr/>
-                <p onclick="javascript:window.location.href = '{:url('teacher/lst')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                <p style="height: 60px" onclick="javascript:window.location.href = '{:url('teacher/lst')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_students_lists@2x.png"/>
                     <span class="common-p">教师通讯录</span></p>
             </div>
             <div class="common">
                 <p onclick="javascript:window.location.href = '{:url('news/home')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_message_center@3x.png"/>
-                    <span class="pull-right" style="background-color: #F04545;padding-left: 0.5rem;margin-right: 5px;margin-top: 0.1rem;padding-right: 0.5rem;font-size: 14px;border-radius: 10px;color: #FFFFFF">99</span>
+                    <span class="pull-right" style="background-color: #F04545;padding-left: 0.5rem;margin-right: 5px;margin-top: 0.1rem;padding-right: 0.5rem;padding-top: 1px;font-size: 14px;border-radius: 10px;color: #FFFFFF">{$news}</span>
                     <span class="common-p">消息中心</span></p>
             </div>
             <div class="common">

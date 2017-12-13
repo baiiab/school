@@ -37,8 +37,8 @@ class Student extends Base
     }
 
     function outExcel(){
-        $str = '学号,'.'姓名,'.'班级,'.'性别,'.'目前负责人,'.'入学年份';
-        $field = 'sid,'.'name,'.'cid,'.'sex,'.'tid,'.'year';
+        $str = '学号,'.'姓名,'.'班级,'.'性别,'.'目前负责人,'.'默认负责人,'.'入学年份';
+        $field = 'sid,'.'name,'.'cid,'.'sex,'.'tid,'.'detid,'.'year';
         outputExcel('student',$str,$field);
     }
 
@@ -52,7 +52,7 @@ class Student extends Base
         $info = $file->validate(['ext' => 'xlsx,xls'])->move(ROOT_PATH . 'public' . DS . 'uploads');
         //上传验证后缀名,以及上传之后移动的地址
         if ($info) {
-            $arr = ['sid','name','cid','sex','tid','year'];
+            $arr = ['sid','name','cid','sex','tid','detid','year'];
             $data = insertExcel('student',$info,$arr);
 //            dump($data);die;
             $str = '';
@@ -65,8 +65,8 @@ class Student extends Base
             }
 //            unlink('D:\kinggsoft\phpstudy\WWW\school'.'/public/uploads/'.$info->getSaveName());
             if(db('student')->insertAll($data)){
-                if(empty($str)) $this->show_msg('插入成功',url('lst'));
-                else $this->show_msg('学号'.$str.'重复,其它插入成功',url('lst'));
+                if(empty($str)) show_msg('插入成功',url('lst'));
+                else show_msg('学号'.$str.'重复,其它插入成功',url('lst'));
             }else{
                 show_msg('不能插入空表或全是重复学号');
             }

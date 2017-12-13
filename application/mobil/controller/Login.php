@@ -9,6 +9,7 @@ class Login extends Controller
         $result = db('user')->where('openid',session('openid'))->find();
         if($result){
             $res = db('guardian')->where('mobile',$result['mobile'])->find();
+            if(!$res) show_msg('你还不是监护人用户，请联系管理员添加',url('index/login/login'));
             session('name',$res['gname']);
             session('password',$res['password']);
             session('mobile',$res['mobile']);
@@ -19,8 +20,6 @@ class Login extends Controller
         if(request()->isPost()){
             $result = $admin->login(input('post.'));
             if($result==3){
-//                $data = ['openid'=>session('openid'),'status'=>session('mobile')];
-//                db('user')->insert($data);
                 $this->redirect('guardian/home');
             }else{
                 show_msg('用户名或密码错误');

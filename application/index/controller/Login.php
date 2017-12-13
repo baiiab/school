@@ -9,6 +9,7 @@ class Login extends Controller
         $result = db('user')->where('openid',session('openid'))->find();
         if($result){
             $res = db('teacher')->where('mobile',$result['mobile'])->find();
+            if(!$res) show_msg('你还不是教师用户，请联系管理员添加',url('mobil/login/login'));
             session('name',$res['tname']);
             session('password',$res['password']);
             session('mobile',$res['mobile']);
