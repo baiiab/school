@@ -129,6 +129,7 @@ class Attendance extends Base
     public function sendMsg(){
         if(request()->isPost()){
             $data = input('post.');
+            if(strlen($data['content'])>700) show_msg('字符串过长');
             $data['sendtime'] = time();
             if(db('systemnews')->insert($data)){
                 show_msg('发送成功',url('sysnews?id='.$data['status']));

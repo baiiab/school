@@ -49,7 +49,7 @@ class Transinfo extends Base
             $res = db('transinfo')->where(['gid'=>session('mobile'),'tid'=>$va['tid']])->select();
             $resu = db('transinfo')->where(['gid'=>session('mobile'),'tid'=>$va['tid']])->where('status','neq',1)->select();
             $peo[$k]['name'] = db('teacher')->field('tname')->where('mobile',$va['tid'])->find();
-            $peo[$k]['num'] = count($res)+count($resul);
+            $peo[$k]['num'] = count($resu)+count($resul);
 //            dump($resul);die;
             if(!$resul){
                 db('transinfo')->where(['gid'=>session('mobile'),'tid'=>$va['tid']])->delete();
@@ -93,15 +93,14 @@ class Transinfo extends Base
 //  点击确认接收按钮时
     public function receive(){
         $sid = input('sid');
-        $sid = explode(',',$sid);
-        foreach ($sid as $vo){
+        $sids = explode(',',$sid);
+        foreach ($sids as $vo){
             $result = db('message')->where('sid',$vo)->find();
             $student = db('student')->where('sid',$vo)->find();
             unset($result['id']);
             $result['backtime'] = time();
-            if(input('?reason')) $result['reason'] = input('reason');
             $result['status'] = 2;
-            if(db('transinfo')->where('sid',input('sid'))->find()) db('transinfo')->where('sid',$sid)->delete();
+            if(db('transinfo')->where('sid',$vo)->find()) db('transinfo')->where('sid',$vo)->delete();
             db('transinfo')->insert($result);
             db('message')->where('sid',$vo)->delete();
             $tname = db('teacher')->where('mobile',$result['tid'])->find();
@@ -111,7 +110,7 @@ class Transinfo extends Base
             $data['status'] = 2;
             $data['sid'] = $vo;
             $data['tname'] = $tname['tname'];
-            $data['sendtime'] = $tname['sendtime'];
+            $data['sendtime'] = $result['backtime'];
             $data['reason'] = input('reason');
             $data['name'] = $student['name'];
             $data['gender'] = $student['sex'];

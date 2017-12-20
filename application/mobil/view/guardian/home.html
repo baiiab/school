@@ -121,7 +121,7 @@
         <div class="content">
             <div class="center-item">
                 <div class="item-img">
-                    <img src="{if condition="$guardian['headimg'] neq ''"}__PIC__{$guardian.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}">
+                    <img src="__IMG__/ios/1884282706.jpg">
                 </div>
                 <div class="item-p">
                     <p class="item-p1">{$Think.session.name}</p>
@@ -141,7 +141,7 @@
             <div class="common">
                 <p onclick="javascript:window.location.href = '{:url('news/home')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_message_center@3x.png"/>
-                    <span class="pull-right" style="background-color: #F04545;padding-left: 0.5rem;margin-right: 5px;margin-top: 0.1rem;padding-right: 0.5rem;padding-top: 1px;font-size: 14px;border-radius: 10px;color: #FFFFFF">{$news}</span>
+                    {if condition="$news neq 0"}<span class="pull-right" style="background-color: #F04545;padding-left: 0.5rem;margin-right: 5px;margin-top: 0.1rem;padding-right: 0.5rem;padding-top: 1px;font-size: 14px;border-radius: 10px;color: #FFFFFF">{$news}</span>{/if}
                     <span class="common-p">消息中心</span></p>
             </div>
             <div class="common">
@@ -149,8 +149,8 @@
                     <img class="pull-left" src="__IMG__/ios/icon_reset_password@3x.png"/>
                     <span class="common-p">修改密码</span></p>
             </div>
-            <div class="logout">
-                <a href="{:url('logout')}">退出登录</a></div>
+            <div class="logout" onclick="javascript:window.location.href = '{:url('logout')}'">
+                <a class="external">退出登录</a></div>
         </div>
     </div>
     <!-- 其他的单个page内联页（如果有） -->

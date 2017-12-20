@@ -13,13 +13,14 @@ class Arrange extends Controller
 {
     public function home(){
         $class = db('student')->distinct(true)->field('cid')->where('tid',session('mobile'))->select();
+//        dump($class);die;
         foreach ($class as $k=>$vo){
             $class[$k]['num'] = db('student')->where(['cid'=>$vo['cid'],'tid'=>session('mobile')])->count();
             $class[$k]['confirmed'] = db('transinfo')->alias('a')->join('student s','a.sid=s.sid')
-                ->where('s.cid',$vo['cid'])->where('status','neq',1)->count();
+                ->where('s.cid',$vo['cid'])->where('status','neq',1)->where('a.tid',session('mobile'))->count();
             $class[$k]['num'] = $class[$k]['confirmed'] + $class[$k]['num'];
             $class[$k]['back'] = db('transinfo')->alias('a')->join('student s','a.sid=s.sid')
-                ->where('s.cid',$vo['cid'])->where('status',1)->count();
+                ->where('s.cid',$vo['cid'])->where('status',1)->where('a.tid ',session('mobile'))->count();
         }
 //        dump($class);die;
         $groups = db('studentgroup')->where('tid',session('mobile'))->select();
@@ -41,9 +42,10 @@ class Arrange extends Controller
         $this->assign(['class'=>$class,'groups'=>$groups]);
         return view();
     }
-    //分组或班级学员交接详情
+    //分组或班级学员安排详情
     public function index(){
-        $fsid = Db::field('sid')->table('message')->union('SELECT sid FROM transinfo WHERE status!=1')->select();
+        $phone = session('mobile');
+        $fsid = Db::field('sid')->table('message')->union("SELECT sid FROM transinfo WHERE status!=1 and tid=$phone")->select();
         $fsids = '';
         foreach ($fsid as $vo){
             $fsids .= $vo['sid'].',';
@@ -79,12 +81,24 @@ class Arrange extends Controller
         $unconfirmed = db('message')->alias('a')->field('s.headimg,s.name,tname,s.sex,s.cid')
             ->join('student s','a.sid=s.sid')->join('teacher t','a.gid=t.mobile')
             ->where($map1)->select();
+        $unconfirme = db('message')->alias('a')->field('s.headimg,s.name,gname,s.sex,s.cid')
+            ->join('student s','a.sid=s.sid')->join('guardian t','a.gid=t.mobile')
+            ->where($map1)->select();
+        $unconfirmed = array_merge($unconfirmed,$unconfirme);
         $confirmed = db('transinfo')->alias('a')->field('t.name,sex,t.cid,s.tname,t.headimg')
             ->join('teacher s','a.gid=s.mobile')->join('student t','t.sid=a.sid')
             ->where($map2)->select();
+        $confirme = db('transinfo')->alias('a')->field('t.name,sex,t.cid,gname,t.headimg')
+            ->join('guardian s','a.gid=s.mobile')->join('student t','t.sid=a.sid')
+            ->where($map2)->select();
+        $confirmed = array_merge($confirmed,$confirme);
         $reject = db('transinfo')->alias('a')->field('t.name,sex,t.cid,s.tname,t.headimg,reason')
             ->join('teacher s','a.gid=s.mobile')->join('student t','t.sid=a.sid')
             ->where($map3)->select();
+        $rejec = db('transinfo')->alias('a')->field('t.name,sex,t.cid,gname,t.headimg,reason')
+            ->join('guardian s','a.gid=s.mobile')->join('student t','t.sid=a.sid')
+            ->where($map3)->select();
+        $reject = array_merge($reject,$rejec);
         $this->assign(['students'=>$result,'unconfirmed'=>$unconfirmed,'confirmed'=>$confirmed,'reject'=>$reject]);
 //        dump($result);die;
 
@@ -106,6 +120,7 @@ class Arrange extends Controller
     public function detid(){
         $sid = input('sid');
         $detid = db('student')->where('sid','in',$sid)->select();
+//        dump($detid);die;
         foreach ($detid as $vo){
             $data = [
                 'gid'=>$vo['detid'],
@@ -113,9 +128,19 @@ class Arrange extends Controller
                 'sendtime'=>time(),
                 'sid' => $vo['sid'],
             ];
+            $content['name'] = session('name');
+            $content['num'] = 1;
+            $op = db('user')->where('mobile',$data['gid'])->find();
+            if($op) push_weChatmsg($op['openid'],$content,'1');
+            $news = [
+                'sendtime' => $data['sendtime'],
+                'content' => session('name').'已对您安排学员，请尽快确认',
+                'status' => $data['gid'],
+            ];
+            db('systemnews')->insert($news);
             db('message')->insert($data);
         }
-        show_msg('成功分配到相应监护人，等待接收',url('home'));
+        show_msg('成功分配到相应监护人，等待接收',url('index/arrange/home'));
     }
     //选择教师或监护人
     public function confirm(){
@@ -125,6 +150,7 @@ class Arrange extends Controller
         $gid = input('gid');
         $sgid = substr($gid,0,11);
         if(db('guardian')->where('mobile',$sgid)->find()){
+
             $sid = explode(',',$sid);
             $data = [
                 'gid'=>$sgid,
@@ -136,6 +162,7 @@ class Arrange extends Controller
                 db('message')->insert($data);
             }
             $content['name'] = session('name');
+            $content['num'] = count($sid);
             $op = db('user')->where('mobile',$data['gid'])->find();
             push_weChatmsg($op['openid'],$content,'1');
             $news = [
@@ -144,7 +171,7 @@ class Arrange extends Controller
                 'status' => $data['gid'],
             ];
             db('systemnews')->insert($news);
-            show_msg('安排成功，等待接收',url('home'));
+            show_msg('安排成功，等待接收',url('index/arrange/home'));
         }
         $this->assign(['teacher'=>$gid,'sids'=>$sids,'sid'=>$sid]);
         return view();
@@ -164,6 +191,7 @@ class Arrange extends Controller
             db('message')->insert($data);
         }
         $content['name'] = session('name');
+        $content['num'] = count($sid);
         $op = db('user')->where('mobile',$data['gid'])->find();
         push_weChatmsg($op['openid'],$content,'1');
         $news = [
@@ -172,6 +200,6 @@ class Arrange extends Controller
             'status' => $data['gid'],
         ];
         db('systemnews')->insert($news);
-        show_msg('安排成功，等待接收',url('transinfo/handtran'));
+        show_msg('安排成功，等待接收',url('index/transinfo/handtran'));
     }
 }

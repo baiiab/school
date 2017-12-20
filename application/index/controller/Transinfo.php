@@ -74,13 +74,14 @@ class Transinfo extends Controller
     public function receive(){
         $sid = input('sid');
         $sid = explode(',',$sid);
+//        return $sid;
         foreach ($sid as $vo){
             $result = db('message')->where('sid',$vo)->find();
             $student = db('student')->where('sid',$vo)->find();
             unset($result['id']);
             $result['backtime'] = time();
             $result['status'] = 2;
-            if(db('transinfo')->where('sid',input('sid'))->find()) db('transinfo')->where('sid',$sid)->delete();
+            if(db('transinfo')->where('sid',$vo)->find()) db('transinfo')->where('sid',$vo)->delete();
             db('transinfo')->insert($result);
             db('message')->where('sid',$vo)->delete();
             $tname = db('teacher')->where('mobile',$result['tid'])->find();

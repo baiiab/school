@@ -20,7 +20,8 @@ class Student extends Controller
                 'num' => db('student')->where('cid',$v)->count()
             ];
             if(input('?name')){
-                if($v!=input('name')) unset($cla[$k]);
+                $flag = strstr($v,input('name'));
+                if(!$flag) unset($cla[$k]);
             }
         }
         if(input('?name')){
@@ -46,7 +47,11 @@ class Student extends Controller
         $sids['sids'] = input('sid').$sids['sids'];
         $student = db('student')->where('sid','in',$sids['sids'])->select();
         $this->assign(['student'=>$student,'cid'=>$sids]);
-        if(input('sgid')=='') return $this->fetch('addgroup');
+        if(input('sgid')==''){
+            $name = input('name');
+            $this->assign('name',$name);
+            return $this->fetch('addgroup');
+        }
         return view();
     }
     //确认分组
@@ -55,8 +60,10 @@ class Student extends Controller
         $sgid = input('sgid');
         if($sgid==''){
             $sids = substr($sids,0,-1);
+            if(input('name')=='') show_msg('分组名不能为空');
+            if(db('studentgroup')->where(['tid'=>session('mobile'),'name'=>input('name')])->find()) show_msg('分组名称重复');
             if(db('studentgroup')->insert(['name'=>input('name'),'sids'=>$sids,'tid'=>session('mobile')])){
-                show_msg('添加分组成功');
+                show_msg('添加分组成功',url('index'));
             }else{
                 show_msg('添加分组失败');
             }
@@ -75,12 +82,14 @@ class Student extends Controller
             $sids['sids'] = input('sid');
             $student = db('student')->where('sid','in',$sids['sids'])->select();
         }
-        $this->assign(['student'=>$student,'cid'=>$sids]);
+        $this->assign(['student'=>$student,'cid'=>$sids,'name'=>'']);
         return view();
     }
 
     public function chooses(){
         $sgid = input('sgid');
+        $sgids = explode(',',$sgid);
+        $sgid = $sgids[0];
         $cids = db('teacher')->where('mobile',session('mobile'))->find();
         $map['cid'] = ['in',$cids['cid']];
         if($sgid){
@@ -96,7 +105,8 @@ class Student extends Controller
             }
         }
         $student = db('student')->where($map)->select();
-        $this->assign(['student'=>$student,'sgid'=>$sgid]);
+        if (count($sgids)==1) $this->assign(['student'=>$student,'sgid'=>$sgid,'name'=>'']);
+        else $this->assign(['student'=>$student,'sgid'=>$sgid,'name'=>$sgids[1]]);
         return view();
     }
     public function del(){

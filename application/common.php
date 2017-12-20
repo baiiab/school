@@ -35,7 +35,7 @@ function push_weChatmsg($touser, $content,$type)
     $accessToken = $jssdk->getAccessToken();
 
     $send_template_id = 'bfa1Uz4Wlo_HhuB0B9w9I0UgGYcbWcQ5xmOkuQpXHzg';   //test
-    $send_confirm_id = 'PAxHxKwgupJvEstDz5bcEPJqPvKC44VTfMvhEFNNwHw';   //安排确认
+    $send_confirm_id = 'a8m4N0lsnem3b617-Ib3D6dbyvnL-Jwy2HaUIMdjH8Y';   //安排确认
     $send_reject_id = 'iS6RLmYZzZvTNmiHdimPVka2Imrx0VcpBnVtPQQOv_k';   //驳回
     $now = date('Y-m-d H:i');
 
@@ -48,6 +48,7 @@ function push_weChatmsg($touser, $content,$type)
                     "first" => array("value" => "您有新的学员待确认接收", "color" => "#173177"),
                     "keyword1" => array("value" => "{$content['name']}", "color" => "#173177"),
                     "keyword2" => array("value" => "{$now}", "color" => "#173177"),
+                    "keyword3" => array("value" => "{$content['num']}", "color" => "#173177"),
                     "remark" => array("value" => "请尽快确认,确保学员考勤无误", "color" => "#173177"),
                 ),
             )
@@ -127,9 +128,12 @@ function https_post($url, $data)
 
 function show_msg($msg = "", $url = "")
 {
-    @header("Content-Type:text/html;charset=utf-8");
+
+//    @header("Content-Type:text/html;charset=utf-8");
+    echo '<script src="/school/public/static/common/myJs.js"></script>';
     echo '<script type="text/javascript">';
-    echo 'alert("' . $msg . '");';
+
+    echo  'alert("' . $msg . '");';
 
     if (!empty($url)) {
         echo 'location.href = "' . $url . '"';

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>教师端</title>
+    <title>学员交接</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -90,7 +90,7 @@
                             </div>
                             {volist name='guardian' id='vo'}
                             <div class="common">
-                                <span class="confirm-title-ok-cancel ortex"><input type="hidden" id="guard" value="{$vo.mobile}{$vo.gname},{$sids}">{$vo.gname}</span>
+                                <label for="{$vo.gid}" class="ortex"><input id="{$vo.gid}" onclick="guardia(this.value)" style="display: none" value="{$vo.mobile}{$vo.gname}-{$sids}">{$vo.gname}</label>
 
                             </div>
                             {/volist}
@@ -109,6 +109,7 @@
 <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
 <script type='text/javascript' src='__PUBLIC__/zepto.min.js' charset='utf-8'></script>
+<script type="text/javascript" src="/school/public/static/common/myJs.js"></script>
 <script>
     $(function () {
         $('#search').click(function () {
@@ -116,17 +117,17 @@
             window.location.href = '?tname='+$('#searchval').val();
         });
     })
-    $(document).on('click','.confirm-title-ok-cancel', function () {
+    function guardia(obj) {
         $.confirm('是否确定安排学员？', '确认安排',
             function () {
-                var value = $('#guard').val().split(",");
+                var value = obj.split("-");
                 window.location.href = '/school/public/index/arrange/confirm?gid='+value[0]+'&sid='+value[1];
             },
             function () {
                 return false;
             }
         );
-    });
+    }
     //打开自动初始化页面的功能
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化
     $.config = {

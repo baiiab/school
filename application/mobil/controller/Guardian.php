@@ -11,15 +11,6 @@ use app\admin\model\Guardian as guardianModle;
 class Guardian extends Base
 {
     public function home(){
-        if(request()->isPost()){
-            $file = request()->file('headimg');
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'static/mobil/uploads');
-            $data['headimg'] = '/uploads/'.$info->getSaveName();
-            $pic = db('guardian')->where('mobile',session('mobile'))->find();
-            $pic['headimg'] = str_replace('\\','/',$pic['headimg']);
-            unlink(ROOT_PATH . 'public' . DS .'static/mobil'.$pic['headimg']);
-            db('guardian')->where('mobile',session('mobile'))->update($data);
-        }
         $syss = db('systemnews')->where('status','1')->select();
         $news = 0;
         foreach ($syss as $vo){

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>师生交接-教师端</title>
+    <title>个人中心</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -67,7 +67,7 @@
     <div class="page">
         <!-- 标题栏 -->
         <header class="bar bar-nav" style="background-color: #e6e6e6">
-            <a class="button button-link button-nav pull-left back" style="color: #999999">
+            <a class="button button-link button-nav pull-left external" href="{:url('teacher/home')}" style="color: #999999">
                 <span class="icon icon-left"></span>
             </a>
             <div class="searchbar pull-right" style="width: 95%;background-color: #e6e6e6">
@@ -81,8 +81,8 @@
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab" id="tools">
-            <span class="tab-item external tooltex">
-                <span class="tab-label" style="color: #FFFFFF" onclick="change();">添加分组</span>
+            <span class="tab-item external tooltex" onclick="change();">
+                <span class="tab-label" style="color: #FFFFFF">添加分组</span>
             </span>
         </nav>
 

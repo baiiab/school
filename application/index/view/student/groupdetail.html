@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>我的生活</title>
+    <title>个人中心</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,8 +13,8 @@
     <style type="text/css">
         .common{
             border-bottom: 1px solid #CCCCCC;
-            height: 50px;
-            line-height: 50px;
+            height: 60px;
+            line-height: 60px;
             background-color: #FFFFFF;
         }
         .smalltex{
@@ -91,11 +91,11 @@
         </header>
 
         <nav class="bar bar-tab tooltex" id="tools">
-            <span class="tab-item external" style="background-color: #F52525">
-                <span class="tab-label" style="color: #FFFFFF" id="delete">删除</span>
+            <span class="tab-item external" style="width: 2%;background-color: #F52525" id="delete">
+                <span class="tab-label" style="color: #FFFFFF">删除</span>
             </span>
-            <span class="tab-item external">
-                <span class="tab-label" style="color: #FFFFFF" id="change">确定</span>
+            <span class="tab-item external" style="width: 3%" id="change">
+                <span class="tab-label" style="color: #FFFFFF">确定</span>
             </span>
         </nav>
 
@@ -111,8 +111,8 @@
                 </div>
 
                 <div class="commo2">
-                    <div class="commo3">
-                        <span class="smalltex pull-right" style="margin-right: 16px" id="chooses"><span class="icon icon-right"></span></span></div>
+                    <div class="commo3" id="chooses">
+                        <span class="smalltex pull-right" style="margin-right: 16px"><span class="icon icon-right"></span></span></div>
                     {volist name='student' id='vo'}
                     <div class="commo3">
                         <img style="float: left;margin-top: 0.3rem" src="{if condition=" $vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}">

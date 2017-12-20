@@ -14,9 +14,8 @@ class Guardian extends Base
         $guardians = new \app\admin\model\Guardian();
         $students = db('guardian')->select();
         foreach ($students as $key =>$student){
-            $student['num'] = db('student')->where('tid',$student['gid'])->count();
-            $guardians->save($student, ['gid' => $student['gid']]);
-//            dump($student);die;
+            $student['num'] = db('student')->where('tid',$student['mobile'])->count();
+            $guardians->save($student, ['mobile' => $student['mobile']]);
         }
         $list = $guardians->paginate(30);
         $this->assign('list', $list);
@@ -66,7 +65,8 @@ class Guardian extends Base
         if(request()->isPost()){
             $data = input('post.');
 //            dump($data);die;
-            $data['password'] = md5('123654');
+            $data['password'] = md5('123456');
+            if (!preg_match("/^1[34578]{1}\d{9}$/", $data['mobile'])) show_msg('请填入正确手机号码');
             if(db('guardian')->where('gid',$data['gid'])->whereOr('mobile',$data['mobile'])->find()){
                 show_msg('添加监护人失败,监护人编号或手机号不能重复');
             }

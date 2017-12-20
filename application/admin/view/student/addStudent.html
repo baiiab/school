@@ -21,7 +21,6 @@
     <script src="__PUBLIC__/jquery-3.2.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#cid").hide();
             $('#year').change(function () {
 //                alert('q');die;
                 $.ajax({
@@ -30,16 +29,15 @@
                     data: {'year':$("#year").val()},
                     dataType: "json",
                     success: function(data){
-                        $('#cid').show();
                         var arr = JSON.parse(data);
 //                        alert(arr[0]['cid']);die;
-                        var str = "<select name='cid'><option>请选择班级</option>";
+                        var str = "";
                         for(var i in arr){
                             str += "<option value='"+arr[i]['cid']+"'>"+arr[i]['cid']+"</option>"
 //                            alert(arr[i]['cid']);die;
                         }
 //                        alert(str);die;
-                        $("#choose").html(str+"</select>");
+                        $("#choose").html(str);
                     }
                 });
             })
@@ -125,13 +123,13 @@
                         </div>
                         <div class="form-group" id='cid' >
                             <label for="cid" class="col-sm-2 control-label no-padding-right">所在班级</label>
-                            <div class="col-sm-6" id="choose">
-
+                            <div class="col-sm-6">
+                                <select id="choose" name='cid'><option>请选择班级</option></select>
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
                         <div class="form-group">
-                            <label for="detid" class="col-sm-2 control-label no-padding-right">默认负责人</label>
+                            <label for="detid" class="col-sm-2 control-label no-padding-right">默认监护人</label>
                             <div class="col-sm-6">
                                 <select name="detid" id="detid">
                                     {volist name="guardian" id="vo"}

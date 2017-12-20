@@ -15,7 +15,7 @@ class Login extends Controller
             session('mobile',$res['mobile']);
             session('tokensession',get_token());
             db('user')->where('openid',session('openid'))->update(['tokensession'=>session('tokensession')]);
-            $this->redirect('teacher/home');
+            $this->redirect('transinfo/handtran');
         }
         if(request()->isPost()){
             $result = $admin->login(input('post.'));

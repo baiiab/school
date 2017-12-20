@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>监护人</title>
+    <title>个人中心</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -72,7 +72,7 @@
             vertical-align: middle;
             width: 18px;
             height: 18px;
-            margin-left: 20px;
+            margin-left: 30px;
             -webkit-appearance: none;
             background-color: transparent;
             border: 0;
@@ -95,8 +95,8 @@
             border-radius: 18px;
         }
         input[type=checkbox]:checked:after  {
-            border: 1px solid #ddd;
-            background-color: #37AF6E;
+            border: none;
+            background-color: #28A5E5;
         }
         .bar .icon{
             vertical-align: baseline;
@@ -140,11 +140,11 @@
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab" id="tools">
-            <div class="tab-item external tooltex" style="color: #666666;background-color: #FFFFFF;text-align: left">
-                <label for="allchoose" ><input type="checkbox" onclick="allchoose();"id="allchoose"><span style="margin-left: 12px">全选</span></label>
+            <div class="tab-item external tooltex" style="width: 2%;color: #666666;background-color: #FFFFFF;text-align: left">
+                <label for="allchoose" ><input type="checkbox" onchange="allchoose();"id="allchoose"><span style="margin-left: 12px">全选</span></label>
             </div>
-            <span class="tab-item external tooltex">
-                <span class="tab-label" style="color: #FFFFFF" onclick="change();">添加学员</span>
+            <span class="tab-item external tooltex" style="width: 3%" onclick="change();">
+                <span class="tab-label" style="color: #FFFFFF">添加学员</span>
             </span>
         </nav>
 
@@ -152,16 +152,17 @@
         <div class="content">
             <div class="content-block">
                 <input type="hidden" value="{$sgid}" id="sgid">
+                <input type="hidden" value="{$name}" id="name">
                 {volist name='student' id='vo'}
-                <div class="news-item clearfix">
-                    <input class="pull-left" style="margin-top: 1.1rem" value="{$vo.sid}" type="checkbox" name="chk">
+                <label for="{$vo.sid}"><div class="news-item clearfix">
+                    <input class="pull-left" style="margin-top: 1.1rem" value="{$vo.sid}" type="checkbox" id="{$vo.sid}" name="chk">
                     <div class="news-image">
                         <a href="#"><img src="{if condition=" $vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}"></a>
                     </div>
                     <div style="float: left;">
                         <p class="boldtex">{$vo.name}</p>
                         <p class="smalltex" style="margin-top: 0.2rem">{$vo.sex}&nbsp;{$vo.cid}</p></div>
-                </div>
+                </div></label>
                 {/volist}
             </div>
 
@@ -177,7 +178,7 @@
     $(function () {
         $('#search').click(function () {
             if($('#searchval').val()=='') return false;
-            window.location.href = '?name='+$('#searchval').val()+'&sgid='+$('#sgid').val();
+            window.location.href = '?name='+$('#searchval').val()+'&sgid='+$('#sgid').val()+','+$('#name').val();
         });
     })
     function change() {
@@ -193,7 +194,7 @@
             alert('还没选择学员');
             die;
         }
-        window.location.href = '/school/public/index/student/groupdetail?sid='+str+'&sgid='+$('#sgid').val();
+        window.location.href = '/school/public/index/student/groupdetail?sid='+str+'&sgid='+$('#sgid').val()+'&name='+$('#name').val();
     }
     function allchoose() {
         var CheckAll=document.getElementById('allchoose');

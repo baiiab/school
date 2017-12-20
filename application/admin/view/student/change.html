@@ -20,8 +20,8 @@
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
     <style type="text/css">
         .Menu {
-            position:relative;
-            width:190px;
+            position: relative;
+            width:270px;
             height:auto;
             z-index:99999999;
             background: #FFF;
@@ -31,8 +31,8 @@
         }
         .Menu2 {
             position: absolute;
-            left:0;
-            top:0;
+            left:50%;
+            top:50%;
             width:100%;
             height:auto;
             overflow:hidden;
@@ -41,7 +41,7 @@
         .Menu2 ul{margin:0;padding:0}
 
         .Menu2 ul li {
-            width: 90px;
+            width: 130px;
             height: 25px;
             float: left;
             line-height: 25px;
@@ -51,40 +51,25 @@
             cursor: pointer;
             change: expression(
              this.onmouseover=function(){
-              this.style.background="#F2F5EF";
+              this.style.background="#4A374A";
                },
                 this.onmouseout=function(){
                 this.style.background="";
                 }
                 )
         }
-        .form{width:200px;height:auto;}
-        .form div{position:relative;top:0;left:0;margin-bottom:5px}
-        #List1{left:0px;top:93px;}
+        .form{width:100%;height:100%;}
+        .form div{position:relative;top:0%;left:0%;margin-bottom:5px}
+        #List1{left:30%;top:100px;}
     </style>
     <script src="__PUBLIC__/jquery-3.2.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#cid").hide();
             $('#year').change(function () {
-                $.ajax({
-                    type: "GET",
-                    url: "__JQUERY__/public/admin/Student/searchClass",
-                    data: {'year':$("#year").val()},
-                    dataType: "json",
-                    success: function(data){
-                        $('#cid').show();
-                        var arr = JSON.parse(data);
-//                        alert(arr[0]['cid']);die;
-                        var str = "<select id='scid' onchange='findStudent();'><option>请选择班级</option>";
-                        for(var i in arr){
-                            str += "<option value='"+arr[i]['cid']+"'>"+arr[i]['cid']+"</option>"
-//                            alert(arr[i]['cid']);die;
-                        }
-//                        alert(str);die;
-                        $("#choose").html(str+"</select>");
-                    }
-                });
+                window.location.href = "/school/public/admin/student/findStudent?year="+$('#year').val();
+            });
+            $('#scid').change(function () {
+                window.location.href = "/school/public/admin/student/findStudent?class="+$('#year').val()+','+$('#scid').val();
             });
             $('#List1').mouseleave(function () {
                 showAndHide('List1','hide');
@@ -116,7 +101,7 @@
                     window.location.reload();
                 }
             }
-            ajax.open('get', '__JQUERY__/public/admin/Handmessage?sid=' + str +' '+obj, true);
+            ajax.open('get', '/school/public/admin/Handmessage?sid=' + str +' '+obj, true);
             ajax.send(null);
         }
         function allchoose() {
@@ -160,7 +145,13 @@
         }
         function getValue(obj,str){
             var input=window.document.getElementById(obj);
-            input.value=str;
+            var str = str.split(",");
+            var r = confirm('是否确定给'+str[0]+'安排学员');
+            if(r) input.value=str[1];
+            else{
+                showAndHide('List1','show');
+                return false;
+            }
             change();
         }
     </script>
@@ -196,16 +187,21 @@
                 <div class="btn btn-sm btn-azure btn-addon">
                     <div class="col-sm-6">
                         <select name="year" id="year">
-                            <option value="">请选择年份</option>
+                            <option value="所有年级">所有年级</option>
                             {volist name="year" id="vo"}
-                            <option value="{$vo.year}">{$vo.year}</option>
+                            <option {if condition="$deyear eq $vo['year']"}selected{/if} value="{$vo.year}">{$vo.year}</option>
                             {/volist}
                         </select>
                     </div>
                 </div>
                 <div class="btn btn-sm btn-azure btn-addon" id='cid' >
                     <div class="col-sm-6" id="choose">
-
+                        <select id='scid'>
+                            <option value="所有班级">所有班级</option>
+                            {volist name="cid" id="vo"}
+                            <option {if condition="$decid eq $vo['cid']"}selected{/if} value="{$vo.cid}">{$vo.cid}</option>
+                            {/volist}
+                        </select>
                     </div>
                 </div>
 
@@ -215,7 +211,7 @@
                         <div class="Menu2">
                             <ul>
                                 {volist name="teacher" id="vo"}
-                                <li onmousedown="getValue('txt','{$vo.mobile}');showAndHide('List1','hide');">{$vo.tname}</li>
+                                <li onmousedown="getValue('txt','{$vo.tname},{$vo.mobile}');showAndHide('List1','hide');">{$vo.tname}</li>
                                 {/volist}
                             </ul>
                         </div>

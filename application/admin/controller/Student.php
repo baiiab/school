@@ -17,6 +17,7 @@ class Student extends Base
             $teacher = db('teacher')->select();
             $this->assign('teacher',$teacher);
             $this->assign('year',$year);
+            $this->assign(['deyear'=>'','decid'=>'','cid'=>'']);
             return $this->fetch('change');
         }
         return $this->fetch('lst');
@@ -83,6 +84,7 @@ class Student extends Base
             if(db('student')->where('sid',$data['sid'])->find()){
                 show_msg('添加学员失败,学号不能重复');
             }
+            $data['tid'] = $data['detid'];
             if(db('student')->insert($data)){
                 return show_msg('添加学员成功',url('lst'));
             }else{
@@ -97,16 +99,6 @@ class Student extends Base
         $this->assign('guardian',$guardian);
         return view();
     }
-//  查找某年的所有班级
-    public function searchClass($year = null){
-        if(request()->isPost()||request()->isGet()){
-            $year = input('year');
-            $class = db('class')->field('cid')->where('year',$year)->order('cid')->select();
-            return json_encode($class);
-        }
-        $class = db('class')->field('cid')->where('year',$year)->order('cid')->select();
-        return $class;
-    }
 
     public function delClass(){
         if(input('class')){
@@ -117,7 +109,7 @@ class Student extends Base
         if(input('id')){
             if(db('class')->delete(input('id'))) show_msg('删除班级成功',url('delClass'));
         }
-        $students = db('class')->paginate(30);
+        $students = db('class')->group('year')->paginate(30);
         $this->assign('students',$students);
         return view();
     }
@@ -162,18 +154,44 @@ class Student extends Base
         $this->assign('students',$students);
         return $this->fetch('lst');
     }
-    //根据班级查找学员
+    //根据年份或班级查找学员
     public function findStudent(){
-        $id = input('class');
-        $students = db('student')->where('cid',$id)->paginate($listRows=30,$simple=false,                                $config=['query'=>['class'=>$id]]);
         $year = db('class')->distinct(true)->field('year')->order('year')->select();
-        $teacher = db('teacher')->select();
-        $this->assign('teacher',$teacher);
+        if(input('?class')){
+            $ids = explode(',',input('class'));
+            if($ids[1]=='所有班级') $this->redirect('findStudent',['year'=>$ids[0]]);
+            $id = $ids[1];
+            $students = db('student')->where('cid',$id)->paginate($listRows=30,$simple=false,                                $config=['query'=>['class'=>$id]]);
+            $teacher = db('teacher')->select();
+            $this->assign('teacher',$teacher);
+            $cids = db('class')->field('cid')->where('year',$ids[0])->order('cid')->select();
 //          dump($class);die;
-        $this->assign('year',$year);
+            $this->assign('year',$year);
+            $this->assign('cid',$cids);
+            $this->assign('deyear',$ids[0]);
+            $this->assign('decid',$ids[1]);
 //        dump($students);die;
-        $this->assign('students',$students);
+            $this->assign('students',$students);
+        }
+        if(input('?year')){
+            if(input('year')=='所有年级') $this->redirect('lst',['id'=>1]);
+            $students = db('student')->where('year',input('year'))->paginate($listRows=30,$simple=false,                                $config=['query'=>['year'=>input('year')]]);
+            $cids = db('class')->field('cid')->where('year',input('year'))->order('cid')->select();
+            $teacher = db('teacher')->select();
+//            dump(json_decode($cids));die;
+            $this->assign(['year'=>$year,'students'=>$students,'decid'=>'','cid'=>$cids,'teacher'=>$teacher,'deyear'=>input('year')]);
+        }
+
         return $this->fetch('change');
     }
-
+//  查找某年的所有班级
+    public function searchClass($year = null){
+        if(request()->isPost()||request()->isGet()){
+            $year = input('year');
+            $class = db('class')->field('cid')->where('year',$year)->order('cid')->select();
+            return json_encode($class);
+        }
+        $class = db('class')->field('cid')->where('year',$year)->order('cid')->select();
+        return $class;
+    }
 }

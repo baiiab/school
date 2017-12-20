@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>我的生活</title>
+    <title>学员交接</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -91,8 +91,8 @@
         </header>
 
         <nav class="bar bar-tab tooltex" id="tools">
-            <span class="tab-item external">
-                <span class="tab-label" style="color: #FFFFFF" id="change">确认安排</span>
+            <span class="tab-item external confirm-ok">
+                <span class="tab-label" style="color: #FFFFFF">确认安排</span>
             </span>
         </nav>
 
@@ -120,11 +120,17 @@
 <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
 <script type='text/javascript' src='__PUBLIC__/zepto.min.js' charset='utf-8'></script>
+<script type="text/javascript" src="/school/public/static/common/myJs.js"></script>
 <script>
     $(function () {
-        $('#change').click(function () {
-            window.location.href = '/school/public/mobil/arrange/change?value='+$('#value').val();
+        $(document).on('click','.confirm-ok', function () {
+            $.confirm('确认安排吗？', function () {
+                window.location.href = '/school/public/index/arrange/change?value='+$('#value').val();
+            });
         });
+//        $('#change').click(function () {
+//            window.location.href = '/school/public/index/arrange/change?value='+$('#value').val();
+//        });
     })
     //打开自动初始化页面的功能
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化

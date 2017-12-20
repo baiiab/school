@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>教师端</title>
+    <title>个人中心</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,8 +13,8 @@
     <style type="text/css">
         .common{
             border-bottom: 1px solid #CCCCCC;
-            height: 70px;
-            line-height: 70px;
+            height: 60px;
+            line-height: 60px;
             background-color: #FFFFFF;
         }
         .smalltex{
@@ -91,25 +91,25 @@
         </header>
 
         <nav class="bar bar-tab tooltex" id="tools">
-            <span class="tab-item external">
-                <span class="tab-label" style="color: #FFFFFF" id="change">确定</span>
+            <span class="tab-item external" id="change">
+                <span class="tab-label" style="color: #FFFFFF">确定</span>
             </span>
         </nav>
 
         <div class="content">
             <div class="common" style="background-color: #FFFFFF;border-bottom: 0.1rem solid #c2ccd1;">
-                <span class="pull-right"><input class="boldtex" id="name" style="text-align: right;margin-right: 18px;border: none" placeholder="请输入分组名称"></span>
+                <span class="pull-right"><input class="boldtex" id="name" value="{$name}" style="text-align: right;margin-right: 18px;border: none" placeholder="请输入分组名称"></span>
                 <span class="boldtex2" style="margin-left: 0.5rem">分组名称</span>
             </div>
             <input type="hidden" value="" id="sgid">
             <input type="hidden" value="{$cid.sids}" id="sids">
             <div class="commo">
-                <div class="commo1"><p style="margin-top: 11px"><span class="boldtex2" style="margin-left: 0.5rem">分组学员</span></p>
+                <div class="commo1"><p style="margin-top: 12px"><span class="boldtex2" style="margin-left: 0.5rem">分组学员</span></p>
                 </div>
 
                 <div class="commo2">
-                    <div class="commo3">
-                        <span class="smalltex pull-right" style="margin-right: 16px" id="chooses"><span class="icon icon-right"></span></span></div>
+                    <div class="commo3" id="chooses">
+                        <span class="smalltex pull-right" style="margin-right: 16px"><span class="icon icon-right"></span></span></div>
                     {volist name='student' id='vo'}
                     <div class="commo3">
                         <img style="float: left;margin-top: 0.3rem" src="{if condition=" $vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}">
@@ -127,7 +127,7 @@
 <script>
     $(function () {
         $('#chooses').click(function () {
-            window.location.href = '/school/public/index/student/chooses?sgid='+$('#sgid').val();
+            window.location.href = '/school/public/index/student/chooses?sgid='+$('#sgid').val()+','+$('#name').val();
         });
         $('#change').click(function () {
             window.location.href = '/school/public/index/student/change?sgid='+$('#sgid').val()+'&sids='+$('#sids').val()+'&name='+$('#name').val();

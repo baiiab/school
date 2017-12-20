@@ -57,20 +57,21 @@ class Teacher extends Base
 
     public function addTeacher()
     {
-        if(request()->isPost()){
+        if (request()->isPost()) {
             $data = input('post.');
             $data['password'] = md5('123456');
 //            dump($data);die;
-            if(db('teacher')->where('mobile',$data['mobile'])->find()){
-                show_msg('添加教师失败,教师手机号不能重复');
+            if (!isset($data['cid'])) show_msg('没有选择班级');
+            if (!preg_match("/^1[34578]{1}\d{9}$/", $data['mobile'])) show_msg('请填入正确手机号码');
+            if (db('teacher')->where('tid', $data['tid'])->whereOr('mobile',$data['mobile'])->find()) {
+                show_msg('添加教师失败,教师手机号或编号不能重复');
             }
-            if(db('teacher')->insert($data)){
-                return show_msg('添加教师成功',url('lst'));
-            }else{
+            if (db('teacher')->insert($data)) {
+                return show_msg('添加教师成功', url('lst'));
+            } else {
                 return show_msg('添加教师失败');
             }
         }
-
         $year = db('class')->distinct(true)->field('year')->order('year')->select();
 //        dump($class);die;
         $this->assign('year',$year);
@@ -108,8 +109,14 @@ class Teacher extends Base
 //        $arr = explode(',',$admin['cid']);
 //        dump($arr[0]);die;
 
-        $year = db('class')->field('cid')->order('cid')->select();
-        $this->assign('cid',$year);
+        $year = db('class')->distinct(true)->field('year')->order('year asc')->select();
+        foreach ($year as $k=>$vo){
+            $cid = db('class')->field('cid')->where('year',$vo['year'])->order('cid asc')->select();
+            $year[$k]['cid'] = $cid;
+//            dump($year);die;
+        }
+        $this->assign('year',$year);
+//        $this->assign('cid',$cids);
 //        $this->assign('tcid',$arr);
         $this->assign('admin',$admin);
         return view();

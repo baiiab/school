@@ -59,6 +59,7 @@
 
         .common-left{
             flex-grow: 5;
+            overflow: hidden;
         }
         .common-right{
             flex-grow: 1;
@@ -118,11 +119,11 @@
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
             <a class="tab-item external active" href="">
-                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_situation_actived@3x.png"></span>
+                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_transition_actived@3x.png"></span>
                 <span class="tab-label">学员交接</span>
             </a>
             <a class="tab-item external" href="{:url('attendance/index')}">
-                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_transition_unactived@3x.png"></span>
+                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_attendance_unactived@3x.png"></span>
                 <span class="tab-label">考勤</span>
             </a>
             <a class="tab-item external" href="{:url('teacher/home')}">
@@ -163,7 +164,7 @@
             {volist name='peo' id='vo'}
             <div class="common" onclick="javascript:window.location.href = '{:url('transinfo/recedetail',['tid'=>$vo['tid']])}'">
                 <div class="common-left" style="margin-top: 0.2rem">
-                    <p class="router-boldtex">安排交接人：{$vo.name}</p>
+                    <p class="router-boldtex" style="width: 190px;height: 20px;text-overflow:ellipsis;white-space:nowrap;overflow: hidden">安排交接人：{$vo.name}</p>
                     <p class="router-time" style="margin-top: 5px">安排时间：{$vo.sendtime|date='Y-m-d H:i',###}</p>
                 </div>
                 <div class="common-right " style="margin-top: 0.01rem;">

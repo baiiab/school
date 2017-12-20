@@ -82,6 +82,7 @@
                                 <th class="text-center">用户名</th>
                                 <th class="text-center">性别</th>
                                 <th class="text-center">所属班级</th>
+                                <th class="text-center">目前负责人</th>
                                 <th class="text-center">监护人</th>
                                 <th class="text-center">交接信息</th>
                                 <th class="text-center" width="20%">操作</th>
@@ -102,6 +103,10 @@
                                         $result=db('guardian')->where('mobile',$vo['tid'])->find();
                                         echo $result['gname'].'（监护人）';
                                     }
+                                    ?></td>
+                                <td align="center"><?php
+                                    $result=db('guardian')->where('mobile',$vo['detid'])->find();
+                                    echo $result['gname'];
                                     ?></td>
                                 <td align="center"><a href="{:url('transinfo/index',array('id'=>$vo['sid']))}">交接信息</a></td>
                                 <td align="center">
@@ -136,6 +141,7 @@
     <script src="__PUBLIC__/jquery_002.js"></script>
     <script src="__PUBLIC__/bootstrap.js"></script>
     <script src="__PUBLIC__/jquery.js"></script>
+
     <!--Beyond Scripts-->
     <script src="__PUBLIC__/beyond.js"></script>
 

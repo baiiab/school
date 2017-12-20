@@ -14,9 +14,8 @@ class Handmessage extends Controller
         if(db('student')->where('sid','in',$arr[0])->update(['tid'=>$arr[1]])){
             $result = db('user')->where('mobile',$arr[1])->find();
             if($result){
-                $content = [
-                    'name' => '管理员',
-                ];
+                $content['name'] = session('name');
+                $content['num'] = substr_count($arr[0],',')+1;
                 push_weChatmsg($result['openid'],$content,'1');
                 $news = [
                     'sendtime' => time(),
@@ -29,7 +28,7 @@ class Handmessage extends Controller
                 return '学生负责人已更改，此老师尚未绑定微信号';
             }
         }else{
-            return '提交失败，请多试几次';
+            return '负责人已经是此老师，无需再更改';
         }
 
     }

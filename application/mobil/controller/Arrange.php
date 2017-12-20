@@ -11,7 +11,8 @@ use think\Db;
 class Arrange extends Base
 {
     public function index(){
-        $fsid = Db::field('sid')->table('message')->union('SELECT sid FROM transinfo WHERE status!=1')->select();
+        $phone = session('mobile');
+        $fsid = Db::field('sid')->table('message')->union("SELECT sid FROM transinfo WHERE status!=1 and tid=$phone")->select();
         $fsids = '';
         foreach ($fsid as $vo){
             $fsids .= $vo['sid'].',';
@@ -74,6 +75,7 @@ class Arrange extends Base
             db('message')->insert($data);
         }
         $content['name'] = session('name');
+        $content['num'] = count($sid);
         $op = db('user')->where('mobile',$data['gid'])->find();
         push_weChatmsg($op['openid'],$content,'1');
         $news = [

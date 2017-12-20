@@ -15,7 +15,7 @@ class Login extends Controller
             session('mobile',$res['mobile']);
             session('tokensession',get_token());
             db('user')->where('openid',session('openid'))->update(['tokensession'=>session('tokensession')]);
-            $this->redirect('guardian/home');
+            $this->redirect('transinfo/lst');
         }
         if(request()->isPost()){
             $result = $admin->login(input('post.'));
