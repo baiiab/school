@@ -14,7 +14,8 @@ class Guardian extends Base
         $guardians = new \app\admin\model\Guardian();
         $students = db('guardian')->select();
         foreach ($students as $key =>$student){
-            $student['num'] = db('student')->where('tid',$student['mobile'])->count();
+            $student['num'] = db('student')->where('detid',$student['mobile'])->count();
+//            dump($student);
             $guardians->save($student, ['mobile' => $student['mobile']]);
         }
         $list = $guardians->paginate(30);

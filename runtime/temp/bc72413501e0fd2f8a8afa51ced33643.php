@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\kinggsoft\phpstudy\WWW\school\public/../application/index\view\news\sysnews.html";i:1513825069;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,14 +61,14 @@
 
         <!-- 你的html代码 -->
         <div class="content" style="padding:20px 15px 0 15px">
-            {volist name='sys' id='vo'}
+            <?php if(is_array($sys) || $sys instanceof \think\Collection || $sys instanceof \think\Paginator): $i = 0; $__LIST__ = $sys;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
             <div style="text-align: center;margin-bottom: 32px">
-                <p class="smalltex">{$vo.sendtime|date="Y-m-d H:m",###}</p>
+                <p class="smalltex"><?php echo date("Y-m-d H:m",$vo['sendtime']); ?></p>
                 <div class="pane">
-                    <span class="boldtex" style="word-break: break-all;">{$vo.content}</span>
+                    <span class="boldtex" style="word-break: break-all;"><?php echo $vo['content']; ?></span>
                 </div>
             </div>
-            {/volist}
+            <?php endforeach; endif; else: echo "" ;endif; ?>
         </div>
     </div>
 </div>

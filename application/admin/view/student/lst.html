@@ -17,6 +17,13 @@
     <link href="__PUBLIC__/demo.css" rel="stylesheet">
     <link href="__PUBLIC__/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
+    <style type="text/css">
+        img{
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+        }
+    </style>
     <script type="text/javascript">
         function searchStudent() {
 //            alert(document.getElementById("search").value);die;
@@ -78,7 +85,8 @@
                     <table class="table table-bordered table-hover">
                         <thead class="">
                             <tr>
-                                <th class="text-center">ID</th>
+                                <th class="text-center">头像</th>
+                                <th class="text-center">学号</th>
                                 <th class="text-center">用户名</th>
                                 <th class="text-center">性别</th>
                                 <th class="text-center">所属班级</th>
@@ -91,6 +99,7 @@
                         <tbody>
                             {volist name="students" id="vo"}
                                                         <tr>
+                                <td align="center"><img src="{if condition=" $vo['headimg'] neq ''"}__PICTU__{$vo.headimg}{else/}__PICTURE__/ios/icon_head_portrait@3x.png{/if}"></td>
                                 <td align="center">{$vo.sid}</td>
                                 <td align="center">{$vo.name}</td>
                                 <td align="center">{$vo.sex}</td>

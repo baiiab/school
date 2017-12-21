@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"D:\kinggsoft\phpstudy\WWW\school\public/../application/index\view\news\transnews.html";i:1513675762;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,11 @@
             background-color: #28A5E5;
             line-height: 49px;
         }
+        .bar .icon{
+            vertical-align: middle;
+            margin-left: 11px;
+            font-size: 0.9rem;
+        }
         .smalltex{
             color: #999999;
             font-size: 12px;
@@ -26,11 +32,6 @@
             font-size: 14px;
             color: #333333;
             font-family: PingFang-SC-Medium;
-        }
-        .bar .icon{
-            vertical-align: middle;
-            margin-left: 11px;
-            font-size: 0.9rem;
         }
         .pane{
             background-color: #FFFFFF;
@@ -55,19 +56,19 @@
             <a class="button button-link button-nav pull-left back" style="color: #FFFFFF" data-transition='slide-out'>
                 <span class="icon icon-left"></span>
             </a>
-            <h1 class="title titleh">系统消息</h1>
+            <h1 class="title titleh" >交接消息</h1>
         </header>
 
         <!-- 你的html代码 -->
         <div class="content" style="padding:20px 15px 0 15px">
-            {volist name='sys' id='vo'}
+            <?php if(is_array($tran) || $tran instanceof \think\Collection || $tran instanceof \think\Paginator): $i = 0; $__LIST__ = $tran;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
             <div style="text-align: center;margin-bottom: 32px">
-                <p class="smalltex">{$vo.sendtime|date="Y-m-d H:m",###}</p>
+                <p class="smalltex"><?php echo date("Y-m-d H:m",$vo['sendtime']); ?></p>
                 <div class="pane">
-                    <span class="boldtex" style="word-break: break-all;">{$vo.content}</span>
+                    <span class="boldtex"><?php echo $vo['content']; ?></span>
                 </div>
             </div>
-            {/volist}
+            <?php endforeach; endif; else: echo "" ;endif; ?>
         </div>
     </div>
 </div>

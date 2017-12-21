@@ -14,14 +14,16 @@ class Student extends Controller
     public function index(){
         $class = db('teacher')->field('cid')->where('mobile',session('mobile'))->find();
         $class['cid'] = explode(',',$class['cid']);
+        $name = '';
         foreach ($class['cid'] as $k=>$v){
             $cla[$k] = [
                 'cid' => $v,
                 'num' => db('student')->where('cid',$v)->count()
             ];
-            if(input('?name')){
+            if(input('?name')&&input('name')!=''){
                 $flag = strstr($v,input('name'));
                 if(!$flag) unset($cla[$k]);
+                $name = input('name');
             }
         }
         if(input('?name')){
@@ -30,6 +32,7 @@ class Student extends Controller
         $map['tid'] = session('mobile');
         $group = db('studentgroup')->field('sgid,name,sids')->where($map)->select();
         $this->assign('class',$cla);
+        $this->assign('name',$name);
         $this->assign('group',$group);
         return view();
     }

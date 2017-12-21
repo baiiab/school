@@ -15,6 +15,8 @@ return [
     '__IMG__'=>SITE_URL.'/public/static/admin/images',
     '__SELECT__'=>SITE_URL.'/public/static/admin/multiselect',
     '__PIC__'=>SITE_URL.'/public/static',
+    '__PICTURE__'=>SITE_URL.'/public/static/mobil/images',
+    '__PICTU__'=>SITE_URL.'/public/static/mobil',
     '__JQUERY__'=>SITE_URL,
     ],
 

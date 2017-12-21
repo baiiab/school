@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\transinfo\lst.html";i:1513844428;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,11 +96,11 @@
                 <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_situation_actived@3x.png"></span>
                 <span class="tab-label">学员情况</span>
             </a>
-            <a class="tab-item external" href="{:url('transinfo/handtran')}">
+            <a class="tab-item external" href="<?php echo url('transinfo/handtran'); ?>">
                 <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_transition_unactived@3x.png"></span>
                 <span class="tab-label">学员交接</span>
             </a>
-            <a class="tab-item external" href="{:url('guardian/home')}">
+            <a class="tab-item external" href="<?php echo url('guardian/home'); ?>">
                 <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_person_center_unactived@3x.png"></span>
                 <span class="tab-label">个人中心</span>
             </a>
@@ -107,16 +108,16 @@
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-            {volist name='list' id='vo'}
+            <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
             <div class="news-item clearfix">
                 <div class="news-image">
-                    <img style="margin-right: 0.5rem;margin-top: 0.3rem" class="pull-right" src="{if condition="$vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}">
+                    <img style="margin-right: 0.5rem;margin-top: 0.3rem" class="pull-right" src="<?php if($vo['headimg'] != ''): ?>__PIC__<?php echo $vo['headimg']; else: ?>__IMG__/ios/icon_head_portrait@3x.png<?php endif; ?>">
                 </div>
-                <p><span class="boldtex">{$vo.name}</span><span class="pull-right smalltex">{$vo.gender}&nbsp;{$vo.cid}</span></p>
-                <p class="smalltex">{$vo.reason}&nbsp;<span class="pull-right">{if condition="$vo['status'] eq 1"}驳回人：{else /}接收人：{/if}{$vo.gname}</span></p>
-                <p class="pull-right datetex">{$vo.backtime|date="Y-m-d H:m",###}</p>
+                <p><span class="boldtex"><?php echo $vo['name']; ?></span><span class="pull-right smalltex"><?php echo $vo['gender']; ?>&nbsp;<?php echo $vo['cid']; ?></span></p>
+                <p class="smalltex"><?php echo $vo['reason']; ?>&nbsp;<span class="pull-right"><?php if($vo['status'] == 1): ?>驳回人：<?php else: ?>接收人：<?php endif; ?><?php echo $vo['gname']; ?></span></p>
+                <p class="pull-right datetex"><?php echo date("Y-m-d H:m",$vo['backtime']); ?></p>
             </div>
-            {/volist}
+            <?php endforeach; endif; else: echo "" ;endif; ?>
     </div>
     </div>
     <!-- 其他的单个page内联页（如果有） -->

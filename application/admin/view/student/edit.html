@@ -105,6 +105,7 @@
                             <label for="year" class="col-sm-2 control-label no-padding-right">所在班级</label>
                             <div class="col-sm-6" style="display: inline-block;width: 100px">
                                 <select name="year" id="year">
+                                    <option>请选择年级</option>
                                     {volist name="year" id="vo"}
                                     <option {if condition="$vo['year'] eq $admin['year']"} selected="selected" {/if} value="{$vo.year}">{$vo.year}</option>
                                     {/volist}

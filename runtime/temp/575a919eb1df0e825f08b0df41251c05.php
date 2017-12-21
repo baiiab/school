@@ -1,9 +1,10 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\guardian\home.html";i:1513843516;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>师生交接-教师端</title>
+    <title>师生交接-监护人端</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,9 +25,6 @@
             width: 20px;
             height: 20px;
             margin-top: 19px;
-        }
-        .common p{
-            margin: 0;
         }
 
         .center-item{
@@ -87,6 +85,16 @@
             height: 1.5rem;
             margin-bottom: 1rem
         }
+        hr {
+            height: 1px;
+            border: none;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            border-top: 1px solid #CCCCCC;
+        }
+        .common p{
+            margin: 0;
+        }
     </style>
 </head>
 <div class="page-group">
@@ -96,13 +104,13 @@
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
-            <a class="tab-item external" href="{:url('transinfo/handtran')}">
+            <a class="tab-item external" href="<?php echo url('transinfo/lst'); ?>">
+                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_situation_unactived@3x.png"></span>
+                <span class="tab-label">学员情况</span>
+            </a>
+            <a class="tab-item external" href="<?php echo url('transinfo/handtran'); ?>">
                 <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_students_transition_unactived@3x.png"></span>
                 <span class="tab-label">学员交接</span>
-            </a>
-            <a class="tab-item external" href="{:url('attendance/index')}">
-                <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_attendance_unactived@3x.png"></span>
-                <span class="tab-label">考勤</span>
             </a>
             <a class="tab-item external active" href="#">
                 <span class="icon"><img class="smallimg" src="__IMG__/ios/icon_person_center_actived@3x.png"></span>
@@ -117,28 +125,32 @@
                     <img src="__IMG__/ios/1884282706.jpg">
                 </div>
                 <div class="item-p">
-                    <p class="item-p1">{$Think.session.name}</p>
-                    <p class="item-p2">{$Think.session.mobile}</p>
+                    <p class="item-p1"><?php echo \think\Session::get('name'); ?></p>
+                    <p class="item-p2"><?php echo \think\Session::get('mobile'); ?></p>
                 </div>
             </div>
 
+            <div class="common" style="height: 120px">
+                <p onclick="javascript:window.location.href = '<?php echo url('student/lst'); ?>'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                    <img class="pull-left" src="__IMG__/ios/icon_my_students@3x.png"/>
+                    <span class="common-p">我的学员</span></p>
+                <hr/>
+                <p style="height: 60px" onclick="javascript:window.location.href = '<?php echo url('teacher/lst'); ?>'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                    <img class="pull-left" src="__IMG__/ios/icon_students_lists@2x.png"/>
+                    <span class="common-p">教师通讯录</span></p>
+            </div>
             <div class="common">
-                <p onclick="javascript:window.location.href = '{:url('news/home')}'" style="margin: 0"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                <p onclick="javascript:window.location.href = '<?php echo url('news/home'); ?>'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_message_center@3x.png"/>
-                    {if condition="$news neq 0"}<span class="pull-right" style="background-color: #F04545;padding-left: 0.5rem;padding-right: 0.5rem;margin-right: 5px;height: 21px;line-height: 21px;margin-top: 17px;text-align: center;font-size: 14px;border-radius: 10px;color: #FFFFFF">{$news}</span>{/if}
+                    <?php if($news != 0): ?><span class="pull-right" style="background-color: #F04545;padding-left: 0.5rem;padding-right: 0.5rem;margin-right: 5px;height: 21px;line-height: 21px;margin-top: 17px;text-align: center;font-size: 14px;border-radius: 10px;color: #FFFFFF"><?php echo $news; ?></span><?php endif; ?>
                     <span class="common-p">消息中心</span></p>
             </div>
             <div class="common">
-                <p onclick="javascript:window.location.href = '{:url('student/index')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
-                    <img class="pull-left" src="__IMG__/ios/icon_students_lists@3x.png"/>
-                    <span class="common-p">学员库</span></p>
-            </div>
-            <div class="common">
-                <p onclick="javascript:window.location.href = '{:url('editpas')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                <p onclick="javascript:window.location.href = '<?php echo url('editpas'); ?>'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_reset_password@3x.png"/>
                     <span class="common-p">修改密码</span></p>
             </div>
-            <div class="logout" onclick="javascript:window.location.href = '{:url('logout')}'">
+            <div class="logout" onclick="javascript:window.location.href = '<?php echo url('logout'); ?>'">
                 <a class="external">退出登录</a></div>
         </div>
     </div>

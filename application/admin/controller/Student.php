@@ -81,6 +81,7 @@ class Student extends Base
         if(request()->isPost()){
             $data = input('post.');
 //            die($data['sid']);die;
+            if($data['detid']=='') show_msg('监护人不能为空');
             if(db('student')->where('sid',$data['sid'])->find()){
                 show_msg('添加学员失败,学号不能重复');
             }
@@ -109,7 +110,7 @@ class Student extends Base
         if(input('id')){
             if(db('class')->delete(input('id'))) show_msg('删除班级成功',url('delClass'));
         }
-        $students = db('class')->group('year')->paginate(30);
+        $students = db('class')->order('year desc')->paginate(30);
         $this->assign('students',$students);
         return view();
     }

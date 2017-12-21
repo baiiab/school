@@ -114,6 +114,7 @@
                             <label for="cid" class="col-sm-2 control-label no-padding-right">入学年份</label>
                             <div class="col-sm-6">
                                 <select name="year" id="year">
+                                    <option>请选择年级</option>
                                     {volist name="year" id="vo"}
                                     <option value="{$vo.year}">{$vo.year}</option>
                                     {/volist}

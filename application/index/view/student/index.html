@@ -74,7 +74,7 @@
                 <a class="searchbar-cancel" id='search'>搜索</a>
                 <div class="search-input">
                     <label class="icon icon-search" for="search"></label>
-                    <input type="search" id="searchval" placeholder='搜索'/>
+                    <input type="search" id="searchval" value="{$name}" placeholder="搜索"/>
                 </div>
             </div>
         </header>
@@ -130,8 +130,9 @@
     $(function () {
         $('#tools').hide();
         $('#search').click(function () {
-            if($('#searchval').val()=='') return false;
-            window.location.href = '?name='+$('#searchval').val();
+            var obj = $('#searchval').val().replace(/\s/g, "");
+//            if(obj=='') return false;
+            window.location.href = '?name='+obj;
         });
         $('#tabb1').click(function () {
            $('#tools').show();

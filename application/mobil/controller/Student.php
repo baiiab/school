@@ -10,7 +10,7 @@ use app\mobil\controller\Base;
 class Student extends Base
 {
     public function lst(){
-        $students = db('student')->where('tid',session('mobile'))->select();
+        $students = db('student')->where('detid',session('mobile'))->select();
         $this->assign('student',$students);
         return view();
     }
@@ -51,9 +51,9 @@ class Student extends Base
     {
         if(request()->isPost()){
             $data = input('post.');
+            if(db('student')->where('sid',$data['sid'])->find()) show_msg('学号不能与已有的重复');
             if(!$data['name']) show_msg('姓名不能为空');
             $data['tid'] = session('mobile');
-
             if (strstr(input('headimg'),",")){
                 $image = explode(',',input('headimg'));
                 $image = $image[1];

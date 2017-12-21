@@ -116,10 +116,10 @@
 							$tempImg.remove();
 							delete $tempImg[0];
 							$tempImg = null;
-							var angleOffset = 0;
-							if (sourceWidth == realityHeight) {
-								angleOffset = 90;
-							}
+							var angleOffset = 90;//原来是0
+							// if (sourceWidth == realityHeight) {
+							// 	angleOffset = 90;
+							// }
 							// 将图片进行压缩
 							var newDataURL = compressImg(this, quality, angleOffset, outputType);
 							createImg(newDataURL);

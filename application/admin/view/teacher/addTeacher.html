@@ -21,7 +21,7 @@
     <script src="__PUBLIC__/jquery-3.2.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#cid").hide();
+//            $("#cid").hide();
             $('#year').change(function () {
 //                alert('q');die;
                 $.ajax({
@@ -30,16 +30,16 @@
                     data: {'year':$("#year").val()},
                     dataType: "json",
                     success: function(data){
-                        $('#cid').show();
+//                        $('#cid').show();
                         var arr = JSON.parse(data);
 //                        alert(arr);die;
-                        var str = "<select name='cid'><option>请选择班级</option>";
+                        var str = "<option>请选择班级</option>";
                         for(var i in arr){
                             str += "<option value='"+arr[i]['cid']+"'>"+arr[i]['cid']+"</option>"
 //                            alert(arr[i]['cid']);die;
                         }
 //                        alert(str);die;
-                        $("#choose").html(str+"</select>");
+                        $("#choose").html(str);
                     }
                 });
             })
@@ -117,6 +117,7 @@
                             <div class="col-sm-6">
                                 <input class="form-control" id="mobile" required="" name="mobile" type="text">
                             </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
                         <div class="form-group">
@@ -140,8 +141,10 @@
                         </div>
                         <div class="form-group" id='cid' >
                             <label for="cid" class="col-sm-2 control-label no-padding-right">负责班级</label>
-                            <div class="col-sm-6" id="choose">
-
+                            <div class="col-sm-6">
+                                <select name='cid' id="choose">
+                                    <option>请选择班级</option>
+                                </select>
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
