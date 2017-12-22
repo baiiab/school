@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:91:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\transinfo\recedetail.html";i:1513934372;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -156,7 +157,7 @@
     <div class="page">
         <!-- 标题栏 -->
         <header class="bar bar-nav" style="background-color: #e6e6e6">
-            <a class="button button-link button-nav pull-left external" href="{:url('transinfo/handtran#router2')}" style="color: #999999">
+            <a class="button button-link button-nav pull-left external" href="<?php echo url('transinfo/handtran#router2'); ?>" style="color: #999999">
                 <span class="icon icon-left"></span>
             </a>
             <div class="searchbar pull-right" style="width: 95%;background-color: #e6e6e6">
@@ -189,66 +190,63 @@
                 <div class="tabs">
                     <div id="tab1" class="tab active">
                         <div class="content-block">
-                            {if condition="$students eq null"}
+                            <?php if($students == null): ?>
                             <div class="img-div">
                                 <img src="__IMG__/ios/416877607.jpg"><br/>
                                 这个暂时没有数据哦！
                             </div>
-                            {/if}
-                            {volist name='students' id='vo'}
-                            <label for="{$vo.sid}"><div class="news-item clearfix">
-                                <input onchange="changeimg(this);" class="pull-left" style="margin-top: 1.1rem" value="{$vo.sid}" type="checkbox" id="{$vo.sid}" name="chk"><img id="{$vo.sid}1" class="pull-left ssmall" src="__IMG__/ios/icon_checkbox_checked@3x.png">
+                            <?php endif; if(is_array($students) || $students instanceof \think\Collection || $students instanceof \think\Paginator): $i = 0; $__LIST__ = $students;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                            <label for="<?php echo $vo['sid']; ?>"><div class="news-item clearfix">
+                                <input onchange="changeimg(this);" class="pull-left" style="margin-top: 1.1rem" value="<?php echo $vo['sid']; ?>" type="checkbox" id="<?php echo $vo['sid']; ?>" name="chk"><img id="<?php echo $vo['sid']; ?>1" class="pull-left ssmall" src="__IMG__/ios/icon_checkbox_checked@3x.png">
                                 <div class="news-image">
-                                    <a href="#"><img src="{if condition=" $vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}"></a>
+                                    <a href="#"><img src="<?php if($vo['headimg'] != ''): ?>__PIC__<?php echo $vo['headimg']; else: ?>__IMG__/ios/icon_head_portrait@3x.png<?php endif; ?>"></a>
                                 </div>
                                 <div style="float: left;">
-                                    <p class="boldtex">{$vo.name}</p>
-                                    <p class="smalltex" style="margin-top: 0.2rem">{$vo.sex}&nbsp;{$vo.cid}</p></div>
-                                <span class="pull-right button button-round smalltex" style="margin-top: 1.2rem;margin-right: 16px;color: #28A5E5;width: 2.5rem" onclick="reject(this.innerHTML);" type="button">驳回<span style="display: none">,{$vo.name},{$vo.sid},{$vo.cid},</span></span>
+                                    <p class="boldtex"><?php echo $vo['name']; ?></p>
+                                    <p class="smalltex" style="margin-top: 0.2rem"><?php echo $vo['sex']; ?>&nbsp;<?php echo $vo['cid']; ?></p></div>
+                                <span class="pull-right button button-round smalltex" style="margin-top: 1.2rem;margin-right: 16px;color: #28A5E5;width: 2.5rem" onclick="reject(this.innerHTML);" type="button">驳回<span style="display: none">,<?php echo $vo['name']; ?>,<?php echo $vo['sid']; ?>,<?php echo $vo['cid']; ?>,</span></span>
                             </div></label>
-                            {/volist}
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
 
                         </div>
                     </div>
                     <div id="tab2" class="tab">
                         <div class="content-block">
-                            {if condition="$student eq null"}
+                            <?php if($student == null): ?>
                             <div class="img-div">
                                 <img src="__IMG__/ios/416877607.jpg"><br/>
                                 这个暂时没有数据哦！
                             </div>
-                            {/if}
-                            {volist name='student' id='vo'}
+                            <?php endif; if(is_array($student) || $student instanceof \think\Collection || $student instanceof \think\Paginator): $i = 0; $__LIST__ = $student;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                             <div class="news-item clearfix">
                                 <div class="news-image">
-                                    <a href="#"><img src="{if condition=" $vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}"></a>
+                                    <a href="#"><img src="<?php if($vo['headimg'] != ''): ?>__PIC__<?php echo $vo['headimg']; else: ?>__IMG__/ios/icon_head_portrait@3x.png<?php endif; ?>"></a>
                                 </div>
                                 <div style="float: left;">
-                                    <p class="boldtex">{$vo.name}</p>
-                                    <p class="smalltex" style="margin-top: 0.2rem">{$vo.sex}&nbsp;{$vo.cid}</p></div>
+                                    <p class="boldtex"><?php echo $vo['name']; ?></p>
+                                    <p class="smalltex" style="margin-top: 0.2rem"><?php echo $vo['sex']; ?>&nbsp;<?php echo $vo['cid']; ?></p></div>
                             </div>
 
-                            {/volist}
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                         </div>
                     </div>
                     <div id="tab3" class="tab">
                         <div class="content-block">
-                            {if condition="$bstudent eq null"}
+                            <?php if($bstudent == null): ?>
                             <div class="img-div">
                                 <img src="__IMG__/ios/416877607.jpg"><br/>
                                 这个暂时没有数据哦！
                             </div>
-                            {/if}
-                            {volist name='bstudent' id='vo'}
+                            <?php endif; if(is_array($bstudent) || $bstudent instanceof \think\Collection || $bstudent instanceof \think\Paginator): $i = 0; $__LIST__ = $bstudent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                             <div class="news-item clearfix">
                                 <div class="news-image">
-                                    <img src="{if condition="$vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}">
+                                    <img src="<?php if($vo['headimg'] != ''): ?>__PIC__<?php echo $vo['headimg']; else: ?>__IMG__/ios/icon_head_portrait@3x.png<?php endif; ?>">
                                 </div>
                                 <div style="margin-left: 2.5rem">
-                                <p class="boldtex">{$vo.name}<span class="pull-right smalltex" style="margin-right: 20px">{$vo.sex}&nbsp;{$vo.cid}</span></p>
-                                    <p class="smalltex" style="margin-top: 0.2rem">{$vo.reason}</p></div>
+                                <p class="boldtex"><?php echo $vo['name']; ?><span class="pull-right smalltex" style="margin-right: 20px"><?php echo $vo['sex']; ?>&nbsp;<?php echo $vo['cid']; ?></span></p>
+                                    <p class="smalltex" style="margin-top: 0.2rem"><?php echo $vo['reason']; ?></p></div>
                             </div>
-                            {/volist}
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                         </div>
                     </div>
                 </div>

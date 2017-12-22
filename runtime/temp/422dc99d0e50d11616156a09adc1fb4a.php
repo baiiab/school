@@ -1,6 +1,7 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\lst.html";i:1513923820;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1513768045;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1512960216;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:83:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\teacher\edit.html";i:1513922339;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1513768045;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1512960216;}*/ ?>
 <!DOCTYPE html>
-<html><head>
+<html>
+	<head>
 	    <meta charset="utf-8">
     <title>特殊教育服务号-后台管理</title>
 
@@ -18,24 +19,43 @@
     <link href="__PUBLIC__/demo.css" rel="stylesheet">
     <link href="__PUBLIC__/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/animate.css" rel="stylesheet">
+    <script src="__PUBLIC__/jquery-3.2.1.js"></script>
     <style type="text/css">
-        img{
-            width: 40px;
-            height: 40px;
-            border-radius: 40px;
-        }
-        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-            vertical-align: middle;
+        #login{
+            position: absolute;
+            top: 45%;
+            left:45%;
+            margin: -15px 0 0 -50px;
+            width: 400px;
+            background-color: #aeaeae;
         }
     </style>
     <script type="text/javascript">
-        function searchStudent() {
-//            alert(document.getElementById("search").value);die;
-            window.location.href = "searchStudent?id="+document.getElementById("search").value;
+        function change() {
+            var str = '';
+            var chk = document.getElementsByName('chk');
+            for (var i = 0; i < chk.length; i++) {
+                if (chk[i].checked) {
+                    str = str + chk[i].value + ',';
+                }
+            }
+            str = str.substring(0, str.length - 1);
+            if(str=='') return false;
+            $('#cid').val(str);
+        }
+        window.alert = function(name){
+            var iframe = document.createElement("IFRAME");
+            iframe.style.display="none";
+            iframe.setAttribute("src", 'data:text/plain,');
+            document.documentElement.appendChild(iframe);
+            window.frames[0].window.alert(name);
+            iframe.parentNode.removeChild(iframe);
         }
     </script>
+
 </head>
 <body>
+	<!-- 头部 -->
 	<!-- 头部 -->
 	<div class="navbar">
     <div class="navbar-inner">
@@ -264,94 +284,107 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                                        <li>
-                        <a href="#">系统</a>
-                    </li>
-                                        <li class="active">用户管理</li>
-                                        </ul>
+                        <li>
+                            <a href="#">系统</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo url('lst'); ?>">教师管理</a>
+                        </li>
+                        <li class="active">编辑教师</li>
+                    </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
                     
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('student/addStudent'); ?>'"> <i class="fa fa-plus"></i> 添加学员
-
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('student/delClass'); ?>'"> 班级管理
-</button>
-
-<button type="button" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '<?php echo url('student/outexcel'); ?>'"> </i> 导出学员信息
-</button>
-
-    <div style="display: inline-block">
-    <form action="<?php echo url('student/importExcel'); ?>" enctype="multipart/form-data"
-          method="post">
-        <input type="file" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" name="excel"/>
-        <input type="submit" style="display: inline-block" class="btn btn-sm btn-azure btn-addon" value="导入">
-    </form>
-    </div>
-    <div class="sidebar-header-wrapper" style="float: right">
-        <input class="searchinput" id="search" placeholder="根据姓名检索" type="text">
-        <i class="searchicon fa fa-search" onclick="searchStudent();"></i>
-    </div>
-
 <div class="row">
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">编辑教师</span>
+            </div>
             <div class="widget-body">
-                <div class="flip-scroll">
-                    <table class="table table-bordered table-hover">
-                        <thead class="">
-                            <tr>
-                                <th class="text-center">头像</th>
-                                <th class="text-center">学号</th>
-                                <th class="text-center">用户名</th>
-                                <th class="text-center">性别</th>
-                                <th class="text-center">所属班级</th>
-                                <th class="text-center">目前负责人</th>
-                                <th class="text-center">监护人</th>
-                                <th class="text-center">交接信息</th>
-                                <th class="text-center" width="20%">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if(is_array($students) || $students instanceof \think\Collection || $students instanceof \think\Paginator): $i = 0; $__LIST__ = $students;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                                                        <tr>
-                                <td align="center"><img src="<?php if($vo['headimg'] != ''): ?>__PICTU__<?php echo $vo['headimg']; else: ?>__PICTURE__/ios/icon_head_portrait@3x.png<?php endif; ?>"></td>
-                                <td align="center"><?php echo $vo['sid']; ?></td>
-                                <td align="center"><?php echo $vo['name']; ?></td>
-                                <td align="center"><?php echo $vo['sex']; ?></td>
-                                <td align="center"><?php echo $vo['cid']; ?></td>
-                                <td align="center"><?php
-                                    $result=db('teacher')->where('mobile',$vo['tid'])->find();
-                                    if($result){
-                                        echo $result['tname'].'（教师）';
-                                    }else{
-                                        $result=db('guardian')->where('mobile',$vo['tid'])->find();
-                                        echo $result['gname'].'（监护人）';
-                                    }
-                                    ?></td>
-                                <td align="center"><?php
-                                    $result=db('guardian')->where('mobile',$vo['detid'])->find();
-                                    echo $result['gname'];
-                                    ?></td>
-                                <td align="center"><a href="<?php echo url('transinfo/index',array('id'=>$vo['sid'])); ?>">交接信息</a></td>
-                                <td align="center">
-                                    <a href="<?php echo url('student/edit',array('sid'=>$vo['sid'])); ?>" class="btn btn-primary btn-sm shiny">
-                                        <i class="fa fa-edit"></i> 编辑
-                                    </a>
-                                    <a href="#" onClick="warning('确实要删除吗','<?php echo url('student/del',array('sid'=>$vo['sid'])); ?>')" class="btn btn-danger btn-sm shiny">
-                                        <i class="fa fa-trash-o"></i> 删除
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php endforeach; endif; else: echo "" ;endif; ?>
-                                                    </tbody>
-                    </table>
-                    <?php echo $students->render(); ?>
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" onsubmit="change();" action="" method="post">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">教师编号</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" disabled="disabled" value="<?php echo $admin['tid']; ?>" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="sid" value="<?php echo $admin['tid']; ?>" name="tid" type="hidden">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">密码</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="password" value="" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">姓名</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="username" value="<?php echo $admin['tname']; ?>" name="tname" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="year" class="col-sm-2 control-label no-padding-right">所负责班级</label>
+                            <div class="col-sm-6" style="display: inline-block;width: 300px">
+                                <input type="hidden" id="cid" name="cid" value="<?php echo $admin['cid']; ?>">
+                                <?php if(is_array($year) || $year instanceof \think\Collection || $year instanceof \think\Paginator): $i = 0; $__LIST__ = $year;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                <div>
+                                    <?php echo $vo['year']; ?>:<span><?php if(is_array($vo['cid']) || $vo['cid'] instanceof \think\Collection || $vo['cid'] instanceof \think\Paginator): $i = 0; $__LIST__ = $vo['cid'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c): $mod = ($i % 2 );++$i;?>
+                                    <label><input type="checkbox" value="<?php echo $c['cid']; ?>" <?php if(strstr($admin['cid'],$c['cid'])): ?>checked<?php endif; ?> name="chk"><?php echo $c['cid']; ?></label>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                </span>
+                                </div>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                </select>
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">性别</label>
+                            <div class="col-sm-6">
+                                <select name="gender">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">课程</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" value="<?php echo $admin['course']; ?>" name="course" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">职位</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" value="<?php echo $admin['position']; ?>" name="position" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">手机号码</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" disabled="disabled" value="<?php echo $admin['mobile']; ?>" name="mobile" required="" type="number">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                	                </div>
             </div>
         </div>
     </div>
@@ -368,9 +401,9 @@
     <script src="__PUBLIC__/jquery_002.js"></script>
     <script src="__PUBLIC__/bootstrap.js"></script>
     <script src="__PUBLIC__/jquery.js"></script>
-
     <!--Beyond Scripts-->
     <script src="__PUBLIC__/beyond.js"></script>
+    
 
 
 </body></html>

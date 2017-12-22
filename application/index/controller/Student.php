@@ -47,10 +47,15 @@ class Student extends Controller
         $cid = input('sgid');
         $sids = db('studentgroup')->where(['sgid'=>$cid,'tid'=>session('mobile')])->find();
 //        dump($sids);die;
-        $sids['sids'] = input('sid').$sids['sids'];
+        $sids['sids'] = $sids['sids'];
+        if(input('?sid')){
+            $sids['sids'] = input('sid');
+        }
+//        dump($sids);die;
+//        $sids['sids'] = input('sid').$sids['sids'];
         $student = db('student')->where('sid','in',$sids['sids'])->select();
         $this->assign(['student'=>$student,'cid'=>$sids]);
-        if(input('sgid')==''){
+        if($cid==''){
             $name = input('name');
             $this->assign('name',$name);
             return $this->fetch('addgroup');
@@ -72,7 +77,7 @@ class Student extends Controller
             }
         }else{
             if(db('studentgroup')->where('sgid',$sgid)->update(['sids'=>$sids])){
-                show_msg('成功添加学员到分组',url('groupdetail',['sgid'=>$sgid]));
+                show_msg('成功添加学员到分组',url('index'));
             }else{
                 show_msg('添加学员到分组失败');
             }
@@ -108,8 +113,11 @@ class Student extends Controller
             }
         }
         $student = db('student')->where($map)->select();
-        if (count($sgids)==1) $this->assign(['student'=>$student,'sgid'=>$sgid,'name'=>'']);
-        else $this->assign(['student'=>$student,'sgid'=>$sgid,'name'=>$sgids[1]]);
+        unset($map['sid']);
+        $map['sid'] = ['in',$sids['sids']];
+        $stud = db('student')->where($map)->select();
+        if (count($sgids)==1) $this->assign(['student'=>$student,'stud'=>$stud,'sgid'=>$sgid,'name'=>'']);
+        else $this->assign(['student'=>$student,'stud'=>$stud,'sgid'=>$sgid,'name'=>$sgids[1]]);
         return view();
     }
     public function del(){

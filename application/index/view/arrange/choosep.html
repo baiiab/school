@@ -90,7 +90,7 @@
                             </div>
                             {volist name='guardian' id='vo'}
                             <div class="common">
-                                <label for="{$vo.gid}" class="ortex"><input id="{$vo.gid}" onclick="guardia(this.value)" style="display: none" value="{$vo.mobile}{$vo.gname}-{$sids}">{$vo.gname}</label>
+                                <label for="{$vo.gid}" class="ortex"><input id="{$vo.gid}" onclick="guardia(this.value)" style="display: none" value="{$vo.mobile}{$vo.gname}*{$sids}">{$vo.gname}</label>
 
                             </div>
                             {/volist}
@@ -120,7 +120,7 @@
     function guardia(obj) {
         $.confirm('是否确定安排学员？', '确认安排',
             function () {
-                var value = obj.split("-");
+                var value = obj.split("*");
                 window.location.href = '/school/public/index/arrange/confirm?gid='+value[0]+'&sid='+value[1];
             },
             function () {

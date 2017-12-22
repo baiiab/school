@@ -109,7 +109,7 @@
                         <div class="content-block">
                             {volist name='group' id='vo'}
                             <div class="common" onclick="javascript:window.location.href = '{:url('student/groupdetail',['sgid'=>$vo['sgid']])}'"><span class="icon icon-right pull-right" style="margin-right: 16px"></span>
-                                    <span class="pull-right smatext">{$vo.sids|explode=',',###|count}名</span>
+                                    <span class="pull-right smatext">{$vo.sids|substr=0,-1|explode=',',###|count}名</span>
                                     <span class="boldtex">{$vo.name}</span>
                             </div>
                             {/volist}

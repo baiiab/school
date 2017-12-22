@@ -12,17 +12,17 @@ class Handmessage extends Controller
         db('message')->where('sid','in',$arr[0])->delete();
         db('transinfo')->where('sid','in',$arr[0])->delete();
         if(db('student')->where('sid','in',$arr[0])->update(['tid'=>$arr[1]])){
+            $news = [
+                'sendtime' => time(),
+                'content' => '管理员已对您安排学员，请尽快确认',
+                'status' => $arr[1],
+            ];
+            db('systemnews')->insert($news);
             $result = db('user')->where('mobile',$arr[1])->find();
             if($result){
                 $content['name'] = session('name');
                 $content['num'] = substr_count($arr[0],',')+1;
                 push_weChatmsg($result['openid'],$content,'1');
-                $news = [
-                    'sendtime' => time(),
-                    'content' => '管理员已对您安排学员，请尽快确认',
-                    'status' => $arr[1],
-                ];
-                db('systemnews')->insert($news);
                 return '学生负责人已更改，并提醒老师查看';
             }else{
                 return '学生负责人已更改，此老师尚未绑定微信号';

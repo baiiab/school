@@ -95,8 +95,19 @@
             border-radius: 18px;
         }
         input[type=checkbox]:checked:after  {
-            border: none;
-            background-color: #28A5E5;
+            /*display: none;*/
+        }
+        .ssmall{
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-left: 30px;
+            line-height: 18px;
+            margin-top: 27px;
+            display: none;
+        }
+        .ssmalli{
+            display: block;
         }
         .bar .icon{
             vertical-align: baseline;
@@ -141,7 +152,7 @@
         <!-- 工具栏 -->
         <nav class="bar bar-tab" id="tools">
             <div class="tab-item external tooltex" style="width: 2%;color: #666666;background-color: #FFFFFF;text-align: left">
-                <label for="allchoose" ><input type="checkbox" onchange="allchoose();"id="allchoose"><span style="margin-left: 12px">全选</span></label>
+                <label for="allchoose" ><input class="pull-left" style="margin-top: 3px;" type="checkbox" onchange="allchoose();"id="allchoose"><img id="allchoose1" class="ssmall pull-left" style="margin-top: 3px;" src="__IMG__/ios/icon_checkbox_checked@3x.png"><span style="margin-left: 12px;">全选</span></label>
             </div>
             <span class="tab-item external tooltex" style="width: 3%" onclick="change();">
                 <span class="tab-label" style="color: #FFFFFF">添加学员</span>
@@ -153,9 +164,20 @@
             <div class="content-block">
                 <input type="hidden" value="{$sgid}" id="sgid">
                 <input type="hidden" value="{$name}" id="name">
+                {volist name='stud' id='vo'}
+                <label for="{$vo.sid}"><div class="news-item clearfix">
+                    <input onchange="changeimg(this);" checked="checked" class="pull-left" style="display: none;margin-top: 1.1rem" value="{$vo.sid}" type="checkbox" id="{$vo.sid}" name="chk"><img id="{$vo.sid}1" class="pull-left ssmall ssmalli" src="__IMG__/ios/icon_checkbox_checked@3x.png">
+                    <div class="news-image">
+                        <a href="#"><img src="{if condition=" $vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}"></a>
+                    </div>
+                    <div style="float: left;">
+                        <p class="boldtex">{$vo.name}</p>
+                        <p class="smalltex" style="margin-top: 0.2rem">{$vo.sex}&nbsp;{$vo.cid}</p></div>
+                </div></label>
+                {/volist}
                 {volist name='student' id='vo'}
                 <label for="{$vo.sid}"><div class="news-item clearfix">
-                    <input class="pull-left" style="margin-top: 1.1rem" value="{$vo.sid}" type="checkbox" id="{$vo.sid}" name="chk">
+                    <input onchange="changeimg(this);" class="pull-left" style="margin-top: 1.1rem" value="{$vo.sid}" type="checkbox" id="{$vo.sid}" name="chk"><img id="{$vo.sid}1" class="pull-left ssmall" src="__IMG__/ios/icon_checkbox_checked@3x.png">
                     <div class="news-image">
                         <a href="#"><img src="{if condition=" $vo['headimg'] neq ''"}__PIC__{$vo.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}"></a>
                     </div>
@@ -196,8 +218,30 @@
         }
         window.location.href = '/school/public/index/student/groupdetail?sid='+str+'&sgid='+$('#sgid').val()+'&name='+$('#name').val();
     }
+
+    function changeimg(obj) {
+        var d = document.getElementById(obj.value+1);
+        if(obj.checked){
+            d.className = 'pull-left ssmall ssmalli';
+            obj.style.display = 'none';
+        }else{
+            d.className = 'pull-left ssmall';
+            obj.style.display = 'block';
+        }
+    }
     function allchoose() {
         var CheckAll=document.getElementById('allchoose');
+        var d=document.getElementById('allchoose1');
+        if(CheckAll.checked==true){
+            CheckAll.checked==false;
+            CheckAll.style.display = 'none';
+            d.className = 'pull-left ssmall ssmalli';
+        }
+        else if(CheckAll.checked==false){
+            CheckAll.checked==true;
+            CheckAll.style.display = 'block';
+            d.className = 'pull-left ssmall ';
+        }
         if(CheckAll.checked==true){
             checkedAll();
         }
@@ -211,8 +255,13 @@
         var len=names.length;
         if(len>0)
         {
-            for(var i=0;i<len;i++)
+            for(var i=0;i<len;i++){
                 names[i].checked=true;
+                names[i].style.display = 'none';
+//                ids += names[i].id + ',';
+                var d = document.getElementById(names[i].id + '1');
+                d.className = 'pull-left ssmall ssmalli';
+            }
         }
     }
     function checkedNo()
@@ -221,8 +270,12 @@
         var len=names.length;
         if(len>0)
         {
-            for(var i=0;i<len;i++)
+            for(var i=0;i<len;i++){
                 names[i].checked=false;
+                names[i].style.display = 'block';
+                var d = document.getElementById(names[i].id + '1');
+                d.className = 'pull-left ssmall';
+            }
         }
     }
 

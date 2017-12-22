@@ -180,7 +180,7 @@
                         <hr/>
                         <p class="smalltex"><span class="icon icon-down pull-right" id="sp"
                                                   style="margin-right: 0.5rem;"></span>
-                            <select class="pull-right" id="cid" name="cid">
+                            <select class="pull-right" id="cid" name="cid" onmousedown="if(this.options.length>6){this.size=5}" onblur="this.size=0" onchange="this.size=0">
                                 {volist name='list' id='vo'}
                                 <option value="{$vo.cid}">{$vo.cid}</option>
                                 {/volist}

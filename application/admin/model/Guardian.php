@@ -16,15 +16,15 @@ class Guardian extends Model
                 session('name',$user['gname']);
                 session('password',$user['password']);
                 session('mobile',$user['mobile']);
-//                session('tokensession',$this->get_token());
-//                $result = db('user')->where('mobile',session('mobile'))->find();
-//                if($result){
-//                    if($result['openid']!=session('openid')){
-//                        db('user')->where('mobile',session('mobile'))->update(['openid'=>session('openid'),'tokensession'=>session('tokensession')]);
-//                    }
-//                }else{
-//                    db('user')->insert(['openid'=>session('openid'),'tokensession'=>session('tokensession'),'mobile'=>session('mobile')]);
-//                }
+                session('tokensession',$this->get_token());
+                $result = db('user')->where('mobile',session('mobile'))->find();
+                if($result){
+                    if($result['openid']!=session('openid')){
+                        db('user')->where('mobile',session('mobile'))->update(['openid'=>session('openid'),'tokensession'=>session('tokensession')]);
+                    }
+                }else{
+                    db('user')->insert(['openid'=>session('openid'),'tokensession'=>session('tokensession'),'mobile'=>session('mobile')]);
+                }
                 return 3;
             }else{
                 return 2;

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\student\addstudent.html";i:1513848612;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/mobil\view\student\addstudent.html";i:1513913678;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -181,7 +181,7 @@
                         <hr/>
                         <p class="smalltex"><span class="icon icon-down pull-right" id="sp"
                                                   style="margin-right: 0.5rem;"></span>
-                            <select class="pull-right" id="cid" name="cid">
+                            <select class="pull-right" id="cid" name="cid" onmousedown="if(this.options.length>3){this.size=5}" onblur="this.size=0" onchange="this.size=0">
                                 <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                                 <option value="<?php echo $vo['cid']; ?>"><?php echo $vo['cid']; ?></option>
                                 <?php endforeach; endif; else: echo "" ;endif; ?>

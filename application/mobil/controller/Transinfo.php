@@ -10,6 +10,7 @@ use app\mobil\controller\Base;
 use app\admin\model\Transinfo as modelTrans;
 use app\admin\model\Transinfodata;
 use app\admin\model\Message;
+use think\Db;
 class Transinfo extends Base
 {
     public function recedetail(){
@@ -37,7 +38,14 @@ class Transinfo extends Base
     }
 //  学员交接主界面
     public function handtran(){
-        $tp = db('student')->where('tid',session('mobile'))->count();
+        $phone = session('mobile');
+        $fsid = Db::field('sid')->table('message')->union("SELECT sid FROM transinfo WHERE status!=1 and tid=$phone")->select();
+        $fsids = '';
+        foreach ($fsid as $vo){
+            $fsids .= $vo['sid'].',';
+        }
+        $map0 = ['sid'=>['not in',substr($fsids, 0, -1)],'tid'=>session('mobile')];
+        $tp = db('student')->where($map0)->count();
         $g = db('transinfo')->where('gid',session('mobile'))->count();
         $p = db('message')->where('gid',session('mobile'))->count();
         $gp = $g+$p;

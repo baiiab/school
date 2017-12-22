@@ -18,6 +18,7 @@ class Arrange extends Controller
             $class[$k]['num'] = db('student')->where(['cid'=>$vo['cid'],'tid'=>session('mobile')])->count();
             $class[$k]['confirmed'] = db('transinfo')->alias('a')->join('student s','a.sid=s.sid')
                 ->where('s.cid',$vo['cid'])->where('status','neq',1)->where('a.tid',session('mobile'))->count();
+//            dump($class);die;
             $class[$k]['num'] = $class[$k]['confirmed'] + $class[$k]['num'];
             $class[$k]['back'] = db('transinfo')->alias('a')->join('student s','a.sid=s.sid')
                 ->where('s.cid',$vo['cid'])->where('status',1)->where('a.tid ',session('mobile'))->count();

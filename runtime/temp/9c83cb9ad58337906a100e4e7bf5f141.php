@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\addstudent.html";i:1513671663;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1513768045;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1512960216;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:89:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\student\addstudent.html";i:1513846552;s:81:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\top.html";i:1513768045;s:82:"D:\kinggsoft\phpstudy\WWW\school\public/../application/admin\view\common\left.html";i:1512960216;}*/ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -329,6 +329,7 @@
                             <label for="cid" class="col-sm-2 control-label no-padding-right">入学年份</label>
                             <div class="col-sm-6">
                                 <select name="year" id="year">
+                                    <option>请选择年级</option>
                                     <?php if(is_array($year) || $year instanceof \think\Collection || $year instanceof \think\Paginator): $i = 0; $__LIST__ = $year;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                                     <option value="<?php echo $vo['year']; ?>"><?php echo $vo['year']; ?></option>
                                     <?php endforeach; endif; else: echo "" ;endif; ?>
