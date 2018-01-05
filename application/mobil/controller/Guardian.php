@@ -6,47 +6,29 @@
  * Time: 10:31
  */
 namespace app\mobil\controller;
-use think\Controller;
+use app\mobil\controller\Base;
 use app\admin\model\Guardian as guardianModle;
-class Guardian extends Controller
+class Guardian extends Base
 {
     public function home(){
-        if(request()->isPost()){
-            $file = request()->file('headimg');
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'static/mobil/uploads');
-            $data['headimg'] = '/uploads/'.$info->getSaveName();
-            $pic = db('guardian')->where('mobile',session('mobile'))->find();
-            $pic['headimg'] = str_replace('\\','/',$pic['headimg']);
-            unlink(ROOT_PATH . 'public' . DS .'static/mobil'.$pic['headimg']);
-            db('guardian')->where('mobile',session('mobile'))->update($data);
+        $syss = db('systemnews')->where('status','1')->select();
+        $news = 0;
+        foreach ($syss as $vo){
+            if(!strstr($vo['isread'],session('mobile'))) $news++;
+        }
+        $trans = db('systemnews')->where('status',session('mobile'))->select();
+        foreach ($trans as $vo){
+            if(!strstr($vo['isread'],session('mobile'))) $news++;
         }
         $guardian = guardianModle::getByMobile(session('mobile'));
         $this->assign('guardian',$guardian);
-        return view();
-    }
-
-    public function login(){
-//        $result = db('user')->where('openid',session('openid')->find();
-//        if(){
-//            db('guardian')->where('mobile',)
-//        }
-        if(request()->isPost()){
-            $admin = new guardianModle();
-            $result = $admin->login(input('post.'));
-            if($result==3){
-//                $data = ['openid'=>session('openid'),'status'=>session('mobile')];
-//                db('user')->insert($data);
-                $this->redirect('home');
-            }else{
-                show_msg('用户名或密码错误');
-            }
-        }
+        $this->assign('news',$news);
         return view();
     }
 
     public function logout(){
-        session(null);
-        $this->redirect('login');
+        db('user')->where('mobile',session('mobile'))->delete();
+        $this->redirect('login/login');
     }
 
     public function editpas(){

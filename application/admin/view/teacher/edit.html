@@ -2,7 +2,7 @@
 <html>
 	<head>
 	    <meta charset="utf-8">
-    <title></title>
+    <title>特殊教育服务号-后台管理</title>
 
     <meta name="description" content="Dashboard">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,29 +30,26 @@
         }
     </style>
     <script type="text/javascript">
-        $(function() {
-            $("#login").hide();
-            $('#showcid').click(function () {
-                $("#login").show();
-            });
-            $('#changecid').click(function () {
-                var str = '';
-                var chk = document.getElementsByName('chk');
-                for (var i = 0; i < chk.length; i++) {
-                    if (chk[i].checked) {
-                        str = str + chk[i].value + ',';
-                    }
+        function change() {
+            var str = '';
+            var chk = document.getElementsByName('chk');
+            for (var i = 0; i < chk.length; i++) {
+                if (chk[i].checked) {
+                    str = str + chk[i].value + ',';
                 }
-                str = str.substring(0, str.length - 1);
-                if(!str){
-                    alert('还没选择班级');
-                    die;
-                }
-                $("#login").hide();
-//                alert(str);die;
-                $('#cid').val(str);
-            });
-        })
+            }
+            str = str.substring(0, str.length - 1);
+            if(str=='') return false;
+            $('#cid').val(str);
+        }
+        window.alert = function(name){
+            var iframe = document.createElement("IFRAME");
+            iframe.style.display="none";
+            iframe.setAttribute("src", 'data:text/plain,');
+            document.documentElement.appendChild(iframe);
+            window.frames[0].window.alert(name);
+            iframe.parentNode.removeChild(iframe);
+        }
     </script>
 
 </head>
@@ -94,7 +91,7 @@
             </div>
             <div class="widget-body">
                 <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="" method="post">
+                    <form class="form-horizontal" role="form" onsubmit="change();" action="" method="post">
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">教师编号</label>
                             <div class="col-sm-6">
@@ -119,16 +116,20 @@
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
                         <div class="form-group">
-                            <label for="year" class="col-sm-2 control-label no-padding-right">所教班级</label>
+                            <label for="year" class="col-sm-2 control-label no-padding-right">所负责班级</label>
                             <div class="col-sm-6" style="display: inline-block;width: 300px">
-                                <input type="button" value="选择班级" id="showcid">
-                                <input type="hidden" id="cid" name="cid">
-                                <div id="login">
-                                    {volist name="cid" id="vo"}
-                                <label style="margin-right: 2px"><input type="checkbox" name="chk" value="{$vo.cid}" {if condition="strstr($admin['cid'],$vo['cid'])"} checked {/if}>{$vo.cid}</label>
-                                {/volist}
-                                    <input type="button" value="确认" id="changecid">
+                                <input type="hidden" id="cid" name="cid" value="{$admin.cid}">
+                                {volist name="year" id="vo"}
+                                <div>
+                                    {$vo.year}:<span>{volist name="vo['cid']" id="c"}
+                                    <label><input type="checkbox" value="{$c.cid}" {if condition="strstr($admin['cid'],$c['cid'])"}checked{/if} name="chk">{$c.cid}</label>
+                                    {/volist}
+                                </span>
                                 </div>
+                                    {/volist}
+                                </select>
+
+
                             </div>
                         </div>
 
@@ -146,7 +147,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">课程</label>
                             <div class="col-sm-6">
-                                <input class="form-control" value="{$admin.course}" name="course" required="" type="text">
+                                <input class="form-control" value="{$admin.course}" name="course" type="text">
                             </div>
                         </div>
                         <div class="form-group">
@@ -158,7 +159,7 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-2 control-label no-padding-right">手机号码</label>
                             <div class="col-sm-6">
-                                <input class="form-control" value="{$admin.mobile}" name="mobile" required="" type="text">
+                                <input class="form-control" disabled="disabled" value="{$admin.mobile}" name="mobile" required="" type="number">
                             </div>
                         </div>
 

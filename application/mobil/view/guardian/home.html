@@ -3,69 +3,96 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>我的生活</title>
+    <title>师生交接-监护人端</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/sm.min.css">
     <style type="text/css">
-        .news-item {
-            min-height: 5rem;
-            position: relative;
-            padding-left: 1rem;
-            padding-top: 1rem;
-            border-bottom: 0.1rem solid #c2ccd1;
-        }
-
-        .clearfix:after {
-            display: block;
-            content: '.';
-            clear: both;
-            height: 0;
-            font-size: 0;
-            line-height: 0;
-            overflow: hidden;
-        }
-
-        .news-image {
-            width: 4rem;
-            height: 4rem;
-            border: none;
-            float: left;
-            margin: 0;
-            padding: 0;
-            position: relative;
-        }
-
-        .news-image img {
-            width: 4rem;
-            height: 4rem;
-        }
-        .news-item p{
-            margin-top: 0.5rem;
-            margin-left: 5rem;
-        }
         div .common{
             margin-top: 0.5rem;
             padding-left: 1rem;
-            border-bottom: 0.1rem solid #c2ccd1;
-            border-top: 0.1rem solid #c2ccd1;
+            background-color: #FFFFFF;
+            height: 57px;
+            line-height: 57px;
+            border-bottom: 1px solid #CCCCCC;
+            border-top: 1px solid #CCCCCC;
         }
         div .common img{
-            width: 1rem;
-            height: 1rem;
+            width: 20px;
+            height: 20px;
+            margin-top: 19px;
+        }
+
+        .center-item{
+            display: flex;
+            height: 93px;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #CCCCCC;
+        }
+        .item-img{
+            align-content: center;
+            margin: 15px 17px 16px 23px;
+        }
+
+        .item-img img{
+            border-radius:60px;
+            width: 61px;
+            height: 61px;
+        }
+        .item-p{
+            align-content:center;
+        }
+        .item-p1{
+            margin-top: 22px;
+            color: #333333;
+            font-size: 16px;
+            margin-bottom: 0;
+            font-family: PingFang-SC-Bold;
+        }
+        .item-p2{
+            margin-top: 1px;
+            margin-bottom: 25px;
+            color: #999999;
+            font-size: 14px;
+            font-family: SFUIDisplay-Regular;
+        }
+        .common-p{
+            font-family: PingFang-SC-Medium;
+            font-size: 15px;
+            margin-left: 10px;
+            color: #333333;
         }
         .logout{
-            margin: 1rem 2rem 0rem 2rem;
-            height: 5rem;
+            margin: 2rem 1rem 0rem 1rem;
+            height: 50px;
+            border-radius: 6px 6px 6px 6px;
+            background-color: #F04545;
+            line-height: 50px;
+            text-align: center;
+        }
+        .logout a{
+            font-family: PingFang-SC-Medium;
+            font-size: 16px;
+            height: 20px;
+            color: #FFFFFF;
         }
         .smallimg {
             width: 1.5rem;
             height: 1.5rem;
             margin-bottom: 1rem
+        }
+        hr {
+            height: 1px;
+            border: none;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            border-top: 1px solid #CCCCCC;
+        }
+        .common p{
+            margin: 0;
         }
     </style>
 </head>
@@ -73,9 +100,6 @@
     <!-- 单个page ,第一个.page默认被展示-->
     <div class="page">
         <!-- 标题栏 -->
-        <header class="bar bar-nav">
-            <h1 class="title">师生交接-监护人端</h1>
-        </header>
 
         <!-- 工具栏 -->
         <nav class="bar bar-tab">
@@ -95,58 +119,47 @@
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-            <div class="news-item clearfix">
-                <form id="myForm" action="" enctype="multipart/form-data" method="post">
-                <div class="news-image">
-                    <label id="image" for="file"><img style="margin-right: 0.5rem" class="pull-right" src="{if condition="$guardian['headimg'] neq ''"}__PIC__{$guardian.headimg}{else/}__IMG__/ios/icon_head_portrait@3x.png{/if}"></label>
-                    <input type="file" id="file" name="headimg" style="display: none"/>
+            <div class="center-item">
+                <div class="item-img">
+                    <img src="__IMG__/ios/1884282706.jpg">
                 </div>
-                </form>
-                <p>{$Think.session.name}</p>
-                <p>{$Think.session.mobile}</p>
+                <div class="item-p">
+                    <p class="item-p1">{$Think.session.name}</p>
+                    <p class="item-p2">{$Think.session.mobile}</p>
+                </div>
             </div>
-            <div class="common">
+
+            <div class="common" style="height: 120px">
                 <p onclick="javascript:window.location.href = '{:url('student/lst')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
-                    <a class="icon icon-friends pull-left"></a>
-                    <span style="margin-left: 0.5rem">我的学员</span></p>
+                    <img class="pull-left" src="__IMG__/ios/icon_my_students@3x.png"/>
+                    <span class="common-p">我的学员</span></p>
                 <hr/>
-                <p onclick="javascript:window.location.href = '{:url('teacher/lst')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
+                <p style="height: 60px" onclick="javascript:window.location.href = '{:url('teacher/lst')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_students_lists@2x.png"/>
-                    <span style="margin-left: 0.5rem">教师通讯录</span></p>
+                    <span class="common-p">教师通讯录</span></p>
             </div>
             <div class="common">
                 <p onclick="javascript:window.location.href = '{:url('news/home')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_message_center@3x.png"/>
-                    <span class="pull-right"
-                          style="background: red;padding-left: 0.5rem;padding-right: 0.5rem; border: 0.1rem solid #8c8c8c;border-radius: 0.5rem;">99</span>
-                    <span style="margin-left: 0.5rem">消息中心</span></p>
+                    {if condition="$news neq 0"}<span class="pull-right" style="background-color: #F04545;padding-left: 0.5rem;padding-right: 0.5rem;margin-right: 5px;height: 21px;line-height: 21px;margin-top: 17px;text-align: center;font-size: 14px;border-radius: 10px;color: #FFFFFF">{$news}</span>{/if}
+                    <span class="common-p">消息中心</span></p>
             </div>
             <div class="common">
                 <p onclick="javascript:window.location.href = '{:url('editpas')}'"><a class="icon icon-right pull-right" style="margin-right: 0.5rem"></a>
                     <img class="pull-left" src="__IMG__/ios/icon_reset_password@3x.png"/>
-                    <span style="margin-left: 0.5rem">修改密码</span></p>
+                    <span class="common-p">修改密码</span></p>
             </div>
-            <div class="logout">
-                <a href="{:url('logout')}" style="margin: 1rem" class="button button-fill button-danger">退出登录</a></div>
+            <div class="logout" onclick="javascript:window.location.href = '{:url('logout')}'">
+                <a class="external">退出登录</a></div>
         </div>
     </div>
-
     <!-- 其他的单个page内联页（如果有） -->
 </div>
 
 <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
 <!--<script type="text/javascript" src="__PUBLIC__/jquery-3.2.1.js"></script>-->
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='__PUBLIC__/zepto.min.js' charset='utf-8'></script>
 <script>
-    document.getElementById('file').onchange = function() {
-        var imgFile = this.files[0];
-        var fr = new FileReader();
-        fr.onload = function() {
-            document.getElementById('image').getElementsByTagName('img')[0].src = fr.result;
-        };
-        fr.readAsDataURL(imgFile);
-        document.getElementById('myForm').submit();
-    };
 
     //打开自动初始化页面的功能
     //建议不要打开自动初始化，而是自己调用 $.init 方法完成初始化
@@ -154,8 +167,6 @@
         autoInit: true,
     }
 </script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-
+<script type='text/javascript' src='__PUBLIC__/sm.min.js' charset='utf-8'></script>
 </body>
 </html>

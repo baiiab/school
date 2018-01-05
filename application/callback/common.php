@@ -3,15 +3,7 @@ use think\Loader;
 use think\Db;
 
 /*curl get方式*/
-//获取唯一token
-function get_token() {
-    $token = '';
-    while (strlen($token) < 32) {
-        $token .= mt_rand(0, mt_getrandmax());
-    }
-    $token = md5(uniqid($token, TRUE));
-    return $token;
-}
+
 /*curl post方式*/
 function curl_file_post_contents($url,$postdata){
     $ch = curl_init();

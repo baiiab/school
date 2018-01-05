@@ -17,6 +17,6 @@ return [
     '__JQUERY__'=>SITE_URL,
     ],
 
-    'PUBLIC_APPID' => 'wx8fdaf45e141f2d6d', //公众号appid
-    'PUBLIC_APP_SECRET' => 'cba4e293fe9366d90262d0b1e82fc97e',  //公众号的SECRET
+    'PUBLIC_APPID' => 'wxa68041294c5c3259', //公众号appid
+    'PUBLIC_APP_SECRET' => 'b05fd44da15ccdd9f65175cce90a4e9a',  //公众号的SECRET
 ];

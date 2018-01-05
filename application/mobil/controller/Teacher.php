@@ -6,7 +6,7 @@
  * Time: 10:31
  */
 namespace app\mobil\controller;
-use app\admin\controller\Base;
+use app\mobil\controller\Base;
 class Teacher extends Base
 {
     public function lst()

@@ -8,17 +8,28 @@ class Handmessage extends Controller
     public function index(){
         $sid = input('sid');
         $arr = explode(' ',$sid);
-        $list = Student::all($arr[0]);
-        if(empty($arr[1])) return 0;
-        foreach ($list as $vo){
-            $data=[
-                'sid' => $vo->sid,
-                'tid' => $vo->tid,
-                'gid' => $arr[1],
-                'sendtime' => time()
+        if(empty($arr[1])) return '请选择老师';
+        db('message')->where('sid','in',$arr[0])->delete();
+        db('transinfo')->where('sid','in',$arr[0])->delete();
+        if(db('student')->where('sid','in',$arr[0])->update(['tid'=>$arr[1]])){
+            $news = [
+                'sendtime' => time(),
+                'content' => '管理员已对您安排学员，请尽快确认',
+                'status' => $arr[1],
             ];
-            db('message')->insert($data);
+            db('systemnews')->insert($news);
+            $result = db('user')->where('mobile',$arr[1])->find();
+            if($result){
+                $content['name'] = session('name');
+                $content['num'] = substr_count($arr[0],',')+1;
+                push_weChatmsg($result['openid'],$content,'1');
+                return '学生负责人已更改，并提醒老师查看';
+            }else{
+                return '学生负责人已更改，此老师尚未绑定微信号';
+            }
+        }else{
+            return '负责人已经是此老师，无需再更改';
         }
-        return 1;
+
     }
 }
