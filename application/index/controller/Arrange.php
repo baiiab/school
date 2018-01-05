@@ -149,9 +149,13 @@ class Arrange extends Controller
         $map['sid'] = ['in',$sid];
         $sids = db('student')->field('sid,headimg,name')->where($map)->select();
         $gid = input('gid');
+<<<<<<< HEAD
         $sgid = preg_replace('/\D/s', '', $gid);
         $sname = preg_replace('/\d/s', '', $gid);
 //        dump($sgid);die;
+=======
+        $sgid = substr($gid,0,11);
+>>>>>>> 68cca62486248705ab8228e993e8c47d6c7a763d
         if(db('guardian')->where('mobile',$sgid)->find()){
 
             $sid = explode(',',$sid);
@@ -176,7 +180,11 @@ class Arrange extends Controller
             db('systemnews')->insert($news);
             show_msg('安排成功，等待接收',url('index/arrange/home'));
         }
+<<<<<<< HEAD
         $this->assign(['sname'=>$sname,'sgid'=>$sgid,'sids'=>$sids,'sid'=>$sid]);
+=======
+        $this->assign(['teacher'=>$gid,'sids'=>$sids,'sid'=>$sid]);
+>>>>>>> 68cca62486248705ab8228e993e8c47d6c7a763d
         return view();
     }
     //教师确认详情页面
