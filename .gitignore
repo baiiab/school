@@ -2,3 +2,6 @@
 composer.lock
 *.log
 thinkphp
+public/static/mobil/uploads
+public/uploads
+runtime
