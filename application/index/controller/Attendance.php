@@ -22,13 +22,8 @@ class Attendance extends Base
         } else {
             $str = '今天未签到';
         }
-<<<<<<< HEAD
         $date = getWxConfig();
         $date = implode(',', $date);
-=======
-//        $date = getWxConfig();
-//        $date = implode(',', $date);
->>>>>>> 68cca62486248705ab8228e993e8c47d6c7a763d
 //        dump($data);die;
         $this->assign(['data' => $date, 'str' => $str]);
         return view();

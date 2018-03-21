@@ -13,10 +13,11 @@ class Guardian extends Base
     {
         $guardians = new \app\admin\model\Guardian();
         $students = db('guardian')->select();
+//        dump($students);die;
         foreach ($students as $key =>$student){
             $student['num'] = db('student')->where('detid',$student['mobile'])->count();
-//            dump($student);
-            $guardians->save($student, ['mobile' => $student['mobile']]);
+//            dump($student);die;
+            db('guardian')->where('mobile',$student['mobile'])->update(['num'=>$student['num']]);
         }
         $list = $guardians->paginate(30);
         $this->assign('list', $list);

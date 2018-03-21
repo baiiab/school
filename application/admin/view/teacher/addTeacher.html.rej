@@ -1,0 +1,13 @@
+diff a/application/admin/view/teacher/addTeacher.html b/application/admin/view/teacher/addTeacher.html	(rejected hunks)
+@@ -115,7 +115,11 @@
+                         <div class="form-group">
+                             <label for="tname" class="col-sm-2 control-label no-padding-right">手机号</label>
+                             <div class="col-sm-6">
++<<<<<<< HEAD
+                                 <input type="number" class="form-control" id="mobile" required="" name="mobile">
++=======
++                                <input class="form-control" id="mobile" required="" name="mobile" type="text">
++>>>>>>> 68cca62486248705ab8228e993e8c47d6c7a763d
+                             </div>
+                             <p class="help-block col-sm-4 red">* 必填</p>
+                         </div>
