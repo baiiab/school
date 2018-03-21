@@ -98,27 +98,25 @@ class Student extends Controller
         $sgid = input('sgid');
         $sgids = explode(',',$sgid);
         $sgid = $sgids[0];
-//        dump($sgids);die;
         $cids = db('teacher')->where('mobile',session('mobile'))->find();
         $map['cid'] = ['in',$cids['cid']];
-        $student = db('student')->where($map)->select();
-        $stud = [];
         if($sgid){
             $sids = db('studentgroup')->where('sgid',$sgid)->find();
             $map['sid'] = ['not in',$sids['sids']];
-            $map1['sid'] = ['in',$sids['sids']];
-            if(input('?name')){
-                $flag = preg_match('/[0-9]/', input('name'));
-                if($flag){
-                    $map['cid'] = ['like','%'.input('name').'%'];
-                }else{
-                    $map['name'] = ['like','%'.input('name').'%'];
-                }
-            }
-            $student = db('student')->where($map)->select();
-            unset($map['sid']);
-            $stud = db('student')->where($map)->where($map1)->select();
         }
+        if(input('?name')){
+            $flag = preg_match('/[0-9]/', input('name'));
+            if($flag){
+                $map['cid'] = ['like','%'.input('name').'%'];
+            }else{
+                $map['name'] = ['like','%'.input('name').'%'];
+            }
+        }
+        $student = db('student')->where($map)->select();
+        unset($map['sid']);
+        $map['sid'] = ['in',$sids['sids']];
+        $stud = db('student')->where($map)->select();
+
         if (count($sgids)==1) $this->assign(['student'=>$student,'stud'=>$stud,'sgid'=>$sgid,'name'=>'']);
         else $this->assign(['student'=>$student,'stud'=>$stud,'sgid'=>$sgid,'name'=>$sgids[1]]);
         return view();

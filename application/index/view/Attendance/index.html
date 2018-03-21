@@ -10,6 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <link rel="stylesheet" href="__PUBLIC__/sm.min.css">
+
+
     <style type="text/css">
         .news-item {
             height: 127px;
@@ -189,9 +191,9 @@
         <div class="content">
             <form action="{:url('holiday')}" method="post">
             <div class="item-common">
-                <div class="common">
+                <div class="common" id="beginTime">
                     <span class="icon icon-down pull-right" style="margin-right: 0.5rem;"></span>
-                    <input class="pull-right date" id="stime" name="stime">
+                    <input  name="stime" id="stime" class="pull-right date">
                     <span class="starttime">起始日期</span></div>
                 <hr/>
                 <div class="common">
@@ -260,22 +262,51 @@
 <script>
     $(function () {
         var time = new Date();
-        $("#estime").val(time).datetimePicker({
-            value: ['2017','12','06','17','12']
+        var t = time.toJSON();
+        var year = time.getFullYear();   //获取系统的年；
+        var mon = time.getMonth()+1;   //获取系统月份，由于月份是从0开始计算，所以要加1
+        var day = time.getDate(); // 获取系统日，
+        var h = time.getHours(); //获取系统时，
+        var min = time.getMinutes(); //分
+        var sec = time.getSeconds(); //秒
+
+        $("#estime").datetimePicker({
+            value: [year,mon,day,h,min],
+            startDate:new Date(t),
 //            value: [time.getFullYear(),time.getMonth(),time.getDate(),time.getHours(),time.getMinutes()]
         });
         $("#eetime").datetimePicker({
-            value: ['2017','12','06','17','12']
+            value: [year,mon,day,h,min]
 //            value: [time.getFullYear(),time.getMonth(),time.getDate(),time.getHours(),time.getMinutes()]
         });
         $("#stime").datetimePicker({
-            value: ['2017','12','06','17','12']
+            value: [year,mon,day,h,min],
+            startDate:new Date(t)
         });
+
         $("#etime").datetimePicker({
-            value: ['2017','12','06','17','12']
+            value: [year,mon,day,h,min]
         });
         $.init();
-    })
+
+//        var myDate = new Date();
+//        var now = myDate.getMonth()+"-"+myDate.getDay()+"-"+myDate.getFullYear()+" "+myDate.getHours()+":"+myDate.getMinutes();
+//
+//        $('#stime').val('').scroller('destroy').scroller($.extend({ preset : 'datetime', stepMinute: 5  ,'minDate':myDate}, {
+//            theme: "default",
+//            mode: "scroller",
+//            display: "modal",
+//            lang: "zh",
+//            onSelect:function(time,inst){
+//                var array = time.split(' ');
+//                var array2 = array[0].split('/');
+//                var array3 = array[1].split(':');
+//                time = array2[2] + "/" + array2[1] + "/" + array2[0] + " " + array[1];
+//                $("#beginTime").text(time);
+//                $("#sbeginTime").val(time);
+//            }
+//        }));
+    });
 
     function GetLocal(){
         if($('#signstatus').html()=='今天已经签到'){
