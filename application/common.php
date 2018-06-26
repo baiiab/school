@@ -15,7 +15,7 @@ function getWxConfig(){
     $APPID = config('PUBLIC_APPID');
     $APPSECRET = config('PUBLIC_APP_SECRET');
     $jssdk = new Jssdk($APPID, $APPSECRET);
-    $info = $jssdk->getSignPackage("wechat.dreamwintime.com/school/public/index/attendance/index.html");
+    $info = $jssdk->getSignPackage("http://www.zsletel.com/school/public/index/attendance/index.html");
     $data = array(
         'appId' => $info['appId'],
         'timestamp'=> $info['timestamp'],
